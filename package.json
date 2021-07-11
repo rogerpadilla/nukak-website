@@ -8,13 +8,29 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "1.6.22",
     "@mdx-js/mdx": "1.6.22",
-    "@next/mdx": "^9.5.3",
-    "next": "^9.5.3",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "remark-emoji": "^2.1.0",
+    "@mdx-js/react": "^1.6.22",
+    "@next/mdx": "^11.0.1",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remark-emoji": "^2.2.0",
     "remark-images": "^2.0.0"
+  },
+  "devDependencies": {
+    "@mdx-js/loader": "1.6.22",
+    "@types/mdx-js__react": "^1.5.4",
+    "@types/react": "^17.0.14",
+    "gray-matter": "^4.0.3",
+    "prism-react-renderer": "^1.2.1",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
+    "typescript": "^4.3.5"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "printWidth": 120
   }
 }

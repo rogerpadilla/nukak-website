@@ -7,7 +7,4 @@ export declare function defaultHead(inAmpMode?: boolean): JSX.Element[];
 declare function Head({ children }: {
     children: React.ReactNode;
 }): JSX.Element;
-declare namespace Head {
-    var rewind: () => void;
-}
 export default Head;

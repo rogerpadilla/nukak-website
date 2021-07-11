@@ -22,15 +22,8 @@ export declare type LoadableBaseOptions<P = {}> = LoadableGeneratedOptions & {
     loadableGenerated?: LoadableGeneratedOptions;
     ssr?: boolean;
 };
-export declare type LoadableOptions<P = {}> = LoadableBaseOptions<P> & {
-    render?(loader: any, props: any): JSX.Element;
-};
-export declare type DynamicOptions<P = {}> = LoadableBaseOptions<P> & {
-    /**
-     * @deprecated the modules option has been planned for removal
-     */
-    render?(props: P, loaded: any): JSX.Element;
-};
+export declare type LoadableOptions<P = {}> = LoadableBaseOptions<P>;
+export declare type DynamicOptions<P = {}> = LoadableBaseOptions<P>;
 export declare type LoadableFn<P = {}> = (opts: LoadableOptions<P>) => React.ComponentType<P>;
 export declare type LoadableComponent<P = {}> = React.ComponentType<P>;
 export declare function noSSR<P = {}>(LoadableInitializer: LoadableFn<P>, loadableOptions: LoadableOptions<P>): React.ComponentType<P>;

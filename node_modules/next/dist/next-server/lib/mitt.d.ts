@@ -1,8 +1,8 @@
 declare type Handler = (...evts: any[]) => void;
-export declare type MittEmitter = {
-    on(type: string, handler: Handler): void;
-    off(type: string, handler: Handler): void;
-    emit(type: string, ...evts: any[]): void;
+export declare type MittEmitter<T> = {
+    on(type: T, handler: Handler): void;
+    off(type: T, handler: Handler): void;
+    emit(type: T, ...evts: any[]): void;
 };
-export default function mitt(): MittEmitter;
+export default function mitt(): MittEmitter<string>;
 export {};

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-"use strict";exports.__esModule=true;exports.nextTelemetry=void 0;var _chalk=_interopRequireDefault(require("next/dist/compiled/chalk"));var _index=_interopRequireDefault(require("next/dist/compiled/arg/index.js"));var _utils=require("../server/lib/utils");var _storage=require("../telemetry/storage");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}const nextTelemetry=argv=>{const validArgs={// Types
+"use strict";exports.__esModule=true;exports.nextTelemetry=void 0;var _chalk=_interopRequireDefault(require("chalk"));var _index=_interopRequireDefault(require("next/dist/compiled/arg/index.js"));var _utils=require("../server/lib/utils");var _storage=require("../telemetry/storage");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}const nextTelemetry=argv=>{const validArgs={// Types
 '--help':Boolean,'--enable':Boolean,'--disable':Boolean,// Aliases
 '-h':'--help'};let args;try{args=(0,_index.default)(validArgs,{argv});}catch(error){if(error.code==='ARG_UNKNOWN_OPTION'){return(0,_utils.printAndExit)(error.message,1);}throw error;}if(args['--help']){console.log(`
       Description

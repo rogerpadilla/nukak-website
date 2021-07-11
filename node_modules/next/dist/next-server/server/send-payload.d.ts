@@ -1,9 +1,6 @@
 /// <reference types="node" />
 import { IncomingMessage, ServerResponse } from 'http';
-export declare function sendPayload(req: IncomingMessage, res: ServerResponse, payload: any, type: 'html' | 'json', { generateEtags, poweredByHeader, }: {
-    generateEtags: boolean;
-    poweredByHeader: boolean;
-}, options?: {
+declare type PayloadOptions = {
     private: true;
 } | {
     private: boolean;
@@ -12,4 +9,11 @@ export declare function sendPayload(req: IncomingMessage, res: ServerResponse, p
     private: boolean;
     stateful: false;
     revalidate: number | false;
-}): void;
+};
+export declare function setRevalidateHeaders(res: ServerResponse, options: PayloadOptions): void;
+export declare function sendPayload(req: IncomingMessage, res: ServerResponse, payload: any, type: 'html' | 'json', { generateEtags, poweredByHeader, }: {
+    generateEtags: boolean;
+    poweredByHeader: boolean;
+}, options?: PayloadOptions): void;
+export declare function sendEtagResponse(req: IncomingMessage, res: ServerResponse, etag: string | undefined): boolean;
+export {};
