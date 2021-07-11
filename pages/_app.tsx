@@ -8,7 +8,7 @@ const mdComponents = {
   code: CodeBlock,
 };
 
-export default function App({ Component, pageProps }: { Component: any; pageProps: any }) {
+export default function App({ Component, pageProps }: { Component?: any; pageProps?: any }) {
   return (
     <MDXProvider components={mdComponents}>
       <Component {...pageProps} />
