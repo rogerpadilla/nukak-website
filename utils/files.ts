@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import remark from 'remark';
-import html from 'remark-html';
+import { serialize } from 'next-mdx-remote/serialize'
 import { startCase } from './strings';
 
 const docsDirectory = path.join(process.cwd(), 'docs');
@@ -39,8 +38,7 @@ export async function getFile(fileName: string, includeBody?: boolean): Promise<
   const matterResult = matter(fileContents);
   const doc: FileMetadata = { id, title, ...matterResult.data };
   if (includeBody) {
-    const processedContent = await remark().use(html).process(matterResult.content);
-    doc.body = processedContent.toString();
+    doc.body = await serialize(matterResult.content);
   }
   return doc;
 }
@@ -61,5 +59,5 @@ export interface FileMetadata {
   id: string;
   title: string;
   date?: string;
-  body?: string;
+  body?: any;
 }
