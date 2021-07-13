@@ -1,10 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import emoji from 'remark-emoji';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
-const images = require('remark-images');
 import { startCase } from './strings';
 
 const docsDirectory = path.join(process.cwd(), 'docs');
@@ -41,7 +37,7 @@ export async function getFile(fileName: string, includeBody?: boolean): Promise<
   const matterResult = matter(fileContents);
   const doc: FileMetadata = { id, title, ...matterResult.data };
   if (includeBody) {
-    doc.body = await serialize(matterResult.content, { mdxOptions: { remarkPlugins: [images, emoji] } });
+    doc.body = matterResult.content;
   }
   return doc;
 }
@@ -61,6 +57,6 @@ function getFileTitle(id: string): string {
 export interface FileMetadata {
   id: string;
   title: string;
+  body?: string;
   date?: string;
-  body?: MDXRemoteSerializeResult;
 }

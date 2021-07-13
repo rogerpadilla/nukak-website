@@ -1,15 +1,7 @@
-import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
 import { projectName } from '../utils/constants';
-import CodeBlock from './codeBlock';
 import { Header } from './header';
 import styles from './layout.module.css';
-
-const mdComponents = {
-  h1: (props: object) => <h1 style={{ color: 'tomato' }} {...props} />,
-  pre: (props: object) => <div {...props} />,
-  code: CodeBlock,
-} as const;
 
 export const Layout: React.FC<{
   title?: string;
@@ -27,11 +19,7 @@ export const Layout: React.FC<{
         <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
       </Head>
       <Header />
-      <main className={styles.main}>
-        <MDXProvider components={mdComponents}>
-          {children}
-        </MDXProvider>
-      </main>
+      <main className={styles.main}>{children}</main>
     </>
   );
 };
