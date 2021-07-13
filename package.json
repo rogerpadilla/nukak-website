@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next",
-    "start": "next start"
+    "dev": "next -p 5000",
+    "start": "next start -p 5000"
   },
   "dependencies": {
     "@mdx-js/mdx": "1.6.22",

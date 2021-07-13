@@ -13,7 +13,7 @@ module.exports = withMDX({
   async redirects() {
     return [
       {
-        source: '/docs',
+        source: '/',
         destination: '/docs/getting-started',
         permanent: true,
       },

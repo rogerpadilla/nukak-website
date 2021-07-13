@@ -5,7 +5,7 @@ date: '1'
 
 Given `uql` is just a small library with serializable `JSON` syntax, the queries can be written in the client (web/mobile) and send to the backend; or just use `uql` directly in the backend; or even use it in a mobile app with an embedded database.
 
-### Features
+### <a name="features"></a>:star2: Features
 
 - `JSON` (serializable) syntax for all the queries.
 - uses the power of `TypeScript`: smart type inference everywhere so the queries and models are easier to maintain and more reliable.

@@ -1,16 +1,21 @@
+import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
-import React from 'react';
 import { projectName } from '../utils/constants';
+import CodeBlock from './codeBlock';
 import { Header } from './header';
-import { Main } from './main';
-import { SidenavItem } from './sidenav';
+import styles from './layout.module.css';
+
+const mdComponents = {
+  h1: (props: object) => <h1 style={{ color: 'tomato' }} {...props} />,
+  pre: (props: object) => <div {...props} />,
+  code: CodeBlock,
+} as const;
 
 export const Layout: React.FC<{
   title?: string;
-  sidenav?: { category: string; items: SidenavItem[] };
   children: React.ReactNode;
-}> = ({ title, sidenav, children }) => {
-  const fullTitle = title ? `${projectName} | ${title}` : projectName;
+}> = ({ title, children }) => {
+  const fullTitle = title ? `${title} | ${projectName}` : projectName;
 
   return (
     <>
@@ -22,7 +27,11 @@ export const Layout: React.FC<{
         <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
       </Head>
       <Header />
-      <Main sidenav={sidenav}>{children}</Main>
+      <main className={styles.main}>
+        <MDXProvider components={mdComponents}>
+          {children}
+        </MDXProvider>
+      </main>
     </>
   );
 };

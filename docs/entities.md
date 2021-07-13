@@ -1,3 +1,6 @@
+---
+date: '4'
+---
 Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
 

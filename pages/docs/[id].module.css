@@ -1,0 +1,8 @@
+.sidenav {
+  flex: 1 0 auto;
+}
+
+.article {
+  flex: 0 1 calc(100% - 9rem);
+  padding: 0 2rem;
+}

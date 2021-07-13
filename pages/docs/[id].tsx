@@ -1,13 +1,16 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
-import React from 'react';
 import { MDXRemote } from 'next-mdx-remote';
 import { FileMetadata, getFile, getFiles } from '../../utils/files';
 import { Layout } from '../../components/layout';
+import { Sidenav } from '../../components/sidenav';
+import styles from './[id].module.css';
 
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout title={doc.title} sidenav={{ category: 'docs', items: docs }}>
-      <article>
+    <Layout title={doc.title}>
+      <Sidenav category='docs' items={docs} className={styles.sidenav} />
+
+      <article className={styles.article}>
         <h1>{doc.title}</h1>
         <MDXRemote {...doc.body} />
       </article>
