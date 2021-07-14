@@ -1,0 +1,25 @@
+.pager {
+  padding: 2rem 0;
+  display: flex;
+  gap: 2rem;
+  font-size: 0.9rem;
+  justify-content: flex-end;
+}
+
+.prev,
+.next {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+.prev {
+  padding-left: 0.8rem;
+  border-top-left-radius: 40%;
+  border-bottom-left-radius: 40%;
+}
+
+.next {
+  padding-right: 0.8rem;
+  border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;
+}

@@ -1,5 +1,5 @@
 ---
-date: '2'
+index: 1
 ---
 1.  Install the core package:
 

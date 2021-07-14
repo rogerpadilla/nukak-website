@@ -5,6 +5,18 @@ import { startCase } from './strings';
 
 const docsDirectory = path.join(process.cwd(), 'docs');
 
+function getFileNames(): string[] {
+  return fs.readdirSync(docsDirectory);
+}
+
+function getFileTitle(id: string): string {
+  return startCase(id);
+}
+
+function getFileId(fileName: string): string {
+  return fileName.replace(/\.md$/, '');
+}
+
 export function getFileIds() {
   const fileNames = getFileNames();
   return fileNames.map((fileName) => ({
@@ -16,17 +28,8 @@ export function getFileIds() {
 
 export async function getFiles(): Promise<FileMetadata[]> {
   const fileNames = getFileNames();
-  const docsPromise = fileNames.map((fileName) => getFile(fileName));
-  const docs = await Promise.all(docsPromise);
-  return docs.sort((a, b) => {
-    if (a.date || b.date) {
-      if (a.date) {
-        return a.date.localeCompare(b.date);
-      }
-      return b.date.localeCompare(a.date) * -1;
-    }
-    return a.id.localeCompare(b.id);
-  });
+  const docs = await Promise.all(fileNames.map((fileName) => getFile(fileName)));
+  return docs.sort((a, b) => a.index - b.index);
 }
 
 export async function getFile(fileName: string, includeBody?: boolean): Promise<FileMetadata> {
@@ -42,21 +45,9 @@ export async function getFile(fileName: string, includeBody?: boolean): Promise<
   return doc;
 }
 
-function getFileNames(): string[] {
-  return fs.readdirSync(docsDirectory);
-}
-
-function getFileId(fileName: string): string {
-  return fileName.replace(/\.md$/, '');
-}
-
-function getFileTitle(id: string): string {
-  return startCase(id);
-}
-
 export interface FileMetadata {
   id: string;
   title: string;
   body?: string;
-  date?: string;
+  index?: number;
 }

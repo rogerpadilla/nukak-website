@@ -1,11 +1,12 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
-import { FileMetadata, getFile, getFiles } from '../../utils/files';
-import { Layout } from '../../components/layout';
-import { Sidenav } from '../../components/sidenav';
-import styles from './[id].module.css';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus as syntaxTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { FileMetadata, getFile, getFiles } from '../../utils/files';
+import { Layout } from '../../components/layout';
+import { Sidenav } from '../../components/sidenav';
+import { Pager } from '../../components/pager';
+import styles from './[id].module.css';
 import emoji from 'remark-emoji';
 const images = require('remark-images');
 
@@ -36,6 +37,7 @@ export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getSta
       <article className={styles.article}>
         <h1>{doc.title}</h1>
         <ReactMarkdown children={doc.body} components={components} plugins={[images, emoji]} />
+        <Pager doc={doc} docs={docs} />
       </article>
     </Layout>
   );

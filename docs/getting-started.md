@@ -1,5 +1,5 @@
 ---
-date: '1'
+index: 0
 ---
 `uql` is a plug & play `ORM`, with a declarative `JSON` syntax to query/update multiple data-sources. Essentially, just declare what you want from the datasource, and then `uql` will run efficient (and safe) `SQL` (or `Mongo`) queries.
 
