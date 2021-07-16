@@ -32,11 +32,11 @@ const components = {
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout title={doc.title}>
-      <Sidenav category="docs" items={docs} className={styles.sidenav} />
+      <Sidenav category="docs" index={doc.index} items={docs} className={styles.sidenav} />
 
       <article className={styles.article}>
         <ReactMarkdown children={doc.body} components={components} plugins={[images, emoji]} />
-        <Pager doc={doc} docs={docs} />
+        <Pager index={doc.index} items={docs} />
       </article>
     </Layout>
   );

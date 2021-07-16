@@ -48,6 +48,6 @@ export async function getFile(fileName: string, includeBody?: boolean): Promise<
 export interface FileMetadata {
   id: string;
   title: string;
-  body?: string;
   index?: number;
+  body?: string;
 }

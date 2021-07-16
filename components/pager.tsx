@@ -4,10 +4,9 @@ import styles from './pager.module.css';
 
 import { FileMetadata } from '../utils/files';
 
-export const Pager: React.FC<{ doc: FileMetadata; docs: FileMetadata[] }> = ({ doc, docs }) => {
-  const { index } = doc;
-  const prev = docs[index - 1];
-  const next = docs[index + 1];
+export const Pager: React.FC<{ index: number; items: FileMetadata[] }> = ({ index, items }) => {
+  const prev = items[index - 1];
+  const next = items[index + 1];
 
   return (
     <div className={styles.pager}>
