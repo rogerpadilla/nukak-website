@@ -1,7 +1,10 @@
 ---
 index: 2
 ---
-`uql` initialization should be done once (e.g. in one of the bootstrap files of your app).
+
+# :gear: Configuration
+
+Initialization should be done once (e.g. in one of the bootstrap files of your app).
 
 ```ts
 import { setOptions } from '@uql/core';

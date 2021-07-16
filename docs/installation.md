@@ -1,6 +1,9 @@
 ---
 index: 1
 ---
+
+# :battery: Installation
+
 1.  Install the core package:
 
     ```sh
@@ -63,9 +66,10 @@ index: 1
       yarn add @uql/mongo
       ```
 
-3.  Your `tsconfig.json` needs the following flags:
-    ```json
-    "target": "es6", // or a more recent ecmascript version
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-    ```
+3.  Additionally, your `tsconfig.json` needs the following flags:
+
+```json
+"target": "es6", // or a more recent ecmascript version
+"experimentalDecorators": true,
+"emitDecoratorMetadata": true
+```

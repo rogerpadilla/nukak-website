@@ -35,7 +35,6 @@ export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getSta
       <Sidenav category="docs" items={docs} className={styles.sidenav} />
 
       <article className={styles.article}>
-        <h1>{doc.title}</h1>
         <ReactMarkdown children={doc.body} components={components} plugins={[images, emoji]} />
         <Pager doc={doc} docs={docs} />
       </article>

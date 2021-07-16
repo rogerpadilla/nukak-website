@@ -1,8 +1,10 @@
 ---
 index: 3
 ---
-Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
+# :egg: Entities
+
+Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';

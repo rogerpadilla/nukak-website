@@ -12,7 +12,7 @@ export const Layout: React.FC<{
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
         <title>{fullTitle}</title>
         <meta name="description" content={fullTitle} />
         <meta name="og:title" content={fullTitle} />
