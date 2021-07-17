@@ -9,7 +9,7 @@ export const Sidenav: React.FC<{ category: string; index: number; items: FileMet
   className,
 }) => {
   return (
-    <section className={[styles.sidenav, className].join(' ')}>
+    <aside className={[styles.sidenav, className].join(' ')}>
       <ul>
         {items.map(({ id, title }, idx) => (
           <li key={id}>
@@ -19,6 +19,6 @@ export const Sidenav: React.FC<{ category: string; index: number; items: FileMet
           </li>
         ))}
       </ul>
-    </section>
+    </aside>
   );
 };

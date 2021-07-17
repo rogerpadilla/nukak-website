@@ -1,10 +1,12 @@
 .sidenav {
+  --top: calc(var(--header-height) + 12px);
   flex: 1 0 auto;
+  position: sticky;
+  top: var(--top);
+  height: calc(100vh - var(--top));
 }
 
 .article {
   flex: 0 1 calc(100% - 9rem);
   padding: 0 2rem;
-  height: calc(100vh - var(--header-height));
-  overflow-y: auto;
 }

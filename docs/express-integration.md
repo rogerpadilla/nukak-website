@@ -1,5 +1,5 @@
 ---
-index: 6
+index: 8
 ---
 
 # :zap: Autogenerate REST APIs with Express
