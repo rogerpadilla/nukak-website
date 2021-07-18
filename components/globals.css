@@ -1,6 +1,7 @@
 :root {
   --header-height: 2.5rem;
   --main-width: 70rem;
+  --group-color: #777;
   --link-color: rgb(90, 75, 68);
   --link-active-color: rgb(163, 63, 24);
 }
@@ -37,6 +38,14 @@ img {
   display: block;
 }
 
+ul {
+  padding-inline-start: 2rem;
+}
+
 li {
   margin: 0 0 0.5rem;
+}
+
+hr {
+  margin-bottom: 2.5rem;
 }

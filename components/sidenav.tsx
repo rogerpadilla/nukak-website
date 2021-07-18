@@ -1,24 +1,30 @@
 import Link from 'next/link';
-import { FileMetadata } from '../utils/files';
+import {  SidenavItem } from '../types';
 import styles from './sidenav.module.css';
 
-export const Sidenav: React.FC<{ category: string; index: number; items: FileMetadata[]; className: string }> = ({
+export const Sidenav: React.FC<{ category: string; items: SidenavItem[]; className: string }> = ({
   category,
-  index,
   items,
   className,
-}) => {
-  return (
-    <aside className={[styles.sidenav, className].join(' ')}>
-      <ul>
-        {items.map(({ id, title }, idx) => (
-          <li key={id}>
-            <Link href={`/${category}/${id}`}>
-              <a className={idx === index ? styles.activeLink : styles.link}>{title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
-};
+}) => (
+  <aside className={[styles.sidenav, className].join(' ')}>
+    <List category={category} items={items} />
+  </aside>
+);
+
+const List: React.FC<{ category: string; items: SidenavItem[] }> = ({ category, items }) => (
+  <ul>
+    {items.map((it) => (
+      <Item key={it.id} category={category} it={it} />
+    ))}
+  </ul>
+);
+
+const Item: React.FC<{ category: string; it: SidenavItem }> = ({ category, it: item }) => (
+  <li>
+    <Link href={`/${category}/${item.id}`}>
+      <a className={item.isActive ? styles.active : styles.link}>{item.title}</a>
+    </Link>
+    {item.items && <List category={category} items={item.items} />}
+  </li>
+);

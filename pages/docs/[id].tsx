@@ -1,39 +1,25 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus as syntaxTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { FileMetadata, getFile, getFiles } from '../../utils/files';
+import emoji from 'remark-emoji';
 import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
+import { Code } from '../../components/code';
+import { getFile, getFiles } from '../../utils/files';
+import { buildSidenavItems } from '../../utils/ui';
+import { FileMetadata } from '../../types';
 import styles from './[id].module.css';
-import emoji from 'remark-emoji';
 const images = require('remark-images');
 
 const components = {
-  code({ inline, className, children, ...props }: any) {
-    const match = /language-(\w+)/.exec(className || '');
-    return !inline && match ? (
-      <SyntaxHighlighter
-        style={syntaxTheme}
-        language={match[1]}
-        PreTag="div"
-        children={String(children).replace(/\n$/, '')}
-        {...props}
-      />
-    ) : (
-      <code className={className} {...props}>
-        {children}
-      </code>
-    );
-  },
+  code: Code,
 } as const;
 
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const items = buildSidenavItems(docs, doc.id);
   return (
     <Layout title={doc.title}>
-      <Sidenav category="docs" index={doc.index} items={docs} className={styles.sidenav} />
-
+      <Sidenav category="docs" items={items} className={styles.sidenav} />
       <article className={styles.article}>
         <ReactMarkdown children={doc.body} components={components} plugins={[images, emoji]} />
         <Pager index={doc.index} items={docs} />
