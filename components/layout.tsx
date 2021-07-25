@@ -5,8 +5,9 @@ import styles from './layout.module.css';
 
 export const Layout: React.FC<{
   title?: string;
+  mainClassName?: string;
   children: React.ReactNode;
-}> = ({ title, children }) => {
+}> = ({ title, mainClassName, children }) => {
   const fullTitle = title ? `${title} | ${projectName}` : projectName;
 
   return (
@@ -19,7 +20,7 @@ export const Layout: React.FC<{
         <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
       </Head>
       <Header />
-      <main className={styles.main}>{children}</main>
+      <main className={[styles.main, mainClassName].join(' ')}>{children}</main>
     </>
   );
 };

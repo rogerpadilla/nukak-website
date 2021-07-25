@@ -1,9 +1,9 @@
 ---
-index: 3
+weight: 70
 group: true
 ---
 
-# :egg: Basic Entities
+# Basic Entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 

@@ -1,0 +1,89 @@
+---
+weight: 150
+group: true
+---
+
+# Easily retrieve relations
+
+`$project` a mandatory relation (via `$required: true`):
+
+```ts
+@Transactional()
+async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
+    return querier.findOne(User, {
+        $project: { id: true, name: true, profile: { $project: ['id', 'picture'], $required: true } },
+        $sort: { createdAt: -1 },
+    });
+}
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
+FROM `User`
+INNER JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
+ORDER BY `User.createdAt` DESC
+```
+
+---
+
+Simple query using `getQuerier()`:
+
+```ts
+import { getQuerier } from '@uql/core';
+
+async function findLatestUserWithProfile(): Promise<User> {
+  const querier = await getQuerier();
+  const user = querier.findOne(User, {
+    $project: { id: true, name: true, profile: ['id', 'picture'] },
+    $sort: { createdAt: -1 },
+  });
+  await querier.release();
+  return user;
+}
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
+FROM `User`
+LEFT JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
+ORDER BY `User.createdAt` DESC
+```
+
+---
+
+More complex queries can be used, like the following:
+
+```ts
+@Transactional()
+async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
+    return querier.findMany(Item, {
+        $project: {
+          id: true,
+          name: true,
+          measureUnit: { $project: ['id', 'name'], $filter: { name: { $ne: 'unidad' } }, $required: true },
+          tax: ['id', 'name'],
+        },
+        $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
+        $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
+        $limit: 100,
+    });
+}
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `Item`.`id`, `Item`.`name`,
+       `measureUnit`.`id` `measureUnit.id`, `measureUnit`.`name` `measureUnit.name`,
+       `tax`.`id` `tax.id`, `tax`.`name` `tax.name`
+FROM `Item`
+INNER JOIN `MeasureUnit` `measureUnit` ON `measureUnit`.`id` = `Item`.`measureUnitId`
+  AND `measureUnit`.`name` <> 'unidad' AND `measureUnit`.`deletedAt` IS NULL
+LEFT JOIN `Tax` `tax` ON `tax`.`id` = `Item`.`taxId`
+WHERE `Item`.`salePrice` >= 1000 AND LOWER(`Item`.`name`) LIKE 'a%'
+ORDER BY `tax`.`name`, `measureUnit`.`name`, `Item`.`createdAt` DESC LIMIT 100
+```

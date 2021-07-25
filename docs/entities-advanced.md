@@ -1,9 +1,9 @@
 ---
-index: 4
+weight: 90
 group: true
 ---
 
-# :hatching_chick: Advanced Entities
+# Advanced Entities
 
 The inline comments in the code below have concise descriptions of advanced use cases.
 
@@ -13,7 +13,8 @@ import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from '@
 import { raw } from '@uql/core/querier';
 
 /**
- * `interfaces` can (optionally) be used to circumvent circular-references issue between entities
+ * `interfaces` can (optionally) be used to circumvent circular-references issue between entities,
+ * while keeping type-safety.
  */
 export interface IEntity {
   id?: number;
@@ -39,7 +40,7 @@ interface IUser extends IEntity {
 
 /**
  * an `abstract` class can (optionally) be used as the base "template" for the entities
- * (so the common fields' declaration is easily reused)
+ * (so the common fields' declaration is easily reused).
  */
 export abstract class BaseEntity implements IEntity {
   /**
@@ -48,7 +49,7 @@ export abstract class BaseEntity implements IEntity {
   @Id()
   id?: number;
   /**
-   * foreign-keys are really simple to specify
+   * foreign-keys are really simple to specify.
    */
   @Field({ reference: () => Company })
   companyId?: number;
@@ -73,7 +74,7 @@ export abstract class BaseEntity implements IEntity {
 }
 
 /**
- * `Company` will inherit all the fields (including the `Id`) declared in `BaseEntity`
+ * `Company` will inherit all the fields (including the `Id`) declared in `BaseEntity`.
  */
 @Entity()
 export class Company extends BaseEntity implements ICompany {
@@ -84,7 +85,7 @@ export class Company extends BaseEntity implements ICompany {
 }
 
 /**
- * and entity can specify the table name
+ * and entity can specify the table name.
  */
 @Entity({ name: 'user_profile' })
 export class Profile extends BaseEntity {
@@ -92,7 +93,7 @@ export class Profile extends BaseEntity {
    * an entity can specify its own ID Field and still inherit the others
    * columns/relations from its parent entity.
    * 'onInsert' callback can be used to specify a custom mechanism for
-   * auto-generating the primary-key's value when inserting
+   * auto-generating the primary-key's value when inserting.
    */
   @Id({ name: 'pk' })
   id?: number;
@@ -111,7 +112,7 @@ export class User extends BaseEntity implements IUser {
   @Field()
   password?: string;
   /**
-   * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring)
+   * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring).
    */
   @OneToOne({ entity: () => Profile, mappedBy: (profile) => profile.creator, cascade: true })
   profile?: Profile;
@@ -137,7 +138,7 @@ export class TaxCategory extends BaseEntity {
    * an entity can specify its own ID Field and still inherit the others
    * columns/relations from its parent entity.
    * 'onInsert' callback can be used to specify a custom mechanism for
-   * auto-generating the primary-key's value when inserting
+   * auto-generating the primary-key's value when inserting.
    */
   @Id({ onInsert: () => uuidv4() })
   pk?: string;
@@ -162,7 +163,7 @@ export class Tax extends BaseEntity {
 }
 
 /**
- * `softDelete` will make the entity "soft deletable"
+ * `softDelete` will make the entity "soft deletable".
  */
 @Entity({ softDelete: true })
 export class MeasureUnitCategory extends BaseEntity {
@@ -171,7 +172,7 @@ export class MeasureUnitCategory extends BaseEntity {
   @OneToMany({ entity: () => MeasureUnit, mappedBy: (measureUnit) => measureUnit.category })
   measureUnits?: MeasureUnit[];
   /**
-   * `onDelete` callback allows to specify which field will be used when deleting/querying this entity
+   * `onDelete` callback allows to specify which field will be used when deleting/querying this entity.
    */
   @Field({ onDelete: Date.now })
   deletedAt?: number;
@@ -234,7 +235,7 @@ export class Item extends BaseEntity {
      * `virtual` property allows defining the value for a non-persistent field,
      * such value might be a scalar or a (`raw`) function. Virtual-fields can be
      * used in `$project`, `$filter` and `$having` as a common field whose value
-     * is replaced at runtime
+     * is replaced at runtime.
      */
     virtual: raw(({ escapedPrefix, dialect }) => {
       const query = dialect.count(

@@ -1,7 +1,7 @@
 export interface FileMetadata {
   id?: string;
   title?: string;
-  index?: number;
+  weight?: number;
   body?: string;
   group?: boolean;
 }
@@ -9,7 +9,7 @@ export interface FileMetadata {
 export interface SidenavItem {
   id?: string;
   title?: string;
-  index?: number;
+  weight?: number;
   items?: SidenavItem[];
   isActive?: boolean;
 }

@@ -1,8 +1,8 @@
 ---
-index: 1
+weight: 30
 ---
 
-# :battery: Installation
+# Installation
 
 1.  Install the core package:
 

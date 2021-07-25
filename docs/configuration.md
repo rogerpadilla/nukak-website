@@ -1,8 +1,8 @@
 ---
-index: 2
+weight: 50
 ---
 
-# :gear: Configuration
+# Configuration
 
 Initialization should be done once (e.g. in one of the bootstrap files of your app).
 

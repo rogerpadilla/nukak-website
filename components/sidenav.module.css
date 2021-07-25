@@ -2,6 +2,7 @@
   border-right: 1px solid #dbdbdb;
   font-size: 0.97em;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .sidenav > ul {

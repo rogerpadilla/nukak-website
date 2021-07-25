@@ -1,9 +1,9 @@
 ---
-index: 6
+weight: 170
 group: true
 ---
 
-# :speech_balloon: Declarative Transactions
+# Declarative Transactions
 
 Both, _declarative_ and _programmatic_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
 
@@ -18,7 +18,7 @@ import { Transactional, InjectQuerier } from '@uql/core/querier/decorator';
 
 class ConfirmationService {
   @Transactional()
-  async confirmAction(confirmation: Confirmation, @InjectQuerier() querier?: Querier) {
+  async confirmAction(confirmation: Confirmation, @InjectQuerier() querier?: Querier): Promise<void> {
     if (confirmation.type === 'register') {
       await querier.insertOne(User, {
         name: confirmation.name,
@@ -28,7 +28,7 @@ class ConfirmationService {
     } else {
       await querier.updateOneById(User, confirmation.creatorId, { password: confirmation.password });
     }
-    await querier.updateOneById(Confirmation, confirmation.id, { status: CONFIRM_STATUS_VERIFIED });
+    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
   }
 }
 

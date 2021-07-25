@@ -8,18 +8,19 @@
     "start": "next start -p 5000"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^6.0.2",
-    "react-syntax-highlighter": "^15.4.3",
+    "react-syntax-highlighter": "^15.4.4",
     "remark-emoji": "^2.2.0",
-    "gray-matter": "^4.0.3",
     "remark-images": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.14",
     "@types/react-syntax-highlighter": "^13.5.2",
+    "remark-gfm": "^1.0.0",
     "typescript": "^4.3.5"
   },
   "prettier": {

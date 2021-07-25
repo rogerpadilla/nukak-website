@@ -1,9 +1,9 @@
 ---
-index: 8
+weight: 210
 group: true
 ---
 
-# :zap: Autogenerate REST APIs with Express
+# Autogenerate REST APIs with Express
 
 A `express` plugin is provided to automatically generate REST APIs for your entities.
 

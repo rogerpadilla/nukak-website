@@ -1,10 +1,10 @@
 import Link from 'next/link';
+import { FileMetadata } from '../types';
 
 import styles from './pager.module.css';
 
-import { FileMetadata } from '../utils/files';
-
-export const Pager: React.FC<{ index: number; items: FileMetadata[] }> = ({ index, items }) => {
+export const Pager: React.FC<{ currentId: string; items: FileMetadata[] }> = ({ currentId, items }) => {
+  const index = items.findIndex((it) => it.id === currentId);
   const prev = items[index - 1];
   const next = items[index + 1];
 

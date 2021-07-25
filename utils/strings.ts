@@ -1,6 +1,7 @@
-export function startCase(text: string): string {
+export function titleCase(text: string): string {
+  const acronyms: { [p: string]: true } = { api: true };
   return text
     .split(/-/)
-    .map((s) => s[0].toUpperCase() + s.slice(1))
+    .map((word) => (acronyms[word] ? word.toUpperCase() : word[0].toUpperCase() + word.slice(1)))
     .join(' ');
 }

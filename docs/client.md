@@ -1,8 +1,8 @@
 ---
-index: 9
+weight: 230
 ---
 
-# :cloud: Easily call the generated REST APIs from the Client
+# Easily call the generated REST APIs from the Client
 
 A client plugin (for browser/mobile) is provided to easily consume the REST APIs from the frontend.
 

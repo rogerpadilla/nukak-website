@@ -5,11 +5,11 @@ export function buildSidenavItems(items: FileMetadata[], activeId: string): Side
     const isActive = it.id === activeId;
     if (it.group) {
       const titleParts = it.title.split(' ');
-      const itemTitle = titleParts[0];
-      const groupTitle = titleParts[1];
+      const groupTitle = titleParts[0];
+      const itemTitle = titleParts.slice(1).join(' ');
       let group = acc.find((it) => it.title === groupTitle);
       if (!group) {
-        const isActive = it.id.split('-')[1] === activeId.split('-')[1];
+        const isActive = it.id.split('-')[0] === activeId.split('-')[0];
         group = { ...it, title: groupTitle, items: [], isActive };
         acc.push(group);
       }

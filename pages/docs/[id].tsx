@@ -1,6 +1,8 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import ReactMarkdown from 'react-markdown';
-import emoji from 'remark-emoji';
+// const images = require('remark-images');
+// import emoji from 'remark-emoji';
+const gfm = require('remark-gfm');
 import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
@@ -9,7 +11,6 @@ import { getFile, getFiles } from '../../utils/files';
 import { buildSidenavItems } from '../../utils/ui';
 import { FileMetadata } from '../../types';
 import styles from './[id].module.css';
-const images = require('remark-images');
 
 const components = {
   code: Code,
@@ -18,11 +19,11 @@ const components = {
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
   const items = buildSidenavItems(docs, doc.id);
   return (
-    <Layout title={doc.title}>
+    <Layout title={doc.title} mainClassName={styles.main}>
       <Sidenav category="docs" items={items} className={styles.sidenav} />
       <article className={styles.article}>
-        <ReactMarkdown children={doc.body} components={components} plugins={[images, emoji]} />
-        <Pager index={doc.index} items={docs} />
+        <ReactMarkdown children={doc.body} components={components} plugins={[gfm]} />
+        <Pager currentId={doc.id} items={docs} />
       </article>
     </Layout>
   );

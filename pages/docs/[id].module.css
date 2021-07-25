@@ -10,3 +10,15 @@
   flex: 0 1 calc(100% - 9rem);
   padding: 0 2rem;
 }
+
+
+@media only screen and (max-width: 1240px) {
+  .sidenav {
+    position: unset;
+    top: unset;
+    height: unset;
+  }
+  .main {
+    display: block;
+  }
+}

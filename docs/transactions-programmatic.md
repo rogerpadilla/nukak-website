@@ -1,9 +1,9 @@
 ---
-index: 7
+weight: 190
 group: true
 ---
 
-# :open_hands: Programmatic Transactions
+# Programmatic Transactions
 
 Both, _declarative_ and _programmatic_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
 
@@ -20,7 +20,7 @@ To use Programmatic Transactions:
 ```ts
 import { getQuerier } from '@uql/core';
 
-async function confirmAction(confirmation: Confirmation) {
+async function confirmAction(confirmation: Confirmation): Promise<void> {
   const querier = await getQuerier();
   try {
     await querier.beginTransaction();
@@ -33,7 +33,7 @@ async function confirmAction(confirmation: Confirmation) {
     } else {
       await querier.updateOneById(User, confirmation.creatorId, { password: confirmation.password });
     }
-    await querier.updateOneById(Confirmation, confirmation.id, { status: CONFIRM_STATUS_VERIFIED });
+    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
     await querier.commitTransaction();
   } catch (error) {
     await querier.rollbackTransaction();
