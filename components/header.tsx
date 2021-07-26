@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
       <nav className={s.toolbar}>
         <Link href="/">
           <a>
-            <img src="/logo.svg" height="30" width="30" alt="uql" />
+            <img src="/logo.svg" width="30" height="30" alt="uql" />
           </a>
         </Link>
         <a href="https://github.com/impensables/uql" title="github" target="_blank">
