@@ -16,6 +16,10 @@ export const Layout: React.FC<{
         <link rel="icon" href="/logo.svg" />
         <title>{fullTitle}</title>
         <meta name="description" content={fullTitle} />
+        <meta
+          name="keywords"
+          content="uql,persistence,orm,object relational mapper,mongo,mongodb,mysql,mariadb,postgres,sqlite,ts,typescript,js,javascript,entity,dao,data access object,decorator,repository,service,transaction"
+        ></meta>
         <meta name="og:title" content={fullTitle} />
         <meta property="og:image" content="/logo.svg" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
