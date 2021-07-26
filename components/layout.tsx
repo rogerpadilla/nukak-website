@@ -23,7 +23,7 @@ export const Layout: React.FC<{
         <meta name="og:title" content={fullTitle} />
         <meta property="og:image" content="/logo.svg" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
-        <script src="/gtag.js"></script>
+        <script async src="/gtag.js"></script>
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>{children}</main>
