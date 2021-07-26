@@ -17,7 +17,7 @@ export const Layout: React.FC<{
         <title>{fullTitle}</title>
         <meta name="description" content={fullTitle} />
         <meta name="og:title" content={fullTitle} />
-        <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
+        <meta property="og:image" content="/logo.svg" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
         <script src="/gtag.js"></script>
       </Head>
