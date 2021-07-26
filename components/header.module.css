@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: var(--header-height);
   background: linear-gradient(118.55deg, #3a3897 3.23%, #4a90e2 97.65%);
   box-shadow: 0 1px 5px 0 rgba(0 0 0 / 30%);
