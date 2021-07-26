@@ -18,6 +18,8 @@ export const Layout: React.FC<{
         <meta name="description" content={fullTitle} />
         <meta name="og:title" content={fullTitle} />
         <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
+        <script src="/gtag.js"></script>
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>{children}</main>
