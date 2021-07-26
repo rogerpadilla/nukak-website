@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { projectName } from '../utils/constants';
 import { Header } from './header';
-import styles from './layout.module.css';
+import s from './layout.module.css';
 
 export const Layout: React.FC<{
   title?: string;
@@ -20,7 +20,7 @@ export const Layout: React.FC<{
         <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(fullTitle)}.png`} />
       </Head>
       <Header />
-      <main className={[styles.main, mainClassName].join(' ')}>{children}</main>
+      <main className={[s.main, mainClassName].join(' ')}>{children}</main>
     </>
   );
 };

@@ -10,7 +10,7 @@ import { Code } from '../../components/code';
 import { getFile, getFiles } from '../../utils/files';
 import { buildSidenavItems } from '../../utils/ui';
 import { FileMetadata } from '../../types';
-import styles from './[id].module.css';
+import s from './[id].module.css';
 
 const components = {
   code: Code,
@@ -19,9 +19,9 @@ const components = {
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
   const items = buildSidenavItems(docs, doc.id);
   return (
-    <Layout title={doc.title} mainClassName={styles.main}>
-      <Sidenav category="docs" items={items} className={styles.sidenav} />
-      <article className={styles.article}>
+    <Layout title={doc.title} mainClassName={s.main}>
+      <Sidenav category="docs" items={items} className={s.sidenav} />
+      <article className={s.article}>
         <ReactMarkdown children={doc.body} components={components} plugins={[gfm]} />
         <Pager currentId={doc.id} items={docs} />
       </article>
