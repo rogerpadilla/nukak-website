@@ -1,8 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import s from './header.module.css';
-import logo from '../public/logo.svg';
-import githubLogo from '../public/github-logo.svg';
 
 export const Header: React.FC = () => {
   return (
@@ -10,11 +7,11 @@ export const Header: React.FC = () => {
       <nav className={s.toolbar}>
         <Link href="/">
           <a>
-            <Image src={logo} alt="uql" />
+            <img src='/logo.svg' alt="uql" />
           </a>
         </Link>
         <a href="https://github.com/impensables/uql" title="github" target="_blank">
-          <Image src={githubLogo} alt="github" />
+          <img src='/github-logo.svg' alt="github" />
         </a>
       </nav>
     </header>

@@ -1,9 +1,5 @@
 module.exports = {
   pageExtensions: ['tsx', 'md'],
-  images: {
-    loader: 'imgix',
-    path: '',
-  },
   async redirects() {
     return [
       {
