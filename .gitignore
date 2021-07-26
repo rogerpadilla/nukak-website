@@ -13,3 +13,4 @@ data
 .yarnrc.yml
 *.tsbuildinfo
 .next
+out
