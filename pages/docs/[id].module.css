@@ -1,5 +1,5 @@
 .sidenav {
-  --top: calc(var(--header-height) + 12px);
+  --top: var(--header-height);
   flex: 1 0 auto;
   position: sticky;
   top: var(--top);

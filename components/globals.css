@@ -21,6 +21,13 @@
 
 html,
 body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+body {
   --bg: var(--light-bg);
   --color: var(--light-color);
   --link-color: var(--light-link-color);
@@ -31,16 +38,13 @@ body {
 
   background: var(--bg);
   color: var(--color);
-  padding: 0;
-  margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  line-height: 1.6;
-  font-size: 18px;
+  overflow-y: scroll;
 }
 
 body.dark-theme {
@@ -74,7 +78,9 @@ body.dark-theme {
   }
 }
 
-* {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -101,6 +107,8 @@ li {
 
 hr {
   margin: 1.8rem 0;
+  height: 0;
+	color: inherit;
 }
 
 table {
