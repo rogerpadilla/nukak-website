@@ -24,10 +24,10 @@ export const Layout: React.FC<{
         <meta property="og:image" content="/logo.svg" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
         <script async src="/gtag.js"></script>
+        <script async src="/main.js"></script>
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>{children}</main>
-      <script src="/main.js"></script>
     </>
   );
 };
