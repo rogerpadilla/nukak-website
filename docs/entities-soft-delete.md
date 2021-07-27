@@ -7,7 +7,7 @@ group: true
 
 The `softDelete` property of the `@Entity` decorator can be used as below.
 
-Note: it is also required to use the `onDelete` property in one of the fields to instruct `uql` which field to use as the deletion mark when deleting the records.
+Note that it is also required to use the `onDelete` property in one of the fields to instruct `uql` which field to use as the deletion mark when deleting the records.
 
 ```ts
 /**
