@@ -78,6 +78,27 @@ body.dark-theme {
   }
 }
 
+@media (prefers-color-scheme: light) {
+  body {
+    --bg: var(--light-bg);
+    --color: var(--light-color);
+    --link-color: var(--light-link-color);
+    --link-active-color: var(--light-link-active-color);
+    --tr-bg: var(--light-tr-bg);
+    --tr-odd-bg: var(--light-tr-odd-bg);
+    --header-bg: var(--light-header-bg);
+  }
+  body.dark-theme {
+    --bg: var(--dark-bg);
+    --color: var(--dark-color);
+    --link-color: var(--dark-link-color);
+    --link-active-color: var(--dark-link-active-color);
+    --tr-bg: var(--dark-tr-bg);
+    --tr-odd-bg: var(--dark-tr-odd-bg);
+    --header-bg: var(--dark-header-bg);
+  }
+}
+
 *,
 ::before,
 ::after {
@@ -108,7 +129,7 @@ li {
 hr {
   margin: 1.8rem 0;
   height: 0;
-	color: inherit;
+  color: inherit;
 }
 
 table {
