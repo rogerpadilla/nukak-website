@@ -16,60 +16,32 @@ weight: 30
     yarn add @uql/core
     ```
 
-2.  Install one of database packages according to your database:
+2.  Install one of the following packages according to your database:
 
-    - for `MySQL` (or `MariaDB`)
+| Database     | Package         |
+| ------------ | --------------- |
+| `MySQL`      | `@uql/mysql`    |
+| `MariaDB`    | `@uql/maria`    |
+| `PostgreSQL` | `@uql/postgres` |
+| `SQLite`     | `@uql/sqlite`   |
+| `MongoDB`    | `@uql/mongo`    |
 
-      ```sh
-      npm install @uql/mysql --save
-      ```
+E.g. for `PostgreSQL`
 
-      or with _yarn_
+```sh
+npm install @uql/postgres --save
+```
 
-      ```sh
-      yarn add @uql/mysql
-      ```
+or with _yarn_
 
-    - for `PostgreSQL`
-
-      ```sh
-      npm install @uql/postgres --save
-      ```
-
-      or with _yarn_
-
-      ```sh
-      yarn add @uql/postgres
-      ```
-
-    - for `SQLite`
-
-      ```sh
-      npm install @uql/sqlite --save
-      ```
-
-      or with _yarn_
-
-      ```sh
-      yarn add @uql/sqlite
-      ```
-
-    - for `MongoDB`
-
-      ```sh
-      npm install @uql/mongo --save
-      ```
-
-      or with _yarn_
-
-      ```sh
-      yarn add @uql/mongo
-      ```
+```sh
+yarn add @uql/postgres
+```
 
 3.  Additionally, your `tsconfig.json` needs the following flags:
 
 ```json
-"target": "es6", // or a more recent ecmascript version
+"target": "es6", // or a more recent ecmascript version.
 "experimentalDecorators": true,
 "emitDecoratorMetadata": true
 ```
