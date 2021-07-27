@@ -7,7 +7,7 @@ group: true
 
 The `softDelete` property of the `@Entity` decorator can be used as below.
 
-Note: it is also required to use the `onDelete` property in one of the fields to instruct `uql` which field to use as the deletion mark.
+Note: it is also required to use the `onDelete` property in one of the fields to instruct `uql` which field to use as the deletion mark when deleting the records.
 
 ```ts
 /**
@@ -26,3 +26,5 @@ export class MeasureUnitCategory {
   deletedAt?: number;
 }
 ```
+
+Then for example, if we do `querier.deleteOneById(MeasureUnitCategory, 1)`, that record will be soft-deleted (and won't be load by the `find` operations).
