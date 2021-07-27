@@ -27,6 +27,7 @@ export const Layout: React.FC<{
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>{children}</main>
+      <script src="/main.js"></script>
     </>
   );
 };

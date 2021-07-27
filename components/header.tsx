@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import s from './header.module.css';
+import { ThemeSwitch } from './themeSwitch';
 
 export const Header: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const Header: React.FC = () => {
             <img src="/logo.svg" width="30" height="30" alt="uql" />
           </a>
         </Link>
+        <ThemeSwitch />
         <a href="https://github.com/impensables/uql" title="github" target="_blank" rel="noopener">
           <img src="/github-logo.svg" width="28" height="28" alt="github" />
         </a>

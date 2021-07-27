@@ -1,13 +1,36 @@
 :root {
+  --light-bg: linear-gradient(180deg, #f4faff 0%, rgba(255, 255, 255, 0) 100%);
+  --light-color: #000;
+  --light-link-color: rgb(90, 75, 68);
+  --light-link-active-color: rgb(163, 63, 24);
+  --light-tr-bg: #fff;
+  --light-tr-odd-bg: #f6f8fa;
+  --light-header-bg: linear-gradient(118.55deg, #3a3897 3.23%, #4a90e2 97.65%);
+
+  --dark-bg: rgb(35, 41, 56);
+  --dark-color: #cacaca;
+  --dark-link-color: rgb(104, 124, 94);
+  --dark-link-active-color: rgb(67, 148, 77);
+  --dark-header-bg: linear-gradient(118.55deg, #292877 3.23%, #132d4b 97.65%);
+  --dark-tr-bg: #3d4a55;
+  --dark-tr-odd-bg: #48525f;
+
   --header-height: 2.5rem;
   --main-width: 70rem;
-  --group-color: #777;
-  --link-color: rgb(90, 75, 68);
-  --link-active-color: rgb(163, 63, 24);
 }
 
 html,
 body {
+  --bg: var(--light-bg);
+  --color: var(--light-color);
+  --link-color: var(--light-link-color);
+  --link-active-color: var(--light-link-active-color);
+  --tr-bg: var(--light-tr-bg);
+  --tr-odd-bg: var(--light-tr-odd-bg);
+  --header-bg: var(--light-header-bg);
+
+  background: var(--bg);
+  color: var(--color);
   padding: 0;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -18,7 +41,37 @@ body {
   text-rendering: optimizeLegibility;
   line-height: 1.6;
   font-size: 18px;
-  background: linear-gradient(180deg, #f4faff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+body.dark-theme {
+  --bg: var(--dark-bg);
+  --color: var(--dark-color);
+  --link-color: var(--dark-link-color);
+  --link-active-color: var(--dark-link-active-color);
+  --tr-bg: var(--dark-tr-bg);
+  --tr-odd-bg: var(--dark-tr-odd-bg);
+  --header-bg: var(--dark-header-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --bg: var(--dark-bg);
+    --color: var(--dark-color);
+    --link-color: var(--dark-link-color);
+    --link-active-color: var(--dark-link-active-color);
+    --tr-bg: var(--dark-tr-bg);
+    --tr-odd-bg: var(--dark-tr-odd-bg);
+    --header-bg: var(--dark-header-bg);
+  }
+  body.light-theme {
+    --bg: var(--light-bg);
+    --color: var(--light-color);
+    --link-color: var(--light-link-color);
+    --link-active-color: var(--light-link-active-color);
+    --tr-bg: var(--light-tr-bg);
+    --tr-odd-bg: var(--light-tr-odd-bg);
+    --header-bg: var(--light-header-bg);
+  }
 }
 
 * {
@@ -64,19 +117,19 @@ th {
 }
 
 tr {
-  background: #fff;
+  background: var(--tr-bg);
+}
+
+tbody tr:nth-child(odd) {
+  background: var(--tr-odd-bg);
+}
+tbody tr {
+  border: 1px solid rgba(184, 196, 194, 0.3);
 }
 
 th,
 td {
   padding: 0.4rem;
-}
-
-tbody tr {
-  border: 1px solid rgba(184, 196, 194, 0.3);
-}
-tbody tr:nth-child(odd) {
-  background: #f6f8fa;
 }
 
 code {

@@ -1,0 +1,46 @@
+.themeSwitchWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.themeSwitch {
+  display: inline-block;
+  height: 28px;
+  position: relative;
+  width: 50px;
+}
+.themeSwitch input {
+  display: none;
+}
+
+.themeSwitchSlider {
+  background: var(--light-bg);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.themeSwitchSlider:before {
+  background: #fff;
+  bottom: 4px;
+  content: '';
+  height: 20px;
+  left: 4px;
+  position: absolute;
+  transition: 0.3s;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.themeSwitchWrapper input:checked + .themeSwitchSlider {
+  background: #222;
+}
+
+.themeSwitchWrapper input:checked + .themeSwitchSlider:before {
+  transform: translateX(20px);
+}
