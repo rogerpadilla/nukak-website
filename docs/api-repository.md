@@ -3,7 +3,7 @@ weight: 200
 group: true
 ---
 
-# Querier
+# Repository
 
 A `repository` is linked to a specified entity.
 
