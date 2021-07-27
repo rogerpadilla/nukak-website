@@ -43,11 +43,20 @@ await this.querier.findMany(User, {
 });
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL` for `Postgres`:
 
 ```sql
 SELECT  "id" FROM "User"
 WHERE ("name" ILIKE 'Some%' AND "name" <> 'Something')
-ORDER BY "name", "id" DESC 
+ORDER BY "name", "id" DESC
+LIMIT 50 OFFSET 0
+```
+
+And that same code will generate this other &#9660; `SQL` for `MySQL`, `MariaDB` and `SQLite`:
+
+```sql
+SELECT  `id` FROM `User`
+WHERE (LOWER(`name`) LIKE 'some%' AND `name` <> 'Something')
+ORDER BY `name`, `id` DESC
 LIMIT 50 OFFSET 0
 ```
