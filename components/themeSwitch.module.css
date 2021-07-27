@@ -28,7 +28,7 @@
 }
 
 .themeSwitchSlider:before {
-  background: #fff;
+  background: #ccc;
   bottom: 4px;
   content: '';
   height: 20px;
