@@ -20,8 +20,8 @@ weight: 30
 
 | Database     | Package         |
 | ------------ | --------------- |
-| `MySQL`      | `@uql/mysql`    |
 | `MariaDB`    | `@uql/maria`    |
+| `MySQL`      | `@uql/mysql`    |
 | `PostgreSQL` | `@uql/postgres` |
 | `SQLite`     | `@uql/sqlite`   |
 | `MongoDB`    | `@uql/mongo`    |
