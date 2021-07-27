@@ -38,7 +38,6 @@ await this.querier.findMany(User, {
   $project: { id: true },
   $filter: { name: { $istartsWith: 'Some', $ne: 'Something' } },
   $sort: { name: 1, id: -1 },
-  $skip: 0,
   $limit: 50,
 });
 ```
@@ -49,7 +48,7 @@ That &#9650; code will generate this &#9660; `SQL` for `Postgres`:
 SELECT  "id" FROM "User"
 WHERE ("name" ILIKE 'Some%' AND "name" <> 'Something')
 ORDER BY "name", "id" DESC
-LIMIT 50 OFFSET 0
+LIMIT 50
 ```
 
 And that same code will generate this other &#9660; `SQL` for `MySQL`, `MariaDB` and `SQLite`:
@@ -58,5 +57,5 @@ And that same code will generate this other &#9660; `SQL` for `MySQL`, `MariaDB`
 SELECT  `id` FROM `User`
 WHERE (LOWER(`name`) LIKE 'some%' AND `name` <> 'Something')
 ORDER BY `name`, `id` DESC
-LIMIT 50 OFFSET 0
+LIMIT 50
 ```
