@@ -26,6 +26,8 @@ weight: 30
 | SQLite     | `@uql/sqlite`   |
 | MongoDB    | `@uql/mongo`    |
 
+-
+
 E.g. for `PostgreSQL`
 
 ```sh
