@@ -14,6 +14,23 @@ group: true
 
 ---
 
+Example usage for the `$and` logical operator:
+
+```ts
+await querier.findMany(User, {
+  $project: { id: true },
+  $filter: { $and: [{ name: 'abc' }, { creatorId: 1 }] },
+});
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `id` FROM `User` WHERE `name` = 'abc' AND `creatorId` = 1
+```
+
+---
+
 Example usage for the `$or` logical operator:
 
 ```ts
@@ -23,10 +40,27 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE `name` = 'abc' OR `creatorId` = 1
+```
+
+---
+
+Example usage for the `$not` logical operator
+
+```ts
+await querier.findMany(User, {
+  $project: { id: true },
+  $filter: { $not: [{ name: 'abc' }, { creatorId: 1 }] },
+});
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `id` FROM `User` WHERE NOT (`name` = 'abc' AND `creatorId` = 1)
 ```
 
 ---
@@ -40,7 +74,7 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE NOT (`name` = 'abc' OR `creatorId` = 1)

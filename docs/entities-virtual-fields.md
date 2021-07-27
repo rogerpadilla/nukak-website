@@ -80,3 +80,48 @@ export class ItemTag {
   tagId?: number;
 }
 ```
+
+---
+
+If we `$project` the `tagsCount` virtual-column:
+
+```ts
+await querier.findMany(Item, {
+  $project: {
+    id: 1,
+    tagsCount: 1,
+  },
+});
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT
+  `id`,
+  (SELECT COUNT(*) FROM `ItemTag` WHERE `ItemTag`.`itemId` = `id`) `tagsCount`
+FROM `Item`
+```
+
+---
+
+If we `$filter` by the `tagsCount` virtual-column:
+
+```ts
+await querier.findMany(Item, {
+  $project: {
+    id: 1,
+  },
+  $filter: {
+    tagsCount: { $gte: 10 },
+  },
+});
+```
+
+That &#9650; code will generate this &#9660; `SQL`:
+
+```sql
+SELECT `id` FROM `Item`
+WHERE
+  (SELECT COUNT(*) `count` FROM `ItemTag` WHERE `ItemTag`.`itemId` = `id`) >= 10
+```
