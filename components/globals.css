@@ -47,6 +47,12 @@ body {
   overflow-y: scroll;
 }
 
+body.light-theme {
+  transition-property: color, background-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
 body.dark-theme {
   --bg: var(--dark-bg);
   --color: var(--dark-color);
@@ -55,6 +61,10 @@ body.dark-theme {
   --tr-bg: var(--dark-tr-bg);
   --tr-odd-bg: var(--dark-tr-odd-bg);
   --header-bg: var(--dark-header-bg);
+
+  transition-property: color, background-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,7 +118,7 @@ li {
 hr {
   margin: 1.8rem 0;
   height: 0;
-	color: inherit;
+  color: inherit;
 }
 
 table {
