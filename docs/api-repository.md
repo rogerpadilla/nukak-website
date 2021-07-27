@@ -5,11 +5,12 @@ group: true
 
 # Repository
 
-A `repository` is linked to a specified entity.
-
-A `repository` allows to interact with the datasource to perform the following persistence operations:
+A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
 
 ```ts
+/**
+ * A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
+ */
 export interface Repository {
   /**
    * counts the number of records matching the given search parameters.

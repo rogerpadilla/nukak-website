@@ -5,11 +5,12 @@ group: true
 
 # Querier
 
-A `querier` can be used to handle different entities.
-
-A `querier` allows to interact with the datasource to perform the following persistence operations:
+A `querier` allows to interact with the datasource to perform persistence operations on any entity.
 
 ```ts
+/**
+ * A `querier` allows to interact with the datasource to perform persistence operations on any entity.
+ */
 export interface Querier {
   /**
    * counts the number of records matching the given search parameters.
