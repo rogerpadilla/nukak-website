@@ -46,4 +46,5 @@
 
 .themeSwitchWrapper input:checked + .themeSwitchSlider:before {
   transform: translateX(20px);
+  background: #aaa;
 }
