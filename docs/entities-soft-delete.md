@@ -27,4 +27,10 @@ export class MeasureUnitCategory {
 }
 ```
 
-Then for example, if we do `querier.deleteOneById(MeasureUnitCategory, 1)`, that record will be soft-deleted (and won't be load by the `find` operations).
+Then for example, if we do:
+
+```ts
+await querier.deleteOneById(MeasureUnitCategory, 1);
+```
+
+The record with identifier `1` will be soft-deleted, and won't be load by the `find` operations.
