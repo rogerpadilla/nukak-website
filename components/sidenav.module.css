@@ -15,10 +15,6 @@
   margin: 0;
 }
 
-.link {
-  color: var(--link-color);
-}
-
 .active {
   color: var(--link-active-color);
 }

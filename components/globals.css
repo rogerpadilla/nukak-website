@@ -100,11 +100,13 @@ body.dark-theme {
 }
 
 a {
+  color: var(--link-color);
   text-decoration: none;
+  transition: color 100ms;
 }
-
 a:hover {
-  text-decoration: underline;
+  color: var(--link-active-color);
+  transition: color 100ms;
 }
 
 img {

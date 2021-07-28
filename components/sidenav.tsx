@@ -23,7 +23,7 @@ const List: React.FC<{ category: string; items: SidenavItem[] }> = ({ category, 
 const Item: React.FC<{ category: string; it: SidenavItem }> = ({ category, it: item }) => (
   <li>
     <Link href={`/${category}/${item.id}`}>
-      <a className={item.isActive ? s.active : s.link}>{item.title}</a>
+      <a className={item.isActive ? s.active : ''}>{item.title}</a>
     </Link>
     {item.items && <List category={category} items={item.items} />}
   </li>
