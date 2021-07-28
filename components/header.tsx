@@ -9,6 +9,7 @@ export const Header: React.FC = () => {
         <Link href="/">
           <a>
             <img src="/logo.svg" width="30" height="30" alt="uql" />
+            <span>uql</span>
           </a>
         </Link>
         <ThemeSwitch />

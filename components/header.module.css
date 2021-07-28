@@ -19,10 +19,12 @@
   padding: 0.4rem;
   color: #dce9f9;
   display: flex;
+  gap: 0.5rem;
 }
 .header nav a:first-of-type {
   flex: 1 0 auto;
   font-family: Consolas, Source Code Pro, Courier New, monospace;
   font-size: 1.1rem;
   font-weight: 400;
+  text-decoration: none;
 }

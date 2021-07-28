@@ -1,16 +1,16 @@
 :root {
-  --light-bg: linear-gradient(180deg, #f4faff 0%, rgba(255, 255, 255, 0) 100%);
-  --light-color: #000;
-  --light-link-color: rgb(90, 75, 68);
-  --light-link-active-color: rgb(163, 63, 24);
+  --light-bg: linear-gradient(180deg, #f2f6f5 0%, #e6e7e7 100%);
+  --light-color: #1b262c;
+  --light-link-color: #3282b8;
+  --light-link-active-color: #14415f;
   --light-tr-bg: #fff;
   --light-tr-odd-bg: #f6f8fa;
-  --light-header-bg: linear-gradient(118.55deg, #3a3897 3.23%, #4a90e2 97.65%);
+  --light-header-bg: linear-gradient(118.55deg, #135c8d 3.23%, rgb(33, 108, 158) 97.65%);
 
   --dark-bg: rgb(35, 41, 56);
   --dark-color: #cacaca;
-  --dark-link-color: rgb(104, 124, 94);
-  --dark-link-active-color: rgb(67, 148, 77);
+  --dark-link-color: rgb(66, 143, 75);
+  --dark-link-active-color: rgb(62, 190, 77);
   --dark-header-bg: linear-gradient(118.55deg, #292877 3.23%, #132d4b 97.65%);
   --dark-tr-bg: #3d4a55;
   --dark-tr-odd-bg: #48525f;
@@ -38,7 +38,7 @@ body {
 
   background: var(--bg);
   color: var(--color);
-  font-family: 'Open Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Open Sans', sans-serif;
   font-weight: 400;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
