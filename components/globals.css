@@ -1,5 +1,6 @@
 :root {
   --light-bg: linear-gradient(180deg, #f2f6f5 0%, #e6e7e7 100%);
+  --light-sidenav-bg: #eceeee;
   --light-color: #1b262c;
   --light-link-color: #3282b8;
   --light-link-active-color: #14415f;
@@ -9,8 +10,9 @@
 
   --dark-bg: rgb(20, 20, 25);
   --dark-color: #d0d0d0;
+  --dark-sidenav-bg: rgb(32, 32, 41);
   --dark-link-color: rgb(60, 180, 65);
-  --dark-link-active-color: rgb(60, 240, 65);
+  --dark-link-active-color: rgb(60, 230, 65);
   --dark-header-bg: linear-gradient(118.55deg, #201e53 3.23%, #102842 97.65%);
   --dark-tr-bg: #3d4a55;
   --dark-tr-odd-bg: #48525f;
@@ -30,6 +32,7 @@ body {
 body {
   --bg: var(--light-bg);
   --color: var(--light-color);
+  --sidenav-bg: var(--light-sidenav-bg);
   --link-color: var(--light-link-color);
   --link-active-color: var(--light-link-active-color);
   --tr-bg: var(--light-tr-bg);
@@ -71,6 +74,7 @@ body.dark-theme {
   body {
     --bg: var(--dark-bg);
     --color: var(--dark-color);
+    --sidenav-bg: var(--dark-sidenav-bg);
     --link-color: var(--dark-link-color);
     --link-active-color: var(--dark-link-active-color);
     --tr-bg: var(--dark-tr-bg);
@@ -80,6 +84,7 @@ body.dark-theme {
   body.light-theme {
     --bg: var(--light-bg);
     --color: var(--light-color);
+    --sidenav-bg: var(--light-sidenav-bg);
     --link-color: var(--light-link-color);
     --link-active-color: var(--light-link-active-color);
     --tr-bg: var(--light-tr-bg);
