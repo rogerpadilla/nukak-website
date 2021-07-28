@@ -24,7 +24,7 @@
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   border-radius: 28px;
-  box-shadow: 1px 0 1px rgba(150, 150, 150, 0.5);
+  box-shadow: 1px 0 1px rgba(180, 180, 180, 0.5);
 }
 
 .themeSwitchSlider:before {
