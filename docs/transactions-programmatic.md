@@ -3,11 +3,11 @@ weight: 190
 group: true
 ---
 
-# Programmatic Transactions
+# Imperative Transactions
 
-Both, _declarative_ and _programmatic_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
+Both, _declarative_ and _imperative_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
 
-To use Programmatic Transactions:
+To use Imperative Transactions:
 
 1. get the `querier` instance with `await getQuerier()`.
 2. open a `try/catch/finally` block.

@@ -5,7 +5,7 @@ group: true
 
 # Declarative Transactions
 
-Both, _declarative_ and _programmatic_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
+Both, _declarative_ and _imperative_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
 
 To use Declarative Transactions (using the `@Transactional` decorator):
 
