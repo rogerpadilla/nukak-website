@@ -35,7 +35,7 @@ async function confirmAction(confirmation: Confirmation): Promise<void> {
 
 ---
 
-That &#9650; can also be implemented as this &#9660; (even more granular control):
+That &#9650; can also be implemented as this &#9660; (for more granular control):
 
 ```ts
 async function confirmAction(confirmation: Confirmation): Promise<void> {
