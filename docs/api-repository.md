@@ -13,6 +13,11 @@ A `repository` allows to interact with the datasource to perform persistence ope
  */
 export interface Repository {
   /**
+   * the `querier` instance to which this `repository` is linked to.
+   */
+  readonly querier: Querier;
+
+  /**
    * counts the number of records matching the given search parameters.
    * @param qm the search options
    */
