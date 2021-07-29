@@ -18,7 +18,7 @@ export const Layout: React.FC<{
         <meta name="description" content={fullTitle} />
         <meta
           name="keywords"
-          content="uql,persistence,orm,mongodb,mysql,mariadb,postgres,sqlite,ts,typescript,js,javascript,entity,dao,decorator,repository,service,transaction"
+          content="orm,data-mapper,persistence,typescript-orm,javascript-orm,mariadb,mariadb-orm,mysql,mysql-orm,postgresql,postgresql-orm,sqlite,sqlite-orm,mongodb,mongodb-orm,entity,dao,transaction,repository,service"
         ></meta>
         <meta name="og:title" content={fullTitle} />
         <meta property="og:image" content="/logo.svg" />
