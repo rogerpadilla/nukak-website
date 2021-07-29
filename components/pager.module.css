@@ -1,5 +1,5 @@
 .pager {
-  padding: 2rem 0;
+  padding: 2rem 0 3.0rem;
   display: flex;
   gap: 2rem;
   font-size: 0.9rem;
@@ -8,18 +8,16 @@
 
 .prev,
 .next {
-  border: 1px solid #ccc;
+  box-shadow: inset 0 -0.3em 0.3em rgba(0, 0, 0, 0.1), 0 0 0 1px rgb(255, 255, 255), 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
 }
 
 .prev {
   padding-left: 0.8rem;
-  border-top-left-radius: 40%;
-  border-bottom-left-radius: 40%;
+  border-radius: 5rem 1rem 1rem 5rem;
 }
 
 .next {
   padding-right: 0.8rem;
-  border-top-right-radius: 40%;
-  border-bottom-right-radius: 40%;
+  border-radius: 1rem 5rem 5rem 1rem;
 }
