@@ -16,7 +16,7 @@ To use Imperative Transactions:
 ```ts
 import { getQuerier } from '@uql/core';
 
-async function confirmAction(confirmation: Confirmation): Promise<void> {
+async function confirm(confirmation: Confirmation): Promise<void> {
   const querier = await getQuerier();
   await querier.transaction(async () => {
     if (confirmation.action === 'signup') {
@@ -26,7 +26,9 @@ async function confirmAction(confirmation: Confirmation): Promise<void> {
         password: confirmation.password,
       });
     } else {
-      await querier.updateOneById(User, confirmation.creatorId, { password: confirmation.password });
+      await querier.updateOneById(User, confirmation.creatorId, {
+        password: confirmation.password,
+      });
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
   });
@@ -38,7 +40,7 @@ async function confirmAction(confirmation: Confirmation): Promise<void> {
 That &#9650; can also be implemented as this &#9660; (for more granular control):
 
 ```ts
-async function confirmAction(confirmation: Confirmation): Promise<void> {
+async function confirm(confirmation: Confirmation): Promise<void> {
   const querier = await getQuerier();
   try {
     await querier.beginTransaction();
@@ -49,7 +51,9 @@ async function confirmAction(confirmation: Confirmation): Promise<void> {
         password: confirmation.password,
       });
     } else {
-      await querier.updateOneById(User, confirmation.creatorId, { password: confirmation.password });
+      await querier.updateOneById(User, confirmation.creatorId, {
+        password: confirmation.password,
+      });
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
     await querier.commitTransaction();

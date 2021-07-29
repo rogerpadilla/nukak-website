@@ -18,7 +18,7 @@ import { Transactional, InjectQuerier } from '@uql/core/querier';
 
 class ConfirmationService {
   @Transactional()
-  async confirmAction(confirmation: Confirmation, @InjectQuerier() querier?: Querier): Promise<void> {
+  async confirm(confirmation: Confirmation, @InjectQuerier() querier?: Querier): Promise<void> {
     if (confirmation.type === 'register') {
       await querier.insertOne(User, {
         name: confirmation.name,
@@ -26,7 +26,9 @@ class ConfirmationService {
         password: confirmation.password,
       });
     } else {
-      await querier.updateOneById(User, confirmation.creatorId, { password: confirmation.password });
+      await querier.updateOneById(User, confirmation.creatorId, {
+        password: confirmation.password,
+      });
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
   }

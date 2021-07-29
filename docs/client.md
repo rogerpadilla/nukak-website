@@ -23,7 +23,7 @@ yarn add @uql/client
 ```ts
 import { getRepository } from '@uql/client';
 
-// 'User' is an entity class
+// 'User' is an entity class.
 const userRepository = getRepository(User);
 
 const users = await userRepository.findMany({
