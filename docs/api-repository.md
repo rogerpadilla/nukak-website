@@ -13,7 +13,7 @@ A `repository` allows to interact with the datasource to perform persistence ope
  */
 export interface Repository {
   /**
-   * the `querier` instance to which this `repository` is linked to.
+   * the `querier` instance to which this `repository` is linked.
    */
   readonly querier: Querier;
 
