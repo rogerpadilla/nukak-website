@@ -6,6 +6,10 @@
   overflow-y: auto;
 }
 
+.sidenav ul {
+  list-style: none;
+}
+
 .sidenav > ul {
   padding: 0;
   margin: 0;
