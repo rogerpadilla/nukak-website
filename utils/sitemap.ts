@@ -1,14 +1,10 @@
 import fs from 'fs';
-import path from 'path';
 
-import { getFileIds as g} from './files';
-
-const docsDirectory = path.join(process.cwd(), 'docs');
-
+import { getFileIds } from './files';
 
 function generate() {
   const baseUrl = 'https://uql.io';
-  const ids = g();
+  const ids = getFileIds();
   const urls = ids.map((id) => `${baseUrl}/docs/${id}`);
   const lastMod = new Date().toISOString();
 
@@ -34,14 +30,6 @@ function generate() {
   `;
 
   fs.writeFileSync('./public/sitemap.xml', xml);
-}
-
-function getFileIds(): string[] {
-  return fs.readdirSync(docsDirectory).map((filePath) => getFileId(filePath));
-}
-
-function getFileId(fileName: string): string {
-  return fileName.replace(/\.md$/, '');
 }
 
 generate();
