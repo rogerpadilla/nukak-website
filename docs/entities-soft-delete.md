@@ -20,7 +20,8 @@ export class MeasureUnitCategory {
   @Field()
   name?: string;
   /**
-   * `onDelete` callback allows to specify which field will be used when deleting/querying this entity.
+   * `onDelete` callback allows to specify which field will be used
+   * when deleting/querying this entity.
    */
   @Field({ onDelete: Date.now })
   deletedAt?: number;

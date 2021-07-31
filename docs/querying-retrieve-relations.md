@@ -11,7 +11,14 @@ group: true
 @Transactional()
 async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
     return querier.findOne(User, {
-        $project: { id: true, name: true, profile: { $project: ['id', 'picture'], $required: true } },
+        $project: {
+          id: true,
+          name: true,
+          profile: {
+            $project: ['id', 'picture'],
+            $required: true
+          }
+        },
         $sort: { createdAt: -1 },
     });
 }
@@ -36,7 +43,11 @@ import { getQuerier } from '@uql/core';
 async function findLatestUserWithProfile(): Promise<User> {
   const querier = await getQuerier();
   const user = querier.findOne(User, {
-    $project: { id: true, name: true, profile: ['id', 'picture'] },
+    $project: {
+      id: true,
+      name: true,
+      profile: ['id', 'picture'],
+    },
     $sort: { createdAt: -1 },
   });
   await querier.release();
@@ -64,7 +75,11 @@ async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
         $project: {
           id: true,
           name: true,
-          measureUnit: { $project: ['id', 'name'], $filter: { name: { $ne: 'unidad' } }, $required: true },
+          measureUnit: {
+            $project: ['id', 'name'],
+            $filter: { name: { $ne: 'unidad' } },
+            $required: true
+          },
           tax: ['id', 'name'],
         },
         $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },

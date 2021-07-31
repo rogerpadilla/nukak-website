@@ -7,13 +7,11 @@
   background: var(--header-bg);
   box-shadow: 0 1px 5px 0 rgba(0 0 0 / 30%);
   z-index: 100;
-  padding: 0 1rem;
+  padding: 0 var(--side-padding);
 }
 
 .header nav {
   display: flex;
-  max-width: var(--main-width);
-  margin: 0 auto;
 }
 
 .header nav > * {

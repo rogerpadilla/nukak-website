@@ -10,7 +10,7 @@
 
   --dark-bg: #111115;
   --dark-color: #ccc;
-  --dark-sidenav-bg: rgb(15, 20, 25);
+  --dark-sidenav-bg: rgb(18, 23, 28);
   --dark-link-color: #955f20;
   --dark-link-active-color: #894000;
   --dark-header-bg: linear-gradient(118.55deg, #161541 3.23%, #102842 97.65%);
@@ -18,7 +18,7 @@
   --dark-tr-odd-bg: #48525f;
 
   --header-height: 2.5rem;
-  --main-width: 70rem;
+  --side-padding: 3%;
 }
 
 html,
@@ -63,7 +63,7 @@ body.dark-theme {
   --link-active-color: var(--dark-link-active-color);
   --tr-bg: var(--dark-tr-bg);
   --tr-odd-bg: var(--dark-tr-odd-bg);
-  --header-bg: var(--dark-header-bg);
+  --header-bg: var(--dark-header-bg);  
 
   transition-property: color, background-color;
   transition-duration: 200ms;
@@ -99,6 +99,15 @@ body.dark-theme {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 1.5rem 0;
+  line-height: 1.0;
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -115,7 +124,7 @@ img {
 }
 
 ul {
-  padding-inline-start: 2rem;  
+  padding-inline-start: 2rem;
 }
 
 li {
@@ -123,7 +132,7 @@ li {
 }
 
 hr {
-  margin: 1.8rem 0;
+  margin: 2rem 0;
   height: 0;
   color: inherit;
 }

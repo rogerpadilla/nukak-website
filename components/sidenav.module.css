@@ -2,7 +2,7 @@
   box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
   background-color: var(--sidenav-bg);
   font-size: 0.97em;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem var(--side-padding);
   overflow-y: auto;
 }
 
