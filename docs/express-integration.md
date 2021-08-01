@@ -19,7 +19,7 @@ or with _yarn_
 yarn add @uql/express
 ```
 
-2. Initialize the `express` middleware in your server code to generate REST APIs for your entities
+1. Initialize the `express` middleware in your server code to generate REST APIs for your entities
 
 ```ts
 import * as express from 'express';
@@ -38,10 +38,10 @@ app
       // 'include' or 'exclude' options are provided.
       exclude: [Confirmation],
 
-      // `query` callback allows to extend all then queries that are requested to the API,
+      // `augmentQuery` callback allows to extend all then queries that are requested to the API,
       // so it is a good place to add additional filters to the queries,
       // e.g. for multi tenant apps.
-      query<E>(entity: Type<E>, qm: Query<E>, req: Request): Query<E> {
+      augmentQuery<E>(entity: Type<E>, qm: Query<E>, req: Request): Query<E> {
         qm.$filter = {
           ...qm.$filter,
           // ensure the user can only see the data that belongs to his company.
