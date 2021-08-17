@@ -6,7 +6,7 @@ function generate() {
   const baseUrl = 'https://uql.io';
   const ids = getFileIds();
   const urls = ids.map((id) => `${baseUrl}/docs/${id}`);
-  const lastMod = new Date().toISOString();
+  const lastMod = new Date().toISOString().split('T')[0];
 
   const xml =
     /*xml */
