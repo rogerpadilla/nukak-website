@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import ReactMarkdown from 'react-markdown';
 // const images = require('remark-images');
 // import emoji from 'remark-emoji';
-const gfm = require('remark-gfm');
+import gfm from 'remark-gfm';
 import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
