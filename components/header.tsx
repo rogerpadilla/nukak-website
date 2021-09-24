@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
           </a>
         </Link>
         <ThemeSwitch />
-        <a href="https://github.com/impensables/uql" title="github" target="_blank" rel="noopener">
+        <a href="https://github.com/rogerpadilla/uql" title="github" target="_blank" rel="noopener">
           <img src="/github-logo.svg" width="28" height="28" alt="github" />
         </a>
       </nav>
