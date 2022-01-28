@@ -1,4 +1,4 @@
-import { ReactMarkdownProps } from 'react-markdown/src/ast-to-react';
+import { ReactMarkdownProps } from 'react-markdown/lib/ast-to-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus as syntaxTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
