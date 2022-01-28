@@ -6,16 +6,16 @@
   --light-link-active-color: #0f3854;
   --light-tr-bg: #fff;
   --light-tr-odd-bg: #f6f8fa;
-  --light-header-bg: linear-gradient(118.55deg, #135c8d 3.23%, #007acc 97.65%);
+  --light-header-bg: #135c8d;
 
-  --dark-bg: #050F18;
-  --dark-color: #dcdcdc;
-  --dark-sidenav-bg: #07131c;
+  --dark-bg: #2a3863;
+  --dark-color: #E4D9F9;
+  --dark-sidenav-bg: #14224E;
   --dark-link-color: #a75c00;
   --dark-link-active-color: #bd9234;
-  --dark-header-bg: linear-gradient(118.55deg, #092537 3.23%, #00253e 97.65%);
+  --dark-header-bg: #081541;
   --dark-tr-bg: #3d4a55;
-  --dark-tr-odd-bg: #48525f;
+  --dark-tr-odd-bg: #6e7988;
 
   --header-height: 2.5rem;
   --side-padding: 3%;
