@@ -17,6 +17,7 @@ export const Pager: React.FC<{ currentId: string; items: FileMetadata[] }> = ({ 
           </a>
         </Link>
       )}
+      {prev && next && '|'}
       {next && (
         <Link href={`/docs/${next.id}`}>
           <a className={s.next} title="next">

@@ -4,20 +4,12 @@
   gap: 2rem;
   font-size: 0.9rem;
   justify-content: flex-end;
+  align-items: center;
+  color: #666;
 }
 
 .prev,
 .next {
-  box-shadow: inset 0 -0.3em 0.3em rgba(0, 0, 0, 0.1), 0 0 0 1px rgb(255, 255, 255), 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
 }
 
-.prev {
-  padding-left: 0.8rem;
-  border-radius: 5rem 1rem 1rem 5rem;
-}
-
-.next {
-  padding-right: 0.8rem;
-  border-radius: 1rem 5rem 5rem 1rem;
-}
