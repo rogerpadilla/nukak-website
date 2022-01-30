@@ -10,13 +10,9 @@ export const Code: React.FC<ReactMarkdownProps & { inline?: boolean; className?:
 }) => {
   const match = inline ? undefined : /language-(\w+)/.exec(className);
   return match ? (
-    <SyntaxHighlighter
-      style={syntaxTheme}
-      language={match[1]}
-      PreTag="div"
-      children={String(children).replace(/\n$/, '')}
-      {...props}
-    />
+    <SyntaxHighlighter style={syntaxTheme} language={match[1]} PreTag="div" {...props}>
+      {String(children).replace(/\n$/, '')}
+    </SyntaxHighlighter>
   ) : (
     <code className={className} {...props}>
       {children}

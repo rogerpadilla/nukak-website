@@ -22,7 +22,7 @@ export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getSta
     <Layout title={doc.title} mainClassName={s.main}>
       <Sidenav category="docs" items={items} className={s.sidenav} />
       <article className={s.article}>
-        <ReactMarkdown children={doc.body} components={components} remarkPlugins={[gfm]} />
+        <ReactMarkdown components={components} remarkPlugins={[gfm]}>{doc.body}</ReactMarkdown>
         <Pager currentId={doc.id} items={docs} />
       </article>
     </Layout>

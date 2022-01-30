@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Script from 'next/script';
 import { projectName } from '../utils/constants';
 import { Header } from './header';
 import s from './layout.module.css';
@@ -23,11 +24,13 @@ export const Layout: React.FC<{
         <meta name="og:title" content={fullTitle} />
         <meta property="og:image" content="/logo.svg" />
         <script async src="/main.js"></script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></script>
         <script async src="/gtag.js"></script>
       </Head>
       <Header />
-      <main className={[s.main, mainClassName].join(' ')}>{children}</main>
+      <main className={[s.main, mainClassName].join(' ')}>
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></Script>
+        {children}
+      </main>
     </>
   );
 };
