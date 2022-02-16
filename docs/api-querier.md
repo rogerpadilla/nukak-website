@@ -3,7 +3,7 @@ weight: 190
 group: true
 ---
 
-# Querier
+# Querier API
 
 A `querier` allows to interact with the datasource to perform persistence operations on any entity.
 

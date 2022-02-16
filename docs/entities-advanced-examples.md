@@ -11,6 +11,7 @@ The inline comments in the code below have concise descriptions of advanced use 
 import { v4 as uuidv4 } from 'uuid';
 import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from '@uql/core/entity';
 import { raw } from '@uql/core/util';
+import { idKey } from '@uql/core/type';
 
 /**
  * `interfaces` can (optionally) be used to circumvent circular-references issue between entities,
@@ -135,13 +136,20 @@ export class LedgerAccount extends BaseEntity {
 @Entity()
 export class TaxCategory extends BaseEntity {
   /**
-   * an entity can specify its own ID Field and still inherit the others
+   * `idKey` symbol can be used to specify the name of the identifier property,
+   * so the type of the identifier can always be type-safe
+   * (the identifiers named as `id` or `_id` are auto-inferred).
+   */
+  [idKey]?: 'uuid';
+
+  /**
+   * an entity can override the ID Field and still inherit the others
    * columns/relations from its parent entity.
    * 'onInsert' callback can be used to specify a custom mechanism for
    * auto-generating the primary-key's value when inserting.
    */
-  @Id({ onInsert: () => uuidv4() })
-  pk?: string;
+  @Id({ onInsert: uuidv4 })
+  uuid?: string;
   @Field()
   name?: string;
   @Field()
