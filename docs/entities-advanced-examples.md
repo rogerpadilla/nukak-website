@@ -10,7 +10,7 @@ The inline comments in the code below have concise descriptions of advanced use 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
 import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from '@uql/core/entity';
-import { raw } from '@uql/core/querier';
+import { raw } from '@uql/core/util';
 
 /**
  * `interfaces` can (optionally) be used to circumvent circular-references issue between entities,

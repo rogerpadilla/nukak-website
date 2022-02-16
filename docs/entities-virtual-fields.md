@@ -9,6 +9,7 @@ The `virtual` property of the `@Field` decorator can be used as below:
 
 ```ts
 import { Entity, Id, Field, ManyToMany } from '@uql/core/entity';
+import { raw } from '@uql/core/util';
 
 @Entity()
 export class Item {

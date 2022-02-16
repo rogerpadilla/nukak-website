@@ -8,6 +8,8 @@ group: true
 `$project` a `raw` expression:
 
 ```ts
+import { raw } from '@uql/core/util';
+
 this.querier.findMany(Item, {
   $project: {
     companyId: true,
@@ -28,6 +30,8 @@ SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
 `$filter` by a `raw` expression:
 
 ```ts
+import { raw } from '@uql/core/util';
+
 await this.querier.findMany(Item, {
   $project: ['id'],
   $filter: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] },
@@ -46,6 +50,8 @@ SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY 
 `$nexists` comparison operator:
 
 ```ts
+import { raw } from '@uql/core/util';
+
 await this.querier.findMany(Item, {
   $project: {
     id: 1,
