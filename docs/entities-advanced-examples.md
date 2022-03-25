@@ -97,11 +97,11 @@ export class Profile extends BaseEntity {
    * auto-generating the primary-key's value when inserting.
    */
   @Id({ name: 'pk' })
-  id?: number;
+  override id?: number;
   @Field({ name: 'image' })
   picture?: string;
   @OneToOne({ entity: () => User })
-  creator?: IUser;
+  override creator?: IUser;
 }
 
 @Entity()
