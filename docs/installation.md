@@ -16,15 +16,13 @@ weight: 30
     yarn add @uql/core
     ```
 
-2.  Install one of the following packages according to your database:
+2.  Install *one of* the following packages according to your database:
 
-| Database   | Package         |
-| ---------- | --------------- |
-| MariaDB    | `@uql/maria`    |
-| MySQL      | `@uql/mysql`    |
-| PostgreSQL | `@uql/postgres` |
-| SQLite     | `@uql/sqlite`   |
-| MongoDB    | `@uql/mongo`    |
+- `@uql/mysql`
+- `@uql/postgres`
+- `@uql/maria`
+- `@uql/mongo`
+- `@uql/sqlite`
 
 E.g. for `PostgreSQL`
 
