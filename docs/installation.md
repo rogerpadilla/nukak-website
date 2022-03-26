@@ -18,11 +18,13 @@ weight: 30
 
 2.  Install *one of* the following packages according to your database:
 
-- `@uql/mysql`
-- `@uql/postgres`
-- `@uql/maria`
-- `@uql/mongo`
-- `@uql/sqlite`
+| Database     | Package         |
+| ------------ | --------------- |
+| `MySQL`      | `@uql/mysql`    |
+| `PostgreSQL` | `@uql/postgres` |
+| `MariaDB`    | `@uql/maria`    |
+| `MongoDB`    | `@uql/mongo`    |
+| `SQLite`     | `@uql/sqlite`   |
 
 E.g. for `PostgreSQL`
 

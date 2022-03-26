@@ -8,6 +8,8 @@ group: true
 Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
 ```ts
+import { v4 as uuidv4 } from 'uuid';
+
 import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from '@uql/core/entity';
 
 @Entity()
@@ -15,21 +17,21 @@ export class Profile {
   /**
    * primary key
    */
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   picture?: string;
   /**
-   * foreign-keys are really simple to specify
+   * foreign-keys are really simple to specify.
    */
   @Field({ reference: () => User })
-  creatorId?: number;
+  creatorId?: string;
 }
 
 @Entity()
 export class User {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   name?: string;
   @Field()
@@ -37,7 +39,7 @@ export class User {
   @Field()
   password?: string;
   /**
-   * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring)
+   * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring).
    */
   @OneToOne({ entity: () => Profile, mappedBy: (profile) => profile.creatorId, cascade: true })
   profile?: Profile;
@@ -45,8 +47,8 @@ export class User {
 
 @Entity()
 export class MeasureUnitCategory {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   name?: string;
   @OneToMany({ entity: () => MeasureUnit, mappedBy: (measureUnit) => measureUnit.category })
@@ -55,20 +57,20 @@ export class MeasureUnitCategory {
 
 @Entity()
 export class MeasureUnit {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   name?: string;
   @Field({ reference: () => MeasureUnitCategory })
-  categoryId?: number;
+  categoryId?: string;
   @ManyToOne({ cascade: 'persist' })
   category?: MeasureUnitCategory;
 }
 
 @Entity()
 export class Item {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   name?: string;
   @Field()
@@ -81,8 +83,8 @@ export class Item {
 
 @Entity()
 export class Tag {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field()
   name?: string;
   @ManyToMany({ entity: () => Item, mappedBy: (item) => item.tags })
@@ -91,11 +93,11 @@ export class Tag {
 
 @Entity()
 export class ItemTag {
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   @Field({ reference: () => Item })
-  itemId?: number;
+  itemId?: string;
   @Field({ reference: () => Tag })
-  tagId?: number;
+  tagId?: string;
 }
 ```

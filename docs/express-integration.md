@@ -23,7 +23,6 @@ yarn add @uql/express
 
 ```ts
 import * as express from 'express';
-import { augmentFilter } from '@uql/core/util';
 import { Query, QueryFilter, EntityMeta } from '@uql/core/type';
 import { querierMiddleware } from '@uql/express';
 
@@ -33,21 +32,11 @@ app
   // ...
   .use(
     '/api',
-
     // this will generate REST APIs for the entities.
     querierMiddleware({
       // all entities will be automatically exposed unless
       // 'include' or 'exclude' options are provided.
-      exclude: [Confirmation],
-
-      // `augmentQuery` callback allows to extend all then queries that are requested to the API,
-      // so it is a good place to add additional filters to the queries,
-      // e.g. for multi tenant apps.
-      augmentQuery: <E>(meta: EntityMeta<E>, qm: Query<E>, req: express.Request): Query<E> => {
-        // ensure the user can only see the data that belongs to his company.
-        qm.$filter = augmentFilter(meta, qm.$filter, { companyId: req.identity.companyId } as QueryFilter<E>);
-        return qm;
-      },
+      exclude: [Confirmation]
     })
   );
 ```
