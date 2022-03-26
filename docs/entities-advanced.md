@@ -3,7 +3,7 @@ weight: 90
 group: true
 ---
 
-# Advanced Examples
+# Advanced Entities
 
 The inline comments in the code below have concise descriptions of advanced use cases.
 
