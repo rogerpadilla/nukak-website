@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   return (
     <header className={s.header}>
       <nav className={s.toolbar}>
-        <Link href="/docs/quick-started">
+        <Link href="/docs/quick-start">
           <a>
             <Image src="/logo.svg" width="30" height="30" alt="uql" />
             <span>uql</span>
