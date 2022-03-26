@@ -2,92 +2,77 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>https://uql.io</loc>
-        <lastmod>2022-01-28</lastmod>
+        <lastmod>2022-03-26</lastmod>
       </url>
       
             <url>
               <loc>https://uql.io/docs/api-querier</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/api-repository</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/client</loc>
-              <lastmod>2022-01-28</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://uql.io/docs/configuration</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/entities-advanced-examples</loc>
-              <lastmod>2022-01-28</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://uql.io/docs/entities-basic-examples</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/entities-soft-delete</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/entities-virtual-fields</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/express-integration</loc>
-              <lastmod>2022-01-28</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://uql.io/docs/getting-started</loc>
-              <lastmod>2022-01-28</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://uql.io/docs/installation</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/querying-comparison-operators</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/querying-logical-operators</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/querying-retrieve-relations</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/querying-sub-queries</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
+            </url>
+          
+            <url>
+              <loc>https://uql.io/docs/quick-start</loc>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/transactions-declarative</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
             <url>
               <loc>https://uql.io/docs/transactions-imperative</loc>
-              <lastmod>2022-01-28</lastmod>
+              <lastmod>2022-03-26</lastmod>
             </url>
           
     </urlset>

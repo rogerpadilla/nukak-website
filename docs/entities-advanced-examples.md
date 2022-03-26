@@ -18,7 +18,7 @@ import { idKey } from '@uql/core/type';
  * while keeping type-safety.
  */
 export interface IEntity {
-  id?: number;
+  id?: string;
   companyId?: number;
   company?: ICompany;
   creatorId?: number;
@@ -45,10 +45,12 @@ interface IUser extends IEntity {
  */
 export abstract class BaseEntity implements IEntity {
   /**
-   * primary key
+   * primary-key.
+   * the `onInsert` callback can be used to specify a custom mechanism for auto-generating
+   * the default value of a field when inserting a new record.
    */
-  @Id()
-  id?: number;
+  @Id({ onInsert: uuidv4 })
+  id?: string;
   /**
    * foreign-keys are really simple to specify.
    */
@@ -93,11 +95,9 @@ export class Profile extends BaseEntity {
   /**
    * an entity can specify its own ID Field and still inherit the others
    * columns/relations from its parent entity.
-   * 'onInsert' callback can be used to specify a custom mechanism for
-   * auto-generating the primary-key's value when inserting.
    */
-  @Id({ name: 'pk' })
-  override id?: number;
+  @Id()
+  override pk?: number;
   @Field({ name: 'image' })
   picture?: string;
   @OneToOne({ entity: () => User })
