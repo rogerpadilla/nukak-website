@@ -8,7 +8,7 @@ weight: 10
 
 The `uql` queries can be safely written in the frontend (browser/mobile) and sent to the backend; or only use `uql` in the backend, or even in a mobile app with an embedded database (like `sqlite`).
 
-## <a name="features"></a> Features
+## Features
 
 - `JSON` (serializable) syntax for all the queries.
 - uses the power of `TypeScript` to get (smart) type-safety everywhere.
@@ -19,7 +19,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
 - transparent support for `inheritance` patterns between entities.
 - supports `Postgres`, `MySQL`, `MariaDB`, `SQLite`, `MongoDB` (beta).
 
-## <a name="installation"></a> Installation
+## Installation
 
 1. Install the core package:
 
@@ -63,7 +63,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
    "emitDecoratorMetadata": true
    ```
 
-## <a name="configuration"></a> Configuration
+## Configuration
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
@@ -85,7 +85,7 @@ const querierPool = new PgQuerierPool(
 setDefaultQuerierPool(querierPool);
 ```
 
-## <a name="definition-of-entities"></a> Definition of Entities
+## Definition of Entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
@@ -151,7 +151,7 @@ export class MeasureUnit {
 }
 ```
 
-## <a name="creation-of-queries"></a> Creation of Queries
+## Creation of Queries
 
 ```ts
 import { getQuerier, getRepository } from '@uql/core';
