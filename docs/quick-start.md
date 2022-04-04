@@ -151,7 +151,7 @@ export class MeasureUnit {
 }
 ```
 
-## Querying data
+## Data query
 
 ```ts
 import { getQuerier } from '@uql/core';
