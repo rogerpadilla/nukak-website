@@ -63,7 +63,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
    "emitDecoratorMetadata": true
    ```
 
-## 2. Configuration
+## Configuration
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
