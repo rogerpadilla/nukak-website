@@ -19,7 +19,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
 - transparent support for [inheritance](https://uql.io/docs/entities-advanced) between entities.
 - supports `Postgres`, `MySQL`, `MariaDB`, `SQLite`, `MongoDB`.
 
-## 1. Install
+## Installation
 
 1. Install the core package:
 
@@ -63,7 +63,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
    "emitDecoratorMetadata": true
    ```
 
-## 2. Configure
+## 2. Configuration
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
@@ -85,7 +85,7 @@ const querierPool = new PgQuerierPool(
 setDefaultQuerierPool(querierPool);
 ```
 
-## 3. Define your Entities
+## Definition of Entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
 
@@ -151,7 +151,7 @@ export class MeasureUnit {
 }
 ```
 
-## 4. Query your data
+## Querying data
 
 ```ts
 import { getQuerier } from '@uql/core';
