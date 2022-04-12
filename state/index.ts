@@ -27,8 +27,8 @@ function theme() {
 function sidenav() {
     document.body.addEventListener('click', (evt) => {
         const target = evt.target as HTMLElement;
-        const hamburguer = target.closest('#hamburguer');
-        if (hamburguer) {
+        const sidenavToggler = target.closest('#sidenavToggler');
+        if (sidenavToggler) {
             return;
         }
         state.isSidenavOpen = false;
