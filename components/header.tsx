@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import s from './header.module.css';
-import { state } from './state';
+import { Hamburguer } from './hamburguer';
+import { ThemeToggler } from './themeToggler';
 
 export const Header: React.FC = () => (
   <header className={s.header}>
@@ -22,25 +23,4 @@ export const Header: React.FC = () => (
       </a>
     </nav>
   </header>
-);
-
-const Hamburguer: React.FC<{}> = () => {
-  const toggleStatus = () => {
-    state.isSidenavOpen = !state.isSidenavOpen; 
-  };
-
-  return (
-    <button className={s.hamburguer} onClick={toggleStatus}>
-      <span className={s.bar}></span>
-      <span className={s.bar}></span>
-      <span className={s.bar}></span>
-    </button>
-  );
-};
-
-const ThemeToggler: React.FC = () => (
-  <label className={s.themeToggler} htmlFor="themeToggler" title="toggle dark theme">
-    <input type="checkbox" id="themeToggler" />
-    <span className={s.themeTogglerSwitcher}></span>
-  </label>
 );

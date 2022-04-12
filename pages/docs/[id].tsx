@@ -19,8 +19,8 @@ const components = {
 export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
   const items = buildSidenavItems(docs, doc.id);
   return (
-    <Layout title={doc.title} mainClassName={s.main}>
-      <Sidenav category="docs" items={items} className={s.sidenav} />
+    <Layout title={doc.title}>
+      <Sidenav category="docs" items={items} />
       <article className={s.article}>
         <ReactMarkdown components={components} remarkPlugins={[gfm]}>{doc.body}</ReactMarkdown>
         <Pager currentId={doc.id} items={docs} />

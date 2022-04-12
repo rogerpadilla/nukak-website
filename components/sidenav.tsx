@@ -1,17 +1,13 @@
 import Link from 'next/link';
 import { SidenavItem } from '../types';
-import s from './sidenav.module.css';
 import { state } from './state';
 import { useSnapshot } from 'valtio';
+import s from './sidenav.module.css';
 
-export const Sidenav: React.FC<{ category: string; items: SidenavItem[]; className: string }> = ({
-  category,
-  items,
-  className,
-}) => {
-  const snap = useSnapshot(state)
+export const Sidenav: React.FC<{ category: string; items: SidenavItem[] }> = ({ category, items }) => {
+  const snap = useSnapshot(state);
 
-  const classes = [s.sidenav, className].concat(snap.isSidenavOpen ? [s.open] : []);
+  const classes = [s.sidenav].concat(snap.isSidenavOpen ? [s.open] : []);
 
   return (
     <aside className={classes.join(' ')}>
