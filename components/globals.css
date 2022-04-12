@@ -52,13 +52,13 @@ body {
   overflow-y: scroll;
 }
 
-body.light-theme, body.dark-theme {
+body.light, body.dark {
   transition-property: color, background-color;
   transition-duration: var(--transition-duration);
   transition-timing-function: ease-in-out;
 }
 
-body.dark-theme {
+body.dark {
   --bg: var(--dark-bg);
   --color: var(--dark-color);
   --link-color: var(--dark-link-color);
@@ -79,7 +79,7 @@ body.dark-theme {
     --tr-bg--odd: var(--dark-tr-bg--odd);
     --header-bg: var(--dark-header-bg);
   }
-  body.light-theme {
+  body.light {
     --bg: var(--light-bg);
     --color: var(--light-color);
     --sidenav-bg: var(--light-sidenav-bg);

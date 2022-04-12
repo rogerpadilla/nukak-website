@@ -26,7 +26,6 @@ export const Layout: React.FC<{
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>
-        <Script strategy="afterInteractive" src="/main.js"></Script>
         <Script strategy="afterInteractive" src="/gtag.js"></Script>
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></Script>
         {children}
