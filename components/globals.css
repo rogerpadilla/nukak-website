@@ -3,22 +3,24 @@
   --light-sidenav-bg: #eceeee;
   --light-color: #1b262c;
   --light-link-color: #3282b8;
-  --light-link-active-color: #0f3854;
+  --light-link-color--active: #0f3854;
   --light-tr-bg: #fff;
-  --light-tr-odd-bg: #f6f8fa;
+  --light-tr-bg--odd: #f6f8fa;
   --light-header-bg: #135c8d;
 
   --dark-bg: #2a3863;
   --dark-color: #E4D9F9;
   --dark-sidenav-bg: #14224E;
   --dark-link-color: #a75c00;
-  --dark-link-active-color: #bd9234;
+  --dark-link-color--active: #bd9234;
   --dark-header-bg: #081541;
   --dark-tr-bg: #3d4a55;
-  --dark-tr-odd-bg: #6e7988;
+  --dark-tr-bg--odd: #6e7988;
 
   --header-height: 2.5rem;
   --side-padding: 3%;
+  --transition-duration: 0.3s;
+  --transition-duration--fast: 0.15s;
 }
 
 html,
@@ -34,9 +36,9 @@ body {
   --color: var(--light-color);
   --sidenav-bg: var(--light-sidenav-bg);
   --link-color: var(--light-link-color);
-  --link-active-color: var(--light-link-active-color);
+  --link-color--active: var(--light-link-color--active);
   --tr-bg: var(--light-tr-bg);
-  --tr-odd-bg: var(--light-tr-odd-bg);
+  --tr-bg--odd: var(--light-tr-bg--odd);
   --header-bg: var(--light-header-bg);
 
   background: var(--bg);
@@ -50,9 +52,9 @@ body {
   overflow-y: scroll;
 }
 
-body.light-theme {
+body.light-theme, body.dark-theme {
   transition-property: color, background-color;
-  transition-duration: 200ms;
+  transition-duration: var(--transition-duration);
   transition-timing-function: ease-in-out;
 }
 
@@ -60,14 +62,10 @@ body.dark-theme {
   --bg: var(--dark-bg);
   --color: var(--dark-color);
   --link-color: var(--dark-link-color);
-  --link-active-color: var(--dark-link-active-color);
+  --link-color--active: var(--dark-link-color--active);
   --tr-bg: var(--dark-tr-bg);
-  --tr-odd-bg: var(--dark-tr-odd-bg);
+  --tr-bg--odd: var(--dark-tr-bg--odd);
   --header-bg: var(--dark-header-bg);  
-
-  transition-property: color, background-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,9 +74,9 @@ body.dark-theme {
     --color: var(--dark-color);
     --sidenav-bg: var(--dark-sidenav-bg);
     --link-color: var(--dark-link-color);
-    --link-active-color: var(--dark-link-active-color);
+    --link-color--active: var(--dark-link-color--active);
     --tr-bg: var(--dark-tr-bg);
-    --tr-odd-bg: var(--dark-tr-odd-bg);
+    --tr-bg--odd: var(--dark-tr-bg--odd);
     --header-bg: var(--dark-header-bg);
   }
   body.light-theme {
@@ -86,9 +84,9 @@ body.dark-theme {
     --color: var(--light-color);
     --sidenav-bg: var(--light-sidenav-bg);
     --link-color: var(--light-link-color);
-    --link-active-color: var(--light-link-active-color);
+    --link-color--active: var(--light-link-color--active);
     --tr-bg: var(--light-tr-bg);
-    --tr-odd-bg: var(--light-tr-odd-bg);
+    --tr-bg--odd: var(--light-tr-bg--odd);
     --header-bg: var(--light-header-bg);
   }
 }
@@ -111,11 +109,11 @@ h5 {
 a {
   color: var(--link-color);
   text-decoration: none;
-  transition: color 100ms;
+  transition: color var(--transition-duration--fast) ease-in-out;
 }
 a:hover {
-  color: var(--link-active-color);
-  transition: color 100ms;
+  color: var(--link-color--active);
+  transition: color var(--transition-duration--fast) ease-in-out;
 }
 
 img {
@@ -155,7 +153,7 @@ tr {
 }
 
 tbody tr:nth-child(odd) {
-  background: var(--tr-odd-bg);
+  background: var(--tr-bg--odd);
 }
 tbody tr {
   border: 1px solid rgba(184, 196, 194, 0.3);

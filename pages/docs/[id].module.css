@@ -1,24 +1,6 @@
-.sidenav {
-  --top: var(--header-height);
-  flex: 1 0 auto;
-  position: sticky;
-  top: var(--top);
-  height: calc(100vh - var(--top));
-}
-
 .article {
-  flex: 0 1 100%;
+  margin: 0 auto;
   padding: 0 var(--side-padding);
   overflow-x: hidden;
 }
 
-@media only screen and (max-width: 980px) {
-  .sidenav {
-    position: unset;
-    top: unset;
-    height: unset;
-  }
-  .main {
-    display: block;
-  }
-}

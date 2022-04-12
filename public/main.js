@@ -1,9 +1,9 @@
 (() => {
-  const themeSwitch = document.querySelector('#themeSwitch');
+  const themeToggler = document.querySelector('#themeToggler');
 
-  themeSwitch.addEventListener('click', switchTheme);
+  themeToggler.addEventListener('click', toggleTheme);
 
-  function switchTheme() {
+  function toggleTheme() {
     const theme = getTheme();
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
@@ -27,5 +27,5 @@
 
   setTheme(theme);
 
-  themeSwitch.checked = theme === 'dark';
+  themeToggler.checked = theme === 'dark';
 })();

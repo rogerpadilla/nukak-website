@@ -1,9 +1,13 @@
 .sidenav {
-  box-shadow: 1px 0px 1px rgba(48, 54, 61, 0.1);
-  background-color: var(--sidenav-bg);
-  font-size: 0.97em;
+  --top: var(--header-height);
+  position: sticky;
+  top: var(--top);
+  height: calc(100vh - var(--top));
   padding: 1rem 1rem 1rem var(--side-padding);
-  overflow-y: auto;
+  font-size: 0.97em;
+  background-color: var(--sidenav-bg);
+  box-shadow: 1px 0px 1px rgba(48, 54, 61, 0.1);
+  transition: left var(--transition-duration) ease-in-out; 
 }
 
 .sidenav ul {
@@ -15,10 +19,27 @@
   margin: 0;
 }
 
+.sidenav li.active > a {
+  color: var(--link-color--active);
+}
+
 .sidenav li li {
   margin: 0;
 }
 
-.active {
-  color: var(--link-active-color);
+.sidenav li a {
+  white-space: nowrap;
+}
+
+.sidenav.open {
+  left: 0;
+}
+
+@media only screen and (max-width: 960px) {
+  .sidenav {
+    position: absolute;   
+    top: 0;
+    left: -100%;
+    transition: left var(--transition-duration) ease-in-out; 
+  }
 }

@@ -18,7 +18,8 @@
     "react-markdown": "^8.0.2",
     "react-syntax-highlighter": "^15.5.0",
     "remark-emoji": "^3.0.2",
-    "remark-images": "^3.1.0"
+    "remark-images": "^3.1.0",
+    "valtio": "^1.5.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",

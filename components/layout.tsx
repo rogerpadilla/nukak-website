@@ -22,12 +22,12 @@ export const Layout: React.FC<{
           content="orm,data-mapper,persistence,typescript-orm,javascript-orm,mariadb,mariadb-orm,mysql,mysql-orm,postgresql,postgresql-orm,sqlite,sqlite-orm,mongodb,mongodb-orm,entity,dao,transaction,repository,service"
         ></meta>
         <meta name="og:title" content={fullTitle} />
-        <meta property="og:image" content="/logo.svg" />
-        <script async src="/main.js"></script>
-        <script async src="/gtag.js"></script>
+        <meta property="og:image" content="/logo.svg" />        
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>
+        <Script strategy="afterInteractive" src="/main.js"></Script>
+        <Script strategy="afterInteractive" src="/gtag.js"></Script>
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-PE9RVX8QYB"></Script>
         {children}
       </main>
