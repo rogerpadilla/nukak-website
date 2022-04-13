@@ -165,9 +165,9 @@ td {
 }
 
 code {
-  font-family: 'Source Code Pro', Menlo, monospace;
-  font-size: 0.85rem;
-  letter-spacing: 0;
+  font-family: 'Source Code Pro', Menlo, monospace !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0 !important;
 }
 
 td > code {

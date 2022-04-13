@@ -1,6 +1,6 @@
 import { ReactMarkdownProps } from 'react-markdown/lib/ast-to-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula as syntaxTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vscDarkPlus as syntaxTheme } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export const Code: React.FC<ReactMarkdownProps & { inline?: boolean; className?: string }> = ({
   inline,
