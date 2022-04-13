@@ -19,8 +19,8 @@
 
   --header-height: 2.5rem;
   --side-padding: 3%;
-  --transition-duration: 0.3s;
-  --transition-duration--fast: 0.15s;
+  --transition-duration: 0.2s;
+  --transition-duration--fast: 0.1s;
 }
 
 html,

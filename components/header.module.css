@@ -39,10 +39,11 @@
   background-color: inherit;
   border: none;
   cursor: pointer;
+  opacity: 0.85;
   transition: opacity var(--transition-duration--fast) ease-in-out;
 }
 .sidenavToggler:hover {
-  opacity: 0.8;
+  opacity: 1;
   transition: opacity var(--transition-duration--fast) ease-in-out;
 }
 
@@ -63,7 +64,7 @@
 
 .themeToggler {    
   margin-left: auto;
-  opacity: 0.8;
+  opacity: 0.85;
   transition: opacity var(--transition-duration--fast) ease-in-out;
 }
 .themeToggler:hover {
