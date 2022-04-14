@@ -16,27 +16,20 @@ function getFileId(fileName: string): string {
 
 export function getFileParams() {
   const ids = getFileIds();
-  return ids.map((id) => ({
-    params: {
-      id,
-    },
-  }));
+  return ids.map((id) => ({ params: { id, }, }));
 }
 
-export async function getFiles(): Promise<FileMetadata[]> {
+export function getFiles(): FileMetadata[] {
   const fileNames = getFileIds();
-  const docs = await Promise.all(fileNames.map((fileName) => getFile(fileName)));
+  const docs = fileNames.map((fileName) => getFile(fileName));
   return docs.sort((a, b) => a.weight - b.weight);
 }
 
-export async function getFile(id: string, includeBody?: boolean): Promise<FileMetadata> {
+export function getFile(id: string): FileMetadata {
   const title = titleCase(id);
   const fullPath = path.join(docsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const matterResult = matter(fileContents);
-  const doc: FileMetadata = { id, title, ...matterResult.data };
-  if (includeBody) {
-    doc.body = matterResult.content;
-  }
+  const { content, data } = matter(fileContents);
+  const doc: FileMetadata = { id, title, content, ...data };
   return doc;
 }

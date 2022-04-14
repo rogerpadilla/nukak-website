@@ -7,7 +7,7 @@ import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
 import { Code } from '../../components/code';
-import { getFile, getFiles } from '../../utils/files';
+import { getFiles } from '../../utils/files';
 import { buildSidenavItems } from '../../utils/ui';
 import { FileMetadata } from '../../types';
 import s from './[id].module.css';
@@ -16,36 +16,29 @@ const components = {
   code: Code,
 } as const;
 
-export default function Doc({ docs, doc }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const items = buildSidenavItems(docs, doc.id);
+export default function Doc({ id, docs }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const items = buildSidenavItems(docs, id);
+  const doc = docs.find((doc) => doc.id === id);
   return (
     <Layout title={doc.title}>
       <Sidenav category="docs" items={items} />
       <article className={s.article}>
-        <ReactMarkdown components={components} remarkPlugins={[gfm]}>{doc.body}</ReactMarkdown>
+        <ReactMarkdown components={components} remarkPlugins={[gfm]}>
+          {doc.content}
+        </ReactMarkdown>
         <Pager currentId={doc.id} items={docs} />
       </article>
     </Layout>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const docs = await getFiles();
-  const paths = docs.map((doc) => ({
-    params: { id: doc.id },
-  }));
+export const getStaticPaths: GetStaticPaths = () => {
+  const docs = getFiles();
+  const paths = docs.map((doc) => ({ params: { id: doc.id } }));
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps<{
-  docs: FileMetadata[];
-  doc: FileMetadata;
-}> = async ({ params }) => {
-  const [doc, docs] = await Promise.all([getFile(params.id as string, true), getFiles()]);
-  return {
-    props: {
-      docs,
-      doc,
-    },
-  };
+export const getStaticProps: GetStaticProps<{ id: string; docs: FileMetadata[] }> = ({ params }) => {
+  const docs = getFiles();
+  return { props: { id: params.id as string, docs } };
 };

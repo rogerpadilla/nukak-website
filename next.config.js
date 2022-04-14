@@ -1,7 +1,7 @@
 module.exports = {
   pageExtensions: ['tsx', 'md'],
   swcMinify: true,
-  async redirects() {
+  redirects() {
     return [
       {
         source: '/',

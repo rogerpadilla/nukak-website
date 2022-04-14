@@ -1,8 +1,8 @@
 export interface FileMetadata {
   id?: string;
   title?: string;
+  content?: string;
   weight?: number;
-  body?: string;
   group?: boolean;
 }
 
