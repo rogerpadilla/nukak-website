@@ -25,14 +25,35 @@ function theme() {
 }
 
 function sidenav() {
-    document.body.addEventListener('click', (evt) => {
-        const target = evt.target as HTMLElement;
+    const el = document.querySelector<HTMLElement>('#sidenav');
+    const style = getComputedStyle(el);
+    const top = style.getPropertyValue('--top');
+
+    const syncSidenavOpen = (target: HTMLElement) => requestAnimationFrame(() => {
         const sidenavToggler = target.closest('#sidenavToggler');
-        if (sidenavToggler) {
+        if (!sidenavToggler) {
+            state.isSidenavOpen = false;
+        }
+    });
+
+    const syncSidenavTop = (isResizing?: boolean) => requestAnimationFrame(() => {
+        if (!state.isSidenavOpen) {
             return;
         }
-        state.isSidenavOpen = false;
+        if (isResizing) {
+            if (window.innerWidth >= 960) {
+                el.style.top = top;
+                state.isSidenavOpen = false;
+            }
+        } else {
+            el.style.top = `${window.scrollY}px`;
+        }
     });
+
+    document.body.addEventListener('click', (evt) => syncSidenavOpen(evt.target as HTMLElement));
+    subscribeKey(state, 'isSidenavOpen', () => syncSidenavTop());
+    document.addEventListener('scroll', () => syncSidenavTop());
+    window.addEventListener('resize', () => syncSidenavTop(true));
 }
 
 if (typeof window !== 'undefined') {

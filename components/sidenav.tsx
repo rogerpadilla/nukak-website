@@ -10,7 +10,7 @@ export const Sidenav: React.FC<{ category: string; items: SidenavItem[] }> = ({ 
   const classes = [s.sidenav].concat(snap.isSidenavOpen ? [s.open] : []);
 
   return (
-    <aside className={classes.join(' ')}>
+    <aside className={classes.join(' ')} id="sidenav">
       <List category={category} items={items} />
     </aside>
   );
