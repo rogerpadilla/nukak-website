@@ -1,5 +1,6 @@
 import { proxy } from 'valtio';
 import { subscribeKey } from 'valtio/utils';
+import { Theme } from '../types';
 
 export const state = proxy({ isSidenavOpen: false, theme: 'dark' as Theme })
 
@@ -60,5 +61,3 @@ if (typeof window !== 'undefined') {
     theme();
     sidenav();
 }
-
-type Theme = 'dark' | 'light';

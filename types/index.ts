@@ -13,3 +13,5 @@ export interface SidenavItem {
   items?: SidenavItem[];
   isActive?: boolean;
 }
+
+export type Theme = 'dark' | 'light';
