@@ -37,15 +37,10 @@ function sidenav() {
         }
     });
 
-    const syncSidenavTop = (isResizing?: boolean) => requestAnimationFrame(() => {
-        if (!state.isSidenavOpen) {
-            return;
-        }
-        if (isResizing) {
-            if (window.innerWidth >= 960) {
-                el.style.top = top;
-                state.isSidenavOpen = false;
-            }
+    const syncSidenavTop = () => requestAnimationFrame(() => {
+        if (window.innerWidth >= 960) {
+            el.style.top = top;
+            state.isSidenavOpen = false;
         } else {
             el.style.top = `${window.scrollY}px`;
         }
@@ -54,7 +49,7 @@ function sidenav() {
     document.body.addEventListener('click', (evt) => syncSidenavOpen(evt.target as HTMLElement));
     subscribeKey(state, 'isSidenavOpen', () => syncSidenavTop());
     document.addEventListener('scroll', () => syncSidenavTop());
-    window.addEventListener('resize', () => syncSidenavTop(true));
+    window.addEventListener('resize', () => syncSidenavTop());
 }
 
 if (typeof window !== 'undefined') {

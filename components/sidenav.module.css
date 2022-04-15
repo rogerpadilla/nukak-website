@@ -38,7 +38,6 @@
 @media only screen and (max-width: 960px) {
   .sidenav {
     position: absolute;   
-    top: 0;
     transform: translateX(-100%);
     transition: transform var(--transition-duration) ease-in-out; 
   }
