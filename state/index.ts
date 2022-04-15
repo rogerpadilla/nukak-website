@@ -30,26 +30,32 @@ function sidenav() {
     const style = getComputedStyle(el);
     const top = style.getPropertyValue('--top');
 
-    const syncSidenavOpen = (target: HTMLElement) => requestAnimationFrame(() => {
+    document.body.addEventListener('click', (evt) => requestAnimationFrame(() => {
+        const target = evt.target as HTMLElement;
         const sidenavToggler = target.closest('#sidenavToggler');
         if (!sidenavToggler) {
             state.isSidenavOpen = false;
         }
-    });
+    }));
 
-    const syncSidenavTop = () => requestAnimationFrame(() => {
-        if (window.innerWidth >= 960) {
+    subscribeKey(state, 'isSidenavOpen', () => requestAnimationFrame(() => {
+        el.style.top = `${window.scrollY}px`;
+    }));
+
+    document.addEventListener('scroll', () => requestAnimationFrame(() => {
+        if (state.isSidenavOpen) {
+            el.style.top = `${window.scrollY}px`;
+        }
+    }));
+
+    window.addEventListener('resize', () => requestAnimationFrame(() => {
+        if (window.innerWidth > 960) {
             el.style.top = top;
             state.isSidenavOpen = false;
         } else {
             el.style.top = `${window.scrollY}px`;
         }
-    });
-
-    document.body.addEventListener('click', (evt) => syncSidenavOpen(evt.target as HTMLElement));
-    subscribeKey(state, 'isSidenavOpen', () => syncSidenavTop());
-    document.addEventListener('scroll', () => syncSidenavTop());
-    window.addEventListener('resize', () => syncSidenavTop());
+    }));
 }
 
 if (typeof window !== 'undefined') {
