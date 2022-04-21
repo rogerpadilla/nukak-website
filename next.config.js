@@ -1,6 +1,5 @@
 module.exports = {
   pageExtensions: ['tsx', 'md'],
-  swcMinify: true,
   redirects() {
     return [
       {
