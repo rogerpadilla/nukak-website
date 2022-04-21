@@ -17,7 +17,7 @@ export const Header: React.FC = () => (
       <ThemeToggler />
       <a
         className={s.item}
-        href="https://github.com/rogerpadilla/uql"
+        href="https://github.com/unthinkables/uql"
         title="github"
         target="_blank"
         rel="noopener noreferrer"
