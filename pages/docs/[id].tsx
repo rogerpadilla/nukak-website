@@ -1,36 +1,38 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import ReactMarkdown from 'react-markdown';
-// const images = require('remark-images');
-// import emoji from 'remark-emoji';
-import gfm from 'remark-gfm';
+import remarkGfm from 'remark-gfm';
 import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
 import { Code } from '../../components/code';
 import { getFiles } from '../../utils/files';
 import { buildSidenavItems } from '../../utils/ui';
-import { FileMetadata } from '../../types';
+import { FileMetadata, SidenavItem } from '../../types';
 import s from './[id].module.css';
 
 const components = {
   code: Code,
 } as const;
 
-export default function Doc({ id, docs }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const items = buildSidenavItems(docs, id);
-  const doc = docs.find((doc) => doc.id === id);
-  return (
-    <Layout title={doc.title}>
-      <Sidenav category="docs" items={items} />
-      <article className={s.article}>
-        <ReactMarkdown components={components} remarkPlugins={[gfm]}>
-          {doc.content}
-        </ReactMarkdown>
-        <Pager currentId={doc.id} items={docs} />
-      </article>
-    </Layout>
-  );
-}
+const Doc = ({ doc, items }: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <Layout title={doc.title}>
+    <Sidenav category="docs" items={items} />
+    <article className={s.article}>
+      <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+        {doc.content}
+      </ReactMarkdown>
+      <Pager currentId={doc.id} items={items} />
+    </article>
+  </Layout>
+);
+
+export const getStaticProps: GetStaticProps<{ doc: FileMetadata; items: SidenavItem[] }> = ({ params }) => {
+  const docs = getFiles();
+  const activeId = params.id as string;
+  const items = buildSidenavItems(docs, activeId);
+  const doc = docs.find((doc) => doc.id === activeId);
+  return { props: { doc, items } };
+};
 
 export const getStaticPaths: GetStaticPaths = () => {
   const docs = getFiles();
@@ -38,7 +40,4 @@ export const getStaticPaths: GetStaticPaths = () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps<{ id: string; docs: FileMetadata[] }> = ({ params }) => {
-  const docs = getFiles();
-  return { props: { id: params.id as string, docs } };
-};
+export default Doc;
