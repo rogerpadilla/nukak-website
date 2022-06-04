@@ -97,11 +97,11 @@ export class Profile extends BaseEntity {
    * columns/relations from its parent entity.
    */
   @Id()
-  override pk?: number;
+  pk?: number;
   @Field({ name: 'image' })
   picture?: string;
   @OneToOne({ entity: () => User })
-  override creator?: IUser;
+  declare creator?: IUser;
 }
 
 @Entity()
