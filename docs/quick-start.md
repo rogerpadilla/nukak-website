@@ -68,7 +68,7 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
 ```ts
-import { setDefaultQuerierPool } from '@uql/core';
+import { setQuerierPool } from '@uql/core';
 import { PgQuerierPool } from '@uql/postgres';
 
 const querierPool = new PgQuerierPool(
@@ -82,7 +82,7 @@ const querierPool = new PgQuerierPool(
   console.log
 );
 
-setDefaultQuerierPool(querierPool);
+setQuerierPool(querierPool);
 ```
 
 ## Definition of Entities
