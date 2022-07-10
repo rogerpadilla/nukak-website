@@ -11,7 +11,7 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "next": "^12.2.0",
+    "next": "^12.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",
@@ -19,10 +19,10 @@
     "valtio": "^1.6.1"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/react": "^18.0.14",
+    "@types/node": "^18.0.3",
+    "@types/react": "^18.0.15",
     "eslint": "8.19.0",
-    "eslint-config-next": "12.2.0",
+    "eslint-config-next": "12.2.2",
     "gray-matter": "^4.0.3",
     "remark-gfm": "^3.0.1",
     "ts-node": "^10.8.2",
