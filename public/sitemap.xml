@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-        <loc>https://uql.io</loc>
+        <loc>https://nukak.org</loc>
         <lastmod>2022-07-10</lastmod>
       </url>
       
             <url>
-              <loc>https://uql.io/docs/api-querier</loc>
+              <loc>https://nukak.org/docs/api-querier</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/api-repository</loc>
+              <loc>https://nukak.org/docs/api-repository</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/client</loc>
+              <loc>https://nukak.org/docs/client</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/entities-advanced</loc>
+              <loc>https://nukak.org/docs/entities-advanced</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/entities-soft-delete</loc>
+              <loc>https://nukak.org/docs/entities-soft-delete</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/entities-virtual-fields</loc>
+              <loc>https://nukak.org/docs/entities-virtual-fields</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/express-integration</loc>
+              <loc>https://nukak.org/docs/express-integration</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/querying-comparison-operators</loc>
+              <loc>https://nukak.org/docs/querying-comparison-operators</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/querying-logical-operators</loc>
+              <loc>https://nukak.org/docs/querying-logical-operators</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/querying-retrieve-relations</loc>
+              <loc>https://nukak.org/docs/querying-retrieve-relations</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/querying-sub-queries</loc>
+              <loc>https://nukak.org/docs/querying-sub-queries</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/quick-start</loc>
+              <loc>https://nukak.org/docs/quick-start</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/transactions-declarative</loc>
+              <loc>https://nukak.org/docs/transactions-declarative</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           
             <url>
-              <loc>https://uql.io/docs/transactions-imperative</loc>
+              <loc>https://nukak.org/docs/transactions-imperative</loc>
               <lastmod>2022-07-10</lastmod>
             </url>
           

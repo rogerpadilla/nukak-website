@@ -8,7 +8,7 @@ group: true
 `$project` a `raw` expression:
 
 ```ts
-import { raw } from '@uql/core/util';
+import { raw } from 'nukak/util';
 
 this.querier.findMany(Item, {
   $project: {
@@ -30,7 +30,7 @@ SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
 `$filter` by a `raw` expression:
 
 ```ts
-import { raw } from '@uql/core/util';
+import { raw } from 'nukak/util';
 
 await this.querier.findMany(Item, {
   $project: ['id'],
@@ -50,7 +50,7 @@ SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY 
 `$nexists` comparison operator:
 
 ```ts
-import { raw } from '@uql/core/util';
+import { raw } from 'nukak/util';
 
 await this.querier.findMany(Item, {
   $project: {

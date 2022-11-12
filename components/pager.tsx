@@ -11,18 +11,14 @@ export const Pager: React.FC<{ currentId: string; items: FileMetadata[] }> = ({ 
   return (
     <div className={s.pager}>
       {prev && (
-        <Link href={`/docs/${prev.id}`}>
-          <a className={s.prev} title="previous">
-            {prev.title}
-          </a>
+        <Link href={`/docs/${prev.id}`} className={s.prev} title="previous">
+          {prev.title}
         </Link>
       )}
       {prev && next && '|'}
       {next && (
-        <Link href={`/docs/${next.id}`}>
-          <a className={s.next} title="next">
-            {next.title}
-          </a>
+        <Link href={`/docs/${next.id}`} className={s.next} title="next">
+          {next.title}
         </Link>
       )}
     </div>

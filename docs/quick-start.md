@@ -4,19 +4,19 @@ weight: 10
 
 # Quick Start
 
-`uql` is a flexible and efficient `ORM`, with declarative `JSON` syntax and really smart type-safety.
+`nukak` is a flexible and efficient `ORM`, with declarative `JSON` syntax and really smart type-safety.
 
-The `uql` queries can be safely written in the frontend (browser/mobile) and sent to the backend; or only use `uql` in the backend, or even in a mobile app with an embedded database (like `sqlite`).
+The `nukak` queries can be safely written in the frontend (browser/mobile) and sent to the backend; or only use `nukak` in the backend, or even in a mobile app with an embedded database (like `sqlite`).
 
 ## Features
 
-- `JSON` (serializable) syntax for all the [queries](https://uql.io/docs/querying-logical-operators).
-- uses the power of `TypeScript` to get smart type-safety [everywhere](https://uql.io/docs/api-repository).
-- the generated queries are [performant](https://uql.io/docs/querying-retrieve-relations), safe, and human-readable.
-- `$project`, `$filter`, `$sort`, `$limit` works at [multiple levels](https://uql.io/docs/querying-retrieve-relations) (including deep relations and their fields).
-- [declarative](https://uql.io/docs/transactions-declarative) and [imperative](https://uql.io/docs/transactions-imperative) `transactions`.
-- [soft-delete](https://uql.io/docs/entities-soft-delete), [virtual fields](https://uql.io/docs/entities-virtual-fields), [repositories](https://uql.io/docs/api-repository), `connection pooling`.
-- transparent support for [inheritance](https://uql.io/docs/entities-advanced) between entities.
+- `JSON` (serializable) syntax for all the [queries](https://nukak.org/docs/querying-logical-operators).
+- uses the power of `TypeScript` to get smart type-safety [everywhere](https://nukak.org/docs/api-repository).
+- the generated queries are [performant](https://nukak.org/docs/querying-retrieve-relations), safe, and human-readable.
+- `$project`, `$filter`, `$sort`, `$limit` works at [multiple levels](https://nukak.org/docs/querying-retrieve-relations) (including deep relations and their fields).
+- [declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions`.
+- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/api-repository), `connection pooling`.
+- transparent support for [inheritance](https://nukak.org/docs/entities-advanced) between entities.
 - supports `Postgres`, `MySQL`, `MariaDB`, `SQLite`, `MongoDB`.
 
 ## Installation
@@ -24,35 +24,35 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
 1. Install the core package:
 
    ```sh
-   npm install @uql/core --save
+   npm install nukak --save
    ```
 
    or
 
    ```sh
-   yarn add @uql/core
+   yarn add nukak
    ```
 
 2. Install one of the specific packages according to your database:
 
    | Database     | Package         |
    | ------------ | --------------- |
-   | `MySQL`      | `@uql/mysql`    |
-   | `PostgreSQL` | `@uql/postgres` |
-   | `MariaDB`    | `@uql/maria`    |
-   | `MongoDB`    | `@uql/mongo`    |
-   | `SQLite`     | `@uql/sqlite`   |
+   | `MySQL`      | `nukak-mysql`    |
+   | `PostgreSQL` | `nukak-postgres` |
+   | `MariaDB`    | `nukak-maria`    |
+   | `MongoDB`    | `nukak-mongo`    |
+   | `SQLite`     | `nukak-sqlite`   |
 
    E.g. for `PostgreSQL`
 
    ```sh
-   npm install @uql/postgres --save
+   npm install nukak-postgres --save
    ```
 
    or with _yarn_
 
    ```sh
-   yarn add @uql/postgres
+   yarn add nukak-postgres
    ```
 
 3. Additionally, your `tsconfig.json` may need the following flags:
@@ -68,8 +68,8 @@ The `uql` queries can be safely written in the frontend (browser/mobile) and sen
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
 ```ts
-import { setQuerierPool } from '@uql/core';
-import { PgQuerierPool } from '@uql/postgres';
+import { setQuerierPool } from 'nukak';
+import { PgQuerierPool } from 'nukak-postgres';
 
 const querierPool = new PgQuerierPool(
   {
@@ -87,11 +87,11 @@ setQuerierPool(querierPool);
 
 ## Definition of Entities
 
-Take any dump class (aka DTO) and annotate it with the decorators from `'@uql/core/entity'`.
+Take any dump class (aka DTO) and annotate it with the decorators from `'nukak/entity'`.
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
-import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from '@uql/core/entity';
+import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity';
 
 @Entity()
 export class Profile {
@@ -154,7 +154,7 @@ export class MeasureUnit {
 ## Query the data
 
 ```ts
-import { getQuerier } from '@uql/core';
+import { getQuerier } from 'nukak';
 import { User } from './entity';
 
 const querier = await getQuerier();

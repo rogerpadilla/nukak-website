@@ -7,17 +7,15 @@ import { state } from '../state';
 export const Header: React.FC = () => (
   <header className={s.header}>
     <nav className={s.nav}>
-      <Link href="/docs/quick-start">
-        <a className={[s.item, s.logo].join(' ')}>
-          <Image src="/logo.svg" width="28" height="28" alt="uql" />
-          <span>uql</span>
-        </a>
+      <Link href="/docs/quick-start" className={[s.item, s.logo].join(' ')}>
+        <Image src="/logo.svg" width="28" height="28" alt="nukak" />
+        <span>nukak</span>
       </Link>
       <SidenavToggler />
       <ThemeToggler />
       <a
         className={s.item}
-        href="https://github.com/rogerpadilla/uql"
+        href="https://github.com/rogerpadilla/nukak"
         title="github"
         target="_blank"
         rel="noopener noreferrer"
@@ -26,7 +24,7 @@ export const Header: React.FC = () => (
       </a>
       <a
         className={s.item}
-        href="https://www.npmjs.com/package/@uql/core"
+        href="https://www.npmjs.com/package/nukak"
         title="npm"
         target="_blank"
         rel="noopener noreferrer"
@@ -61,12 +59,7 @@ function ThemeToggler() {
   };
 
   return (
-    <label
-      className={s.themeToggler}
-      htmlFor="themeToggler"
-      title="toggle dark theme"
-      onClick={toggleTheme}
-    >
+    <label className={s.themeToggler} htmlFor="themeToggler" title="toggle dark theme" onClick={toggleTheme}>
       <input type="checkbox" onChange={() => undefined} checked={snap.theme === 'dark'} />
       <span className={s.themeTogglerSwitcher}></span>
     </label>

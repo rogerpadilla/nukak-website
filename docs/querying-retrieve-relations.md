@@ -38,7 +38,7 @@ ORDER BY `User.createdAt` DESC
 Simple query using `getQuerier()`:
 
 ```ts
-import { getQuerier } from '@uql/core';
+import { getQuerier } from 'nukak';
 
 async function findLatestUserWithProfile(): Promise<User> {
   const querier = await getQuerier();

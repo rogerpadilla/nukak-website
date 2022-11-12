@@ -13,8 +13,8 @@ To use Declarative Transactions (using the `@Transactional` decorator):
 2. inject the querier instance by decorating one of the function's arguments with `@InjectQuerier`.
 
 ```ts
-import { Querier } from '@uql/core/type';
-import { Transactional, InjectQuerier } from '@uql/core/querier';
+import { Querier } from 'nukak/type';
+import { Transactional, InjectQuerier } from 'nukak/querier';
 
 class ConfirmationService {
   @Transactional()

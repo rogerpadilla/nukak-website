@@ -9,19 +9,19 @@ A client plugin (for browser/mobile) is provided to easily consume the REST APIs
 1. Install client plugin in your frontend project:
 
 ```sh
-npm install @uql/client --save
+npm install nukak-browser --save
 ```
 
 or with _yarn_
 
 ```sh
-yarn add @uql/client
+yarn add nukak-browser
 ```
 
-2. Use the client to call the `uql` CRUD API
+2. Use the client to call the `nukak` CRUD API
 
 ```ts
-import { getRepository } from '@uql/client';
+import { getRepository } from 'nukak-browser';
 
 // 'User' is an entity class.
 const userRepository = getRepository(User);

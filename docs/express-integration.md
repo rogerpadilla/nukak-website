@@ -10,21 +10,21 @@ A `express` plugin is provided to automatically generate REST APIs for your enti
 1. Install express plugin in your server project:
 
 ```sh
-npm install @uql/express --save
+npm install nukak-express --save
 ```
 
 or with _yarn_
 
 ```sh
-yarn add @uql/express
+yarn add nukak-express
 ```
 
 1. Initialize the `express` middleware in your server code to generate REST APIs for your entities
 
 ```ts
 import * as express from 'express';
-import { Query, QueryFilter, EntityMeta } from '@uql/core/type';
-import { querierMiddleware } from '@uql/express';
+import { Query, QueryFilter, EntityMeta } from 'nukak/type';
+import { querierMiddleware } from 'nukak-express';
 
 const app = express();
 

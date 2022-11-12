@@ -14,7 +14,7 @@ To use Imperative Transactions:
 3. perform the different operations using the same `querier` (or `repositories`) inside your `callback` function.
 
 ```ts
-import { getQuerier } from '@uql/core';
+import { getQuerier } from 'nukak';
 
 async function confirm(confirmation: Confirmation): Promise<void> {
   const querier = await getQuerier();
