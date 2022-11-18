@@ -1,6 +1,5 @@
 ---
 weight: 200
-group: true
 ---
 
 # Repository API

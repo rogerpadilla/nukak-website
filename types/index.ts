@@ -3,7 +3,7 @@ export interface FileMetadata {
   title?: string;
   content?: string;
   weight?: number;
-  group?: boolean;
+  root?: boolean;
 }
 
 export interface SidenavItem {

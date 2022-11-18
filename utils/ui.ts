@@ -3,7 +3,9 @@ import { FileMetadata, SidenavItem } from '../types';
 export function buildSidenavItems(items: FileMetadata[], activeId: string): SidenavItem[] {
   return items.reduce((acc, it) => {
     const isActive = it.id === activeId;
-    if (it.group) {
+    if (it.root) {
+      acc.push({ ...it, isActive });      
+    } else {
       const titleParts = it.title.split(' ');
       const groupTitle = titleParts[0];
       const itemTitle = titleParts.slice(1).join(' ');
@@ -14,8 +16,6 @@ export function buildSidenavItems(items: FileMetadata[], activeId: string): Side
         acc.push(group);
       }
       group.items.push({ ...it, title: itemTitle, isActive });
-    } else {
-      acc.push({ ...it, isActive });
     }
     return acc;
   }, [] as SidenavItem[]);

@@ -1,6 +1,5 @@
 ---
 weight: 110
-group: true
 ---
 
 # Logical Operators

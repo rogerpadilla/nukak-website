@@ -1,6 +1,5 @@
 ---
 weight: 170
-group: true
 ---
 
 # Declarative Transactions
@@ -13,10 +12,11 @@ To use Declarative Transactions (using the `@Transactional` decorator):
 2. inject the querier instance by decorating one of the function's arguments with `@InjectQuerier`.
 
 ```ts
-import { Querier } from 'nukak/type';
+import { Querier } from 'nukak';
 import { Transactional, InjectQuerier } from 'nukak/querier';
+import { User, Confirmation } from './shared/models';
 
-class ConfirmationService {
+export class ConfirmationService {
   @Transactional()
   async confirm(confirmation: Confirmation, @InjectQuerier() querier?: Querier): Promise<void> {
     if (confirmation.type === 'register') {

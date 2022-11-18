@@ -1,6 +1,5 @@
 ---
 weight: 70
-group: true
 ---
 
 # Soft Delete

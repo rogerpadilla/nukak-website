@@ -1,6 +1,5 @@
 ---
 weight: 190
-group: true
 ---
 
 # Querier API

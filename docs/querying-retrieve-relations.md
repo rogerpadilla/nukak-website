@@ -1,6 +1,5 @@
 ---
 weight: 150
-group: true
 ---
 
 # Easily retrieve relations
@@ -10,17 +9,17 @@ group: true
 ```ts
 @Transactional()
 async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
-    return querier.findOne(User, {
-        $project: {
-          id: true,
-          name: true,
-          profile: {
-            $project: ['id', 'picture'],
-            $required: true
-          }
-        },
-        $sort: { createdAt: -1 },
-    });
+  return querier.findOne(User, {
+    $project: {
+      id: true,
+      name: true,
+      profile: {
+        $project: ['id', 'picture'],
+        $required: true
+      }
+    },
+    $sort: { createdAt: -1 },
+  });
 }
 ```
 
@@ -69,24 +68,32 @@ ORDER BY `User.createdAt` DESC
 More complex queries can be used, like the following:
 
 ```ts
-@Transactional()
-async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
+import { Querier } from 'nukak';
+import { Transactional, InjectQuerier } from 'nukak/querier';
+import { Item } from './shared/models';
+
+export class ItemService {
+  @Transactional()
+  async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
     return querier.findMany(Item, {
-        $project: {
-          id: true,
-          name: true,
-          measureUnit: {
-            $project: ['id', 'name'],
-            $filter: { name: { $ne: 'unidad' } },
-            $required: true
-          },
-          tax: ['id', 'name'],
+      $project: {
+        id: true,
+        name: true,
+        measureUnit: {
+          $project: ['id', 'name'],
+          $filter: { name: { $ne: 'unidad' } },
+          $required: true
         },
-        $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
-        $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
-        $limit: 100,
+        tax: ['id', 'name'],
+      },
+      $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
+      $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
+      $limit: 100,
     });
+  }
 }
+
+export const itemService = new ItemService();
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:

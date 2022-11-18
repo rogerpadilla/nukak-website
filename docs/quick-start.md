@@ -1,5 +1,6 @@
 ---
 weight: 10
+root: true
 ---
 
 # Quick Start
@@ -33,26 +34,26 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
    yarn add nukak
    ```
 
-2. Install one of the specific packages according to your database:
+2. Install a database driver according to your database:
 
-   | Database     | Package         |
-   | ------------ | --------------- |
-   | `MySQL`      | `nukak-mysql`    |
-   | `PostgreSQL` | `nukak-postgres` |
-   | `MariaDB`    | `nukak-maria`    |
-   | `MongoDB`    | `nukak-mongo`    |
-   | `SQLite`     | `nukak-sqlite`   |
+   | Database     | Package   |
+   | ------------ | --------- |
+   | `MySQL`      | `mysql2`  |
+   | `PostgreSQL` | `pg`      |
+   | `MariaDB`    | `mariadb` |
+   | `MongoDB`    | `mongodb` |
+   | `SQLite`     | `sqlite3` |
 
    E.g. for `PostgreSQL`
 
    ```sh
-   npm install nukak-postgres --save
+   npm install pg --save
    ```
 
    or with _yarn_
 
    ```sh
-   yarn add nukak-postgres
+   yarn add pg
    ```
 
 3. Additionally, your `tsconfig.json` may need the following flags:
@@ -69,9 +70,9 @@ A default querier-pool can be set in any of the bootstrap files of your app (e.g
 
 ```ts
 import { setQuerierPool } from 'nukak';
-import { PgQuerierPool } from 'nukak-postgres';
+import { PgQuerierPool } from 'nukak/postgres';
 
-const querierPool = new PgQuerierPool(
+export const querierPool = new PgQuerierPool(
   {
     host: 'localhost',
     user: 'theUser',
@@ -82,6 +83,7 @@ const querierPool = new PgQuerierPool(
   console.log
 );
 
+// the default querier pool that `nukak` will use
 setQuerierPool(querierPool);
 ```
 
@@ -155,21 +157,18 @@ export class MeasureUnit {
 
 ```ts
 import { getQuerier } from 'nukak';
-import { User } from './entity';
+import { Transactional, InjectQuerier } from 'nukak/querier';
+import { User } from './shared/models';
 
-const querier = await getQuerier();
-
-const id = await this.querier.insertOne(User, {
-  email: 'lorem@example.com',
-  profile: { picture: 'ipsum.jpg' },
-});
-
-const users = await querier.findMany(User, {
-  $project: { id: true, email: true, profile: ['picture'] },
-  $filter: { email: { $iendsWith: '@google.com' } },
-  $sort: { createdAt: -1 },
-  $limit: 100,
-});
-
-await querier.release();
+export class UserService {
+  @Transactional()
+  async getUsers(@InjectQuerier() querier?: Querier): Promise<User[]> {
+    return querier.findMany(User, {
+      $project: { id: true, email: true, profile: ['picture'] },
+      $filter: { email: { $iendsWith: '@google.com' } },
+      $sort: { createdAt: -1 },
+      $limit: 100,
+    });
+  }
+}
 ```

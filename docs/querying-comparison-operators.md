@@ -1,6 +1,5 @@
 ---
 weight: 130
-group: true
 ---
 
 # Comparison Operators

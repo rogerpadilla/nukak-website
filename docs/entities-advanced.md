@@ -1,6 +1,5 @@
 ---
 weight: 90
-group: true
 ---
 
 # Advanced Entities

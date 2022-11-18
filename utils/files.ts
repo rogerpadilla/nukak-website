@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { titleCase } from './strings';
 import { FileMetadata } from '../types';
 
 const docsDirectory = path.join(process.cwd(), 'docs');
@@ -32,4 +31,12 @@ export function getFile(id: string): FileMetadata {
   const { content, data } = matter(fileContents);
   const doc: FileMetadata = { id, title, content, ...data };
   return doc;
+}
+
+function titleCase(text: string): string {
+  const acronyms: { [p: string]: true } = { api: true };
+  return text
+    .split(/-/)
+    .map((word) => (acronyms[word] ? word.toUpperCase() : word[0].toUpperCase() + word.slice(1)))
+    .join(' ');
 }
