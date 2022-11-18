@@ -1,12 +1,17 @@
 import Link from 'next/link';
-import { FileMetadata } from '../types';
-
+import { SidenavItem } from '../types';
 import s from './pager.module.css';
 
-export const Pager: React.FC<{ currentId: string; items: FileMetadata[] }> = ({ currentId, items }) => {
-  const index = items.findIndex((it) => it.id === currentId);
-  const prev = items[index - 1];
-  const next = items[index + 1];
+export const Pager: React.FC<{ currentId: string; items: SidenavItem[] }> = ({ currentId, items }) => {
+  const flatItems = items.reduce((acc, item) => {
+    if (item.items) {
+      acc.push(...item.items);
+    }
+    return acc;
+  }, items.slice());
+  const index = flatItems.findIndex((it) => it.id === currentId);
+  const prev = flatItems[index - 1];
+  const next = flatItems[index + 1];
 
   return (
     <div className={s.pager}>

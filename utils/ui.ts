@@ -9,13 +9,13 @@ export function buildSidenavItems(items: FileMetadata[], activeId: string): Side
       const titleParts = it.title.split(' ');
       const groupTitle = titleParts[0];
       const itemTitle = titleParts.slice(1).join(' ');
-      let group = acc.find((it) => it.title === groupTitle);
-      if (!group) {
+      let parent = acc.find((it) => it.title === groupTitle);
+      if (!parent) {
         const isActive = it.id.split('-')[0] === activeId.split('-')[0];
-        group = { ...it, title: groupTitle, items: [], isActive };
-        acc.push(group);
+        parent = { ...it, title: groupTitle, items: [], isActive };
+        acc.push(parent);
       }
-      group.items.push({ ...it, title: itemTitle, isActive });
+      parent.items.push({ ...it, title: itemTitle, isActive });
     }
     return acc;
   }, [] as SidenavItem[]);

@@ -6,10 +6,7 @@ export interface FileMetadata {
   root?: boolean;
 }
 
-export interface SidenavItem {
-  id?: string;
-  title?: string;
-  weight?: number;
+export interface SidenavItem extends FileMetadata {
   items?: SidenavItem[];
   isActive?: boolean;
 }

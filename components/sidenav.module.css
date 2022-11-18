@@ -19,12 +19,17 @@
   margin: 0;
 }
 
-.sidenav li.active > a {
-  color: var(--link-color--active);
+.sidenav li {
+  margin: 0;
+  margin-top: 0.3rem;
 }
 
-.sidenav li li {
-  margin: 0;
+.sidenav > ul > li {
+  margin-top: 1.0rem;
+}
+
+.sidenav li.active > a {
+  color: var(--link-color--active);
 }
 
 .sidenav li a {

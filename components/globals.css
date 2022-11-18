@@ -8,8 +8,8 @@
   --light-tr-bg--odd: #f6f8fa;
   --light-header-bg: #135c8d;
 
-  --dark-bg: #2a3863;
   --dark-color: #E4D9F9;
+  --dark-bg: #14224E;
   --dark-sidenav-bg: #14224E;
   --dark-link-color: #a75c00;
   --dark-link-color--active: #bd9234;
@@ -27,7 +27,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.4;
   font-size: 18px;
 }
 
