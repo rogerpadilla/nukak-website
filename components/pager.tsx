@@ -3,12 +3,14 @@ import { SidenavItem } from '../types';
 import s from './pager.module.css';
 
 export const Pager: React.FC<{ currentId: string; items: SidenavItem[] }> = ({ currentId, items }) => {
-  const flatItems = items.reduce((acc, item) => {
+  const flatItems = items.reduce((acc, item) => {    
     if (item.items) {
       acc.push(...item.items);
+    } else {
+      acc.push(item);
     }
     return acc;
-  }, items.slice());
+  }, [] as SidenavItem[]);
   const index = flatItems.findIndex((it) => it.id === currentId);
   const prev = flatItems[index - 1];
   const next = flatItems[index + 1];
