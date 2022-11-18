@@ -44,7 +44,7 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
    | `MongoDB`    | `mongodb` |
    | `SQLite`     | `sqlite3` |
 
-   E.g. for `PostgreSQL`
+   E.g. use `pg` for `Postgres` DB
 
    ```sh
    npm install pg --save
