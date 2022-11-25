@@ -18,7 +18,7 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 - [declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions`.
 - [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/api-repository), `connection pooling`.
 - transparent support for [inheritance](https://nukak.org/docs/entities-advanced) between entities.
-- supports `Postgres`, `MySQL`, `MariaDB`, `SQLite`, `MongoDB`.
+- supports `MySQL`, `MariaDB`, `SQLite`, `Postgres`, `MongoDB`.
 
 ## Installation
 
@@ -28,27 +28,21 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
    npm install nukak --save
    ```
 
-   or
+2. Install one of the specific adapters for your database:
 
-   ```sh
-   yarn add nukak
-   ```
+  | Database     | Driver           | Nukak Adapter    |
+  | ------------ | ---------------- | ---------------- |
+  | `MySQL`      | `mysql2`         | `nukak-mysql`    |
+  | `MariaDB`    | `mariadb`        | `nukak-maria`    |
+  | `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
+  | `PostgreSQL` | `pg`             | `nukak-postgres` |
+  | `MongoDB`    | `mongodb`        | `nukak-mongo`    |
 
-2. Install a database driver according to your database:
+  For example, for `Postgres`:
 
-   | Database     | Package   |
-   | ------------ | --------- |
-   | `MySQL`      | `nukak-mysql`  |
-   | `PostgreSQL` | `nukak-postgres`      |
-   | `MariaDB`    | `nukak-maria` |
-   | `MongoDB`    | `nukak-mongo` |
-   | `SQLite`     | `nukak-sqlite` |
-
-   E.g. for `Postgres`
-
-   ```sh
-   npm install nukak-postgres --save
-   ```
+  ```sh
+  npm install pg nukak-postgres --save
+  ```
 
 3. Additionally, your `tsconfig.json` may need the following flags:
 
