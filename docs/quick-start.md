@@ -38,22 +38,16 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 
    | Database     | Package   |
    | ------------ | --------- |
-   | `MySQL`      | `mysql2`  |
-   | `PostgreSQL` | `pg`      |
-   | `MariaDB`    | `mariadb` |
-   | `MongoDB`    | `mongodb` |
-   | `SQLite`     | `sqlite3` |
+   | `MySQL`      | `nukak-mysql`  |
+   | `PostgreSQL` | `nukak-postgres`      |
+   | `MariaDB`    | `nukak-maria` |
+   | `MongoDB`    | `nukak-mongo` |
+   | `SQLite`     | `nukak-sqlite` |
 
-   E.g. use `pg` for `Postgres` DB
-
-   ```sh
-   npm install pg --save
-   ```
-
-   or with _yarn_
+   E.g. for `Postgres`
 
    ```sh
-   yarn add pg
+   npm install nukak-postgres --save
    ```
 
 3. Additionally, your `tsconfig.json` may need the following flags:
@@ -70,7 +64,7 @@ A default querier-pool can be set in any of the bootstrap files of your app (e.g
 
 ```ts
 import { setQuerierPool } from 'nukak';
-import { PgQuerierPool } from 'nukak/postgres';
+import { PgQuerierPool } from 'nukak-postgres';
 
 export const querierPool = new PgQuerierPool(
   {
@@ -89,11 +83,11 @@ setQuerierPool(querierPool);
 
 ## Definition of Entities
 
-Take any dump class (aka DTO) and annotate it with the decorators from `'nukak/entity'`.
+Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
-import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity';
+import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity/index.js';
 
 @Entity()
 export class Profile {
@@ -157,8 +151,8 @@ export class MeasureUnit {
 
 ```ts
 import { getQuerier } from 'nukak';
-import { Transactional, InjectQuerier } from 'nukak/querier';
-import { User } from './shared/models';
+import { Transactional, InjectQuerier } from 'nukak/querier/index.js';
+import { User } from './shared/models/index.js';
 
 export class UserService {
   @Transactional()

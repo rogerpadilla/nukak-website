@@ -69,8 +69,8 @@ More complex queries can be used, like the following:
 
 ```ts
 import { Querier } from 'nukak';
-import { Transactional, InjectQuerier } from 'nukak/querier';
-import { Item } from './shared/models';
+import { Transactional, InjectQuerier } from 'nukak/querier/index.js';
+import { Item } from './shared/models/index.js';
 
 export class ItemService {
   @Transactional()

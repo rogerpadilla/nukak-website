@@ -13,8 +13,8 @@ To use Declarative Transactions (using the `@Transactional` decorator):
 
 ```ts
 import { Querier } from 'nukak';
-import { Transactional, InjectQuerier } from 'nukak/querier';
-import { User, Confirmation } from './shared/models';
+import { Transactional, InjectQuerier } from 'nukak/querier/index.js';
+import { User, Confirmation } from './shared/models/index.js';
 
 export class ConfirmationService {
   @Transactional()
