@@ -16,17 +16,7 @@
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/entities-advanced</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/entities-soft-delete</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/entities-virtual-fields</loc>
+              <loc>https://nukak.org/docs/index</loc>
               <lastmod>2022-12-03</lastmod>
             </url>
           
@@ -37,41 +27,6 @@
           
             <url>
               <loc>https://nukak.org/docs/plugins-express</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/querying-comparison-operators</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/querying-logical-operators</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/querying-retrieve-relations</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/querying-sub-queries</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/quick-start</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/transactions-declarative</loc>
-              <lastmod>2022-12-03</lastmod>
-            </url>
-          
-            <url>
-              <loc>https://nukak.org/docs/transactions-imperative</loc>
               <lastmod>2022-12-03</lastmod>
             </url>
           

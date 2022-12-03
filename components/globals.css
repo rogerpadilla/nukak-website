@@ -116,6 +116,13 @@ a:hover {
   transition: color var(--transition-duration--fast) ease-in-out;
 }
 
+h1 a, h2 a, h3 a {
+  color: inherit;
+}
+h1 a:hover, h2 a:hover, h3 a:hover {
+  color: inherit;
+}
+
 img {
   max-width: 100%;
   display: block;

@@ -2,7 +2,7 @@
 weight: 150
 ---
 
-# Easily retrieve relations
+## Querying relations
 
 `$project` a mandatory relation (via `$required: true`):
 

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SidenavItem } from '../types';
+import type { SidenavItem } from '../types';
 import { state } from '../state';
 import { useSnapshot } from 'valtio';
 import s from './sidenav.module.css';

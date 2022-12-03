@@ -1,8 +1,8 @@
 ---
-weight: 90
+weight: 100
 ---
 
-# Advanced Entities
+## Inheritance between entities
 
 The inline comments in the code below have concise descriptions of advanced use cases.
 

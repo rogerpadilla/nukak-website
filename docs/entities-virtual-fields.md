@@ -2,7 +2,7 @@
 weight: 80
 ---
 
-# Virtual Fields
+## Virtual-Fields for entities
 
 The `virtual` property of the `@Field` decorator can be used as below:
 
@@ -81,7 +81,7 @@ export class ItemTag {
 }
 ```
 
----
+&nbsp;
 
 If we `$project` the `tagsCount` virtual-column:
 
@@ -103,7 +103,7 @@ SELECT
 FROM `Item`
 ```
 
----
+&nbsp;
 
 If we `$filter` by the `tagsCount` virtual-column:
 

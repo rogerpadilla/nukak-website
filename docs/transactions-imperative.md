@@ -2,7 +2,7 @@
 weight: 190
 ---
 
-# Imperative Transactions
+## Imperative Transactions
 
 Both, _declarative_ and _imperative_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
 

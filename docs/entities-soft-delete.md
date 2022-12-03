@@ -2,7 +2,7 @@
 weight: 70
 ---
 
-# Soft Delete
+## Soft-Delete for entities
 
 The `softDelete` property of the `@Entity` decorator can be used as below.
 
@@ -27,7 +27,7 @@ export class MeasureUnitCategory {
 }
 ```
 
----
+&nbsp;
 
 If we delete a record for that entity, it will be soft-deleted, and won't be load by the `find` operations:
 
@@ -41,7 +41,7 @@ That &#9650; code will generate this &#9660; `SQL`:
 UPDATE `MeasureUnitCategory` SET `deletedAt` = 1627344820381 WHERE `id` 1
 ```
 
----
+&nbsp;
 
 And if we perform any `find` operation for that entity, the soft-deleted records won't be loaded (by default):
 

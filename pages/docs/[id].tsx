@@ -1,13 +1,17 @@
-import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
+import type { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+// import rehypeRaw from 'rehype-raw';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { Layout } from '../../components/layout';
 import { Sidenav } from '../../components/sidenav';
 import { Pager } from '../../components/pager';
 import { Code } from '../../components/code';
 import { getFiles } from '../../utils/files';
 import { buildSidenavItems } from '../../utils/ui';
-import { FileMetadata, SidenavItem } from '../../types';
+import { Badges } from '../../components/badges';
+import type { FileMetadata, SidenavItem } from '../../types';
 import s from './[id].module.css';
 
 const components = {
@@ -18,7 +22,12 @@ const Doc = ({ doc, items }: InferGetStaticPropsType<typeof getStaticProps>) => 
   <Layout title={doc.title}>
     <Sidenav category="docs" items={items} />
     <article className={s.article}>
-      <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+      <Badges />
+      <ReactMarkdown
+        components={components}
+        rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
+        remarkPlugins={[remarkGfm]}
+      >
         {doc.content}
       </ReactMarkdown>
       <Pager currentId={doc.id} items={items} />

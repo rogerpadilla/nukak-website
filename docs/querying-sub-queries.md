@@ -2,7 +2,7 @@
 weight: 170
 ---
 
-# Sub Queries
+## Sub-Queries
 
 `$project` a `raw` expression:
 

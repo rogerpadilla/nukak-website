@@ -2,7 +2,7 @@
 weight: 130
 ---
 
-# Comparison Operators
+## Comparison Operators
 
 | Name           | Description                                                                        |
 | -------------- | ---------------------------------------------------------------------------------- |

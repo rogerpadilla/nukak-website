@@ -7,7 +7,7 @@ import { state } from '../state';
 export const Header: React.FC = () => (
   <header className={s.header}>
     <nav className={s.nav}>
-      <Link href="/docs/quick-start" className={[s.item, s.logo].join(' ')}>
+      <Link href="/docs" className={[s.item, s.logo].join(' ')}>
         <Image src="/logo.svg" width="28" height="28" alt="nukak" />
         <span>nukak</span>
       </Link>
@@ -21,15 +21,6 @@ export const Header: React.FC = () => (
         rel="noopener noreferrer"
       >
         <Image src="/github-logo.svg" width="20" height="20" alt="github" />
-      </a>
-      <a
-        className={s.item}
-        href="https://www.npmjs.com/package/nukak"
-        title="npm"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image src="/npm-logo.webp" width="28" height="28" alt="npm" />
       </a>
     </nav>
   </header>

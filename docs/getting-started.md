@@ -1,9 +1,7 @@
 ---
-weight: 10
+weight: 1
 root: true
 ---
-
-# Quick Start
 
 `nukak` is a flexible and efficient `ORM`, with declarative `JSON` syntax and really smart type-safety.
 
@@ -20,7 +18,7 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 - transparent support for [inheritance](https://nukak.org/docs/entities-advanced) between entities.
 - supports `MySQL`, `MariaDB`, `SQLite`, `Postgres`, `MongoDB`.
 
-## Installation
+## Install
 
 1. Install the core package:
 
@@ -30,19 +28,19 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 
 2. Install one of the specific adapters for your database:
 
-  | Database     | Driver           | Nukak Adapter    |
-  | ------------ | ---------------- | ---------------- |
-  | `MySQL`      | `mysql2`         | `nukak-mysql`    |
-  | `MariaDB`    | `mariadb`        | `nukak-maria`    |
-  | `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
-  | `PostgreSQL` | `pg`             | `nukak-postgres` |
-  | `MongoDB`    | `mongodb`        | `nukak-mongo`    |
+| Database     | Driver           | Nukak Adapter    |
+| ------------ | ---------------- | ---------------- |
+| `MySQL`      | `mysql2`         | `nukak-mysql`    |
+| `MariaDB`    | `mariadb`        | `nukak-maria`    |
+| `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
+| `PostgreSQL` | `pg`             | `nukak-postgres` |
+| `MongoDB`    | `mongodb`        | `nukak-mongo`    |
 
-  For example, for `Postgres`:
+For example, for `Postgres`:
 
-  ```sh
-  npm install pg nukak-postgres --save
-  ```
+```sh
+npm install pg nukak-postgres --save
+```
 
 3. Additionally, your `tsconfig.json` may need the following flags:
 
@@ -52,7 +50,7 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
    "emitDecoratorMetadata": true
    ```
 
-## Configuration
+## Configure
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
@@ -75,31 +73,13 @@ export const querierPool = new PgQuerierPool(
 setQuerierPool(querierPool);
 ```
 
-## Definition of Entities
+## Define the entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
-import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity/index.js';
-
-@Entity()
-export class Profile {
-  /**
-   * primary-key.
-   * the `onInsert` callback can be used to specify a custom mechanism for auto-generating
-   * the default value of a field when inserting a new record.
-   */
-  @Id({ onInsert: uuidv4 })
-  id?: string;
-  @Field()
-  picture?: string;
-  /**
-   * foreign-keys are really simple to specify.
-   */
-  @Field({ reference: () => User })
-  creatorId?: string;
-}
+import { Id, Field, Entity } from 'nukak/entity/index.js';
 
 @Entity()
 export class User {
@@ -111,52 +91,30 @@ export class User {
   email?: string;
   @Field()
   password?: string;
-  /**
-   * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring).
-   */
-  @OneToOne({ entity: () => Profile, mappedBy: (profile) => profile.creatorId, cascade: true })
-  profile?: Profile;
-}
-
-@Entity()
-export class MeasureUnitCategory {
-  @Id({ onInsert: uuidv4 })
-  id?: string;
-  @Field()
-  name?: string;
-  @OneToMany({ entity: () => MeasureUnit, mappedBy: (measureUnit) => measureUnit.category })
-  measureUnits?: MeasureUnit[];
-}
-
-@Entity()
-export class MeasureUnit {
-  @Id({ onInsert: uuidv4 })
-  id?: string;
-  @Field()
-  name?: string;
-  @Field({ reference: () => MeasureUnitCategory })
-  categoryId?: string;
-  @ManyToOne({ cascade: 'persist' })
-  category?: MeasureUnitCategory;
 }
 ```
 
-## Query the data
+## Manipulate the data
 
 ```ts
 import { getQuerier } from 'nukak';
-import { Transactional, InjectQuerier } from 'nukak/querier/index.js';
 import { User } from './shared/models/index.js';
 
-export class UserService {
-  @Transactional()
-  async getUsers(@InjectQuerier() querier?: Querier): Promise<User[]> {
-    return querier.findMany(User, {
-      $project: { id: true, email: true, profile: ['picture'] },
-      $filter: { email: { $iendsWith: '@google.com' } },
-      $sort: { createdAt: -1 },
-      $limit: 100,
-    });
-  }
+async function findLastUsers(limit = 10) {
+  const querier = await getQuerier();
+  const users = await querier.findMany(User, {
+    $project: ['id', 'name', 'email'],
+    $sort: { createdAt: -1 },
+    $limit: limit,
+  });
+  await querier.release();
+  return users;
+}
+
+async function createUser(body: User) {
+  const querier = await getQuerier();
+  const id = await querier.insertOne(User, body);
+  await querier.release();
+  return id;
 }
 ```

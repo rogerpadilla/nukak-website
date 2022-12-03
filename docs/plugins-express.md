@@ -2,7 +2,9 @@
 weight: 330
 ---
 
-# Autogenerate REST APIs with Express
+## Express plugin
+
+### Autogenerate REST APIs for the entities with Express
 
 The `nukak-express` package automatically generates REST APIs for your entities.
 

@@ -2,7 +2,9 @@
 weight: 300
 ---
 
-# Easily call the generated REST APIs from the Client
+## Browser plugin
+
+### Use the generated REST API similarly as if you were on the backend
 
 The `nukak-browser` package allows to easily consume `nukak` REST APIs from the frontend.
 

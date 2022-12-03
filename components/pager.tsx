@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SidenavItem } from '../types';
+import type { SidenavItem } from '../types';
 import s from './pager.module.css';
 
 export const Pager: React.FC<{ currentId: string; items: SidenavItem[] }> = ({ currentId, items }) => {

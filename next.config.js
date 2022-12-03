@@ -4,12 +4,12 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/docs/quick-start',
+        destination: '/docs/getting-started',
         permanent: true,
       },
       {
         source: '/docs',
-        destination: '/docs/quick-start',
+        destination: '/docs/getting-started',
         permanent: true,
       },
     ];
