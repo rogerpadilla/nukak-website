@@ -1,5 +1,5 @@
 ---
-weight: 300
+weight: 400
 ---
 
 ## Browser plugin
