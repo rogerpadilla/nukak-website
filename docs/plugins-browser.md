@@ -22,7 +22,7 @@ yarn add nukak-browser
 
 ```ts
 import { getRepository } from 'nukak-browser';
-import { User } from './shared/models.js';
+import { User } from './shared/models/index.js';
 
 // 'User' is an entity class.
 const userRepository = getRepository(User);

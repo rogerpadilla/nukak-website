@@ -23,7 +23,7 @@ yarn add nukak-express
 ```ts
 import * as express from 'express';
 import { querierMiddleware } from 'nukak-express';
-import { Confirmation } from './shared/models';
+import { User, Product, Category } from './shared/models/index.js';
 
 const app = express();
 
@@ -33,9 +33,37 @@ app
     '/api',
     // this will generate REST APIs for the entities.
     querierMiddleware({
-      // all entities will be automatically exposed unless
-      // 'include' or 'exclude' options are provided.
-      exclude: [Confirmation]
+      /**
+       * allow specify which entities will be used by the middleware
+       * (all of them are used by default)
+       */
+      include: [User, Product, Category],
+      /**
+       * allow excluding some entities of being used by the middleware
+       * (all of them are used by default)
+       */
+      exclude: [User],
+      /**
+       * Allow augment any kind of request before it runs
+       */
+      pre(req, meta) {
+        console.log(`${req.method} ${req.url} ${meta.name}`);
+        if (req.method === 'POST' && meta.entity === Product) {
+          console.log(`A new product is going to be created!`);
+        }
+      },
+      /**
+       * Allow augment a saving request (POST, PATCH, PUT) before it runs
+       */
+      preSave(req) {
+        req.body.creatorId = req.identify.userId;
+      },
+      /**
+       * Allow augment a filtering request (GET, DELETE) before it runs
+       */
+      preFilter(req) {
+        req.query.$filter.creatorId = req.identify.userId;
+      },
     })
   );
 ```
