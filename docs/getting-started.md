@@ -9,13 +9,13 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 
 ## Features
 
-- `JSON` (serializable) syntax for all the [queries](https://nukak.org/docs/querying-logical-operators).
-- uses the power of `TypeScript` to get smart type-safety [everywhere](https://nukak.org/docs/api-repository).
-- the generated queries are [performant](https://nukak.org/docs/querying-retrieve-relations), safe, and human-readable.
-- `$project`, `$filter`, `$sort`, `$limit` works at [multiple levels](https://nukak.org/docs/querying-retrieve-relations) (including deep relations and their fields).
-- [declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions`.
-- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/api-repository), `connection pooling`.
-- transparent support for [inheritance](https://nukak.org/docs/entities-advanced) between entities.
+- `JSON` (serializable) syntax for all the [queries](/docs/querying-logical-operators).
+- uses the power of `TypeScript` to get smart type-safety [everywhere](/docs/api-repository).
+- the generated queries are [performant](/docs/querying-retrieve-relations), safe, and human-readable.
+- `$project`, `$filter`, `$sort`, `$limit` works at [multiple levels](/docs/querying-retrieve-relations) (including deep relations and their fields).
+- [declarative](/docs/transactions-declarative) and [imperative](/docs/transactions-imperative) `transactions`.
+- [soft-delete](/docs/entities-soft-delete), [virtual fields](/docs/entities-virtual-fields), [repositories](/docs/api-repository), `connection pooling`.
+- transparent support for [inheritance](/docs/entities-advanced) between entities.
 - supports `MySQL`, `MariaDB`, `SQLite`, `Postgres`, `MongoDB`.
 
 ## Install
