@@ -55,13 +55,13 @@ app
       /**
        * Allow augment a saving request (POST, PATCH, PUT) before it runs
        */
-      preSave(req) {
+      preSave(req, meta) {
         req.body.creatorId = req.identify.userId;
       },
       /**
        * Allow augment a filtering request (GET, DELETE) before it runs
        */
-      preFilter(req) {
+      preFilter(req, meta) {
         req.query.$filter.creatorId = req.identify.userId;
       },
     })
