@@ -32,7 +32,7 @@ INNER JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
 ORDER BY `User.createdAt` DESC
 ```
 
----
+&nbsp;
 
 Simple query using `getQuerier()`:
 
@@ -63,7 +63,7 @@ LEFT JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
 ORDER BY `User.createdAt` DESC
 ```
 
----
+&nbsp;
 
 More complex queries can be used, like the following:
 

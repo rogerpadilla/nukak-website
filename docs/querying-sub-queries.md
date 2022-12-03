@@ -24,7 +24,7 @@ That &#9650; code will generate this &#9660;  `SQL`:
 SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
 ```
 
----
+&nbsp;
 
 `$filter` by a `raw` expression:
 
@@ -44,7 +44,7 @@ That &#9650; code will generate this &#9660;  `SQL`:
 SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY `creatorId`
 ```
 
----
+&nbsp;
 
 `$nexists` comparison operator:
 

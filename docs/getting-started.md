@@ -7,6 +7,8 @@ root: true
 
 The `nukak` queries can be safely written in the frontend (browser/mobile) and sent to the backend; or only use `nukak` in the backend, or even in a mobile app with an embedded database (like `sqlite`).
 
+&nbsp;
+
 ## Features
 
 - Serializable `JSON` syntax for all the [queries](/docs/querying-logical-operators).
@@ -17,6 +19,8 @@ The `nukak` queries can be safely written in the frontend (browser/mobile) and s
 - [soft-delete](/docs/entities-soft-delete), [virtual fields](/docs/entities-virtual-fields), [repositories](/docs/api-repository), `connection pooling`.
 - Transparent support for [inheritance](/docs/entities-inheritance) between entities.
 - Unified API for `MySQL`, `MariaDB`, `SQLite`, `Postgres`, `MongoDB`.
+
+&nbsp;
 
 ## Install
 
@@ -50,6 +54,8 @@ npm install pg nukak-postgres --save
    "emitDecoratorMetadata": true
    ```
 
+&nbsp;
+
 ## Configure
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
@@ -73,6 +79,8 @@ export const querierPool = new PgQuerierPool(
 setQuerierPool(querierPool);
 ```
 
+&nbsp;
+
 ## Define the entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
@@ -93,6 +101,8 @@ export class User {
   password?: string;
 }
 ```
+
+&nbsp;
 
 ## Manipulate the data
 

@@ -11,7 +11,7 @@ weight: 110
 | `$not` | joins query clauses with a logical `AND`, returns records that do not match all the clauses.   |
 | `$nor` | joins query clauses with a logical `OR`, returns records that do not match any of the clauses. |
 
----
+&nbsp;
 
 Example usage for the `$and` logical operator:
 
@@ -28,7 +28,7 @@ That &#9650; code will generate this &#9660; `SQL`:
 SELECT `id` FROM `User` WHERE `name` = 'abc' AND `creatorId` = 1
 ```
 
----
+&nbsp;
 
 Example usage for the `$or` logical operator:
 
@@ -45,7 +45,7 @@ That &#9650; code will generate this &#9660; `SQL`:
 SELECT `id` FROM `User` WHERE `name` = 'abc' OR `creatorId` = 1
 ```
 
----
+&nbsp;
 
 Example usage for the `$not` logical operator
 
@@ -62,7 +62,7 @@ That &#9650; code will generate this &#9660; `SQL`:
 SELECT `id` FROM `User` WHERE NOT (`name` = 'abc' AND `creatorId` = 1)
 ```
 
----
+&nbsp;
 
 Example usage for the `$nor` logical operator
 

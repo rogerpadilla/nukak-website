@@ -34,7 +34,7 @@ async function confirm(confirmation: Confirmation): Promise<void> {
 }
 ```
 
----
+&nbsp;
 
 That &#9650; can also be implemented as this &#9660; (for more granular control):
 
@@ -63,8 +63,4 @@ async function confirm(confirmation: Confirmation): Promise<void> {
     await querier.release();
   }
 }
-```
-
-```
-
 ```
