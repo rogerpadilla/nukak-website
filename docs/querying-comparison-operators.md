@@ -28,7 +28,7 @@ weight: 130
 | `$exists`      | whether the record exists in the given sub-query.                                  |
 | `$nexists`     | whether the record does not exists in the given sub-query.                         |
 
----
+&nbsp;
 
 Example usage for the `$istartsWith` and `$ne` comparison operators:
 
