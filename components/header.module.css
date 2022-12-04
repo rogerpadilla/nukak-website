@@ -3,9 +3,7 @@
   top: 0;
   left: 0;
   padding: 0 var(--side-padding);
-  margin: 0 auto;
   width: 100%;
-  max-width: var(--max-width);
   height: var(--header-height);
   background: var(--header-bg);
   box-shadow: 0 1px 5px 0 rgba(0 0 0 / 30%);
@@ -15,6 +13,8 @@
 .nav {
   display: flex;
   align-items: center;
+  margin: 0 auto;
+  max-width: var(--max-width);
 }
 
 .nav > * {
