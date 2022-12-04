@@ -21,6 +21,7 @@
   --side-padding: 3%;
   --transition-duration: 0.2s;
   --transition-duration--fast: 0.1s;
+  --max-width: 1600px;
 }
 
 html,
