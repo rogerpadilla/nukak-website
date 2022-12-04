@@ -22,7 +22,7 @@ const Doc = ({ doc, items }: InferGetStaticPropsType<typeof getStaticProps>) => 
   <Layout title={doc.title}>
     <Sidenav category="docs" items={items} />
     <article className={s.article}>
-      <Badges />
+      {doc.root && <Badges />}
       <ReactMarkdown
         components={components}
         rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
