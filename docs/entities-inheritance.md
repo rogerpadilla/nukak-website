@@ -8,9 +8,9 @@ The inline comments in the code below have concise descriptions of advanced use 
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
-import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity/index.js';
-import { raw } from 'nukak/util/index.js';
-import { idKey } from 'nukak/type/index.js';
+import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity';
+import { raw } from 'nukak/util';
+import { idKey } from 'nukak/type';
 
 /**
  * `interfaces` can (optionally) be used to circumvent circular-references issue between entities,

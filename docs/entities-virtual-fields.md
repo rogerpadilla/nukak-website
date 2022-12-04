@@ -7,8 +7,8 @@ weight: 80
 The `virtual` property of the `@Field` decorator can be used as below:
 
 ```ts
-import { Entity, Id, Field, ManyToMany } from 'nukak/entity/index.js';
-import { raw } from 'nukak/util/index.js';
+import { Entity, Id, Field, ManyToMany } from 'nukak/entity';
+import { raw } from 'nukak/util';
 
 @Entity()
 export class Item {
