@@ -10,7 +10,7 @@ Note that it is also required to use the `onDelete` property in one of the field
 
 ```ts
 /**
- * `softDelete` will make the entity "soft deletable".
+ * `softDelete: true` will make the entity "soft deletable".
  */
 @Entity({ softDelete: true })
 export class MeasureUnitCategory {
