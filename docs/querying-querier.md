@@ -5,8 +5,8 @@ weight: 180
 A `querier` is `nukak`'s an abstraction over database drivers. It allows to interact with the different databases in an unified way.
 
 With a `querier` you can:
-- Manipulate the data related to all the entities.
-- Use transactions.
+- Manipulate the data related to all the `entities`.
+- Use [transactions](/docs/transactions-imperative).
 - Obtain [repositories](/docs/querying-repository)
 
 ```ts
