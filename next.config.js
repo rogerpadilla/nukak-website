@@ -5,12 +5,12 @@ module.exports = {
       {
         source: '/',
         destination: '/docs/getting-started',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/docs',
         destination: '/docs/getting-started',
-        permanent: true,
+        permanent: false,
       },
     ];
   },

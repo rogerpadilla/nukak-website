@@ -3,20 +3,22 @@ weight: 1
 root: true
 ---
 
+![code](/code.webp 'code')
+
 [nukak](https://nukak.org) is a powerful and efficient `ORM`, designed from the ground up to be fast, secure, and easy to use. It is inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB Node.js Driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed to rely on serializable `JSON` syntax for easy transport across platforms.
 
 &nbsp;
 
 ## Features
 
-- Serializable `JSON` syntax for all the [queries](https://nukak.org/docs/querying-logical-operators).
 - Takes full advantage of [TypeScript](https://www.typescriptlang.org/) intelligent type-inference [everywhere](https://nukak.org/docs/api-repository).
-- Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) approach. `ESM` is natively supported by Node.js 12 and later.
-- Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern.
+- Serializable `JSON` syntax for all the [queries](https://nukak.org/docs/querying-logical-operators).
 - Querying data with `$project`, `$filter`, `$sort`, `$limit`, works at [multiple levels](https://nukak.org/docs/querying-relations) (including deep relations and their fields).
+- Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern.
 - The generated queries are [performant](https://nukak.org/docs/querying-relations), safe, and human-readable.
 - [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/api-repository), `connection pooling`.
 - Transparent support for [inheritance](https://nukak.org/docs/entities-inheritance) between entities.
+- Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) approach. `ESM` is natively supported by Node.js 12 and later.
 - [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions`.
 - Unified API for `MySQL`, `MariaDB`, `SQLite`, `Postgres`, `MongoDB`.
 
