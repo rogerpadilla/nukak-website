@@ -35,7 +35,7 @@ A `repository` allows to interact with the datasource to perform persistence ope
  */
 export interface Repository<E> {
   /**
-   * the `entity` type to which this `repository` is linked to.
+   * the `entity` class to which this `repository` is linked to.
    */
   readonly entity: Type<E>;
 
