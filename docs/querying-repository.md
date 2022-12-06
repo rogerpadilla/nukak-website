@@ -27,8 +27,6 @@ await querier.release();
 
 ### Repository API
 
-A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
-
 ```ts
 /**
  * A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
