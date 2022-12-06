@@ -9,6 +9,8 @@ With a `querier` you can:
 - Use transactions.
 - Obtain [repositories](/docs/querying-repository)
 
+&nbsp;
+
 ### Querier API
 
 ```ts
