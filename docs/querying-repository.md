@@ -1,8 +1,25 @@
 ---
-weight: 280
+weight: 180
 ---
 
-## Repository API
+A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
+
+```ts
+import { getQuerier } from 'nukak';
+import { User } from './shared/models/index.js';
+
+const querier = await getQuerier();
+const userRespository = querier.getRepository(User);
+
+await userRespository.findMany({
+  $project: { id: true },
+  $filter: { $or: [{ name: 'abc' }, { creatorId: 1 }] },
+});
+```
+
+&nbsp;
+
+### API
 
 A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
 
