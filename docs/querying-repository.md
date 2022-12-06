@@ -11,10 +11,12 @@ import { User } from './shared/models/index.js';
 const querier = await getQuerier();
 const userRespository = querier.getRepository(User);
 
-await userRespository.findMany({
+const users = await userRespository.findMany({
   $project: { id: true },
   $filter: { $or: [{ name: 'abc' }, { creatorId: 1 }] },
 });
+
+await querier.release();
 ```
 
 &nbsp;
