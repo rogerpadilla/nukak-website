@@ -1,8 +1,12 @@
 ---
-weight: 180
+weight: 190
 ---
 
-A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
+If you want to target operations to a specific `entity`, you can use `repositories` instead of [queriers](/docs/querying-querier). That way, you don't need to provide the `entity` parameter, and only the `query` parameter needs to be specified for data manipulation. Each `repository` is associated with a single [querier](/docs/querying-querier).
+
+With a `repository` you can:
+- Manipulate the data related to a single `entity`.
+
 
 ```ts
 import { getQuerier } from 'nukak';
