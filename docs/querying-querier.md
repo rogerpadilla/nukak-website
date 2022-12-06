@@ -9,6 +9,20 @@ With a `querier` you can:
 - Use transactions.
 - Obtain [repositories](/docs/querying-repository)
 
+```ts
+import { getQuerier } from 'nukak';
+import { User } from './shared/models/index.js';
+
+const querier = await getQuerier();
+
+const users = await querier.findMany(User, {
+  $project: { id: true },
+  $filter: { $or: [{ name: 'abc' }, { creatorId: 1 }] },
+});
+
+await querier.release();
+```
+
 &nbsp;
 
 ### Querier API
