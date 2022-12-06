@@ -13,19 +13,19 @@ weight: 110
 
 &nbsp;
 
-Example usage for the `$and` logical operator:
+Example usage for the `$and` logical operator (default operator if unspecified):
 
 ```ts
 await querier.findMany(User, {
   $project: { id: true },
-  $filter: { $and: [{ name: 'abc' }, { creatorId: 1 }] },
+  $filter: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
 });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
-SELECT `id` FROM `User` WHERE `name` = 'abc' AND `creatorId` = 1
+SELECT `id` FROM `User` WHERE `name` = 'maku' AND `creatorId` = 1
 ```
 
 &nbsp;
@@ -35,14 +35,14 @@ Example usage for the `$or` logical operator:
 ```ts
 await querier.findMany(User, {
   $project: { id: true },
-  $filter: { $or: [{ name: 'abc' }, { creatorId: 1 }] },
+  $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
 });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
-SELECT `id` FROM `User` WHERE `name` = 'abc' OR `creatorId` = 1
+SELECT `id` FROM `User` WHERE `name` = 'maku' OR `creatorId` = 1
 ```
 
 &nbsp;
@@ -52,14 +52,14 @@ Example usage for the `$not` logical operator
 ```ts
 await querier.findMany(User, {
   $project: { id: true },
-  $filter: { $not: [{ name: 'abc' }, { creatorId: 1 }] },
+  $filter: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
 });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
-SELECT `id` FROM `User` WHERE NOT (`name` = 'abc' AND `creatorId` = 1)
+SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' AND `creatorId` = 1)
 ```
 
 &nbsp;
@@ -69,12 +69,12 @@ Example usage for the `$nor` logical operator
 ```ts
 await querier.findMany(User, {
   $project: { id: true },
-  $filter: { $nor: [{ name: 'abc' }, { creatorId: 1 }] },
+  $filter: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
 });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
-SELECT `id` FROM `User` WHERE NOT (`name` = 'abc' OR `creatorId` = 1)
+SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' OR `creatorId` = 1)
 ```
