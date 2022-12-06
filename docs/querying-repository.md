@@ -19,7 +19,7 @@ await userRespository.findMany({
 
 &nbsp;
 
-### API
+### Repository API
 
 A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
 
