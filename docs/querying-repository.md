@@ -33,11 +33,16 @@ A `repository` allows to interact with the datasource to perform persistence ope
 /**
  * A `repository` allows to interact with the datasource to perform persistence operations on a specific entity.
  */
-export interface Repository {
+export interface Repository<E> {
   /**
-   * the `querier` instance to which this `repository` is linked.
+   * the `entity` type to which this `repository` is linked to.
    */
-  readonly querier: Querier;
+  readonly entity: Type<E>;
+
+  /**
+   * the `querier` instance to which this `repository` is linked to.
+   */
+  readonly querier: UniversalQuerier;
 
   /**
    * counts the number of records matching the given search parameters.
