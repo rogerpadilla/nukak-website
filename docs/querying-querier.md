@@ -2,7 +2,7 @@
 weight: 180
 ---
 
-A `querier` is `nukak`'s an abstraction over a database connection. It allows to interact with the different databases in an unified way.
+A `querier` is `nukak`'s an abstraction over database drivers. It allows to interact with the different databases in an unified way.
 
 With a `querier` you can:
 - Manipulate the data related to any entity.
