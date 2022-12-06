@@ -2,7 +2,7 @@
 weight: 190
 ---
 
-If you want to target operations to a specific `entity`, you can use `repositories` instead of [queriers](/docs/querying-querier). That way, you don't need to provide the `entity` parameter, and only the `query` parameter needs to be specified for data manipulation. Each `repository` is associated with a single [querier](/docs/querying-querier).
+`repositories` allows to target operations to a specific `entity`, they can be used instead of [queriers](/docs/querying-querier). That way, you don't need to always provide the `entity` parameter, and only the `query` parameter is necessary for data manipulation. Each `repository` is also associated with a single [querier](/docs/querying-querier).
 
 With a `repository` you can:
 - Manipulate the data related to a single `entity`.
