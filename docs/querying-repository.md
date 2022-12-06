@@ -9,9 +9,9 @@ import { getQuerier } from 'nukak';
 import { User } from './shared/models/index.js';
 
 const querier = await getQuerier();
-const userRespository = querier.getRepository(User);
+const userRepository = querier.getRepository(User);
 
-const users = await userRespository.findMany({
+const users = await userRepository.findMany({
   $project: { id: true },
   $filter: { $or: [{ name: 'abc' }, { creatorId: 1 }] },
 });
