@@ -5,7 +5,7 @@ root: true
 
 ![code](/code.webp 'code')
 
-[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed with `JSON` syntax while squeezing all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`.
+[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed with `JSON` syntax to squeeze all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`.
 
 &nbsp;
 
