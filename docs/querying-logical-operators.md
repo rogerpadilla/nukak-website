@@ -18,6 +18,14 @@ Example usage for the `$and` logical operator (default operator if unspecified):
 ```ts
 await querier.findMany(User, {
   $project: { id: true },
+  $filter: { name: 'maku', creatorId: 1 },
+});
+```
+or
+
+```ts
+await querier.findMany(User, {
+  $project: { id: true },
   $filter: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
 });
 ```
