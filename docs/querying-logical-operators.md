@@ -21,7 +21,7 @@ await querier.findMany(User, {
   $filter: { name: 'maku', creatorId: 1 },
 });
 ```
-or the same query using an explicit `$and`
+or the same query with an explicit `$and`
 
 ```ts
 await querier.findMany(User, {
