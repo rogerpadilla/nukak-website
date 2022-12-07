@@ -5,9 +5,7 @@ root: true
 
 ![code](/code.webp 'code')
 
-[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed to rely on serializable `JSON` syntax.
-
-It is built on top of [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`, and combines the best elements of OOP (Object Oriented Programming) and FP (Functional Programming).
+[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed with `JSON` syntax while squeezing all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`.
 
 &nbsp;
 
@@ -17,6 +15,7 @@ It is built on top of [TypeScript](http://www.typescriptlang.org/) & modern `Jav
 - Type-safe queries: `TypeScript` will auto-complete and validate the [queries](https://nukak.org/docs/querying-comparison-operators) while coding and refactoring.
 - Context-aware queries: `TypeScript` infers the appropriate operators and fields based on each part of a query.
 - High performance: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
+- Combines the best elements of `OOP` (Object Oriented Programming) and `FP` (Functional Programming).
 - [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions` for flexibility.
 - Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) approach. `ESM` is natively supported by Node.js 12 and later.
 - [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository), `connection pooling` for scalability.
