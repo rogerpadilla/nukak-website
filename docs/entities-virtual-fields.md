@@ -94,7 +94,7 @@ await querier.findMany(Item, {
 });
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; will generate this &#9660; `SQL`:
 
 ```sql
 SELECT
@@ -118,7 +118,7 @@ await querier.findMany(Item, {
 });
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `Item`

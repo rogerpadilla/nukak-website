@@ -23,7 +23,7 @@ async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Pr
 }
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
@@ -54,7 +54,7 @@ async function findLatestUserWithProfile(): Promise<User> {
 }
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
@@ -96,7 +96,7 @@ export class ItemService {
 export const itemService = new ItemService();
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `Item`.`id`, `Item`.`name`,

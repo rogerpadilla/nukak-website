@@ -41,7 +41,7 @@ await this.querier.findMany(User, {
 });
 ```
 
-That &#9650; code will generate this &#9660; `SQL` for `Postgres`:
+That &#9650; will generate this &#9660; `SQL` for `Postgres`:
 
 ```sql
 SELECT  "id" FROM "User"
