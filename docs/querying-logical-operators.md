@@ -30,7 +30,7 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; will generate this &#9660; `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE `name` = 'maku' AND `creatorId` = 1
@@ -47,7 +47,7 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; will generate this &#9660; `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE `name` = 'maku' OR `creatorId` = 1
@@ -64,7 +64,7 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; will generate this &#9660; `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' AND `creatorId` = 1)
@@ -81,7 +81,7 @@ await querier.findMany(User, {
 });
 ```
 
-That &#9650; will generate this &#9660; `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' OR `creatorId` = 1)

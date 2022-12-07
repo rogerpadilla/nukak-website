@@ -18,7 +18,7 @@ this.querier.findMany(Item, {
 });
 ```
 
-That &#9650; will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660;  `SQL`:
 
 ```sql
 SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
@@ -38,7 +38,7 @@ await this.querier.findMany(Item, {
 });
 ```
 
-That &#9650; will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660;  `SQL`:
 
 ```sql
 SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY `creatorId`
@@ -70,7 +70,7 @@ await this.querier.findMany(Item, {
 });
 ```
 
-That &#9650; will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660;  `SQL`:
 
 ```sql
 SELECT `id`
