@@ -50,7 +50,7 @@ ORDER BY "name", "id" DESC
 LIMIT 50
 ```
 
-And that same code will generate this other &#9660; `SQL` for `MySQL`, `MariaDB` and `SQLite`:
+And that same code above will generate this other &#9660; `SQL` for `MySQL`, `MariaDB` and `SQLite`:
 
 ```sql
 SELECT  `id` FROM `User`
