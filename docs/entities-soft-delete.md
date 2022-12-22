@@ -16,8 +16,10 @@ Note that it is also required to use the `onDelete` property in one of the field
 export class MeasureUnitCategory {
   @Id()
   id?: number;
+
   @Field()
   name?: string;
+  
   /**
    * `onDelete` callback allows to specify which field will be used
    * when deleting/querying this entity.

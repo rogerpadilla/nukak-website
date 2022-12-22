@@ -14,10 +14,13 @@ import { raw } from 'nukak/util';
 export class Item {
   @Id()
   id?: number;
+
   @Field()
   name?: string;
+
   @ManyToMany({ entity: () => Tag, through: () => ItemTag, cascade: true })
   tags?: Tag[];
+
   @Field({
     /**
      * `virtual` property allows defining the value for a non-persistent field,
@@ -45,8 +48,10 @@ export class Item {
 export class Tag {
   @Field()
   name?: string;
+
   @ManyToMany({ entity: () => Item, mappedBy: (item) => item.tags })
   items?: Item[];
+
   @Field({
     virtual: raw(({ escapedPrefix, dialect }) => {
       /**
@@ -74,8 +79,10 @@ export class Tag {
 export class ItemTag {
   @Id()
   id?: number;
+
   @Field({ reference: () => Item })
   itemId?: number;
+  
   @Field({ reference: () => Tag })
   tagId?: number;
 }

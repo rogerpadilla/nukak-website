@@ -19,8 +19,10 @@ export class Profile {
    */
   @Id({ onInsert: uuidv4 })
   id?: string;
+
   @Field()
   picture?: string;
+
   /**
    * foreign-keys are really simple to specify.
    */
@@ -32,12 +34,16 @@ export class Profile {
 export class User {
   @Id({ onInsert: uuidv4 })
   id?: string;
+
   @Field()
   name?: string;
+
   @Field()
   email?: string;
+
   @Field()
   password?: string;
+
   /**
    * `mappedBy` can be a callback or a string (callback is useful for auto-refactoring).
    */
@@ -49,8 +55,10 @@ export class User {
 export class MeasureUnitCategory {
   @Id({ onInsert: uuidv4 })
   id?: string;
+
   @Field()
   name?: string;
+
   @OneToMany({ entity: () => MeasureUnit, mappedBy: (measureUnit) => measureUnit.category })
   measureUnits?: MeasureUnit[];
 }
@@ -59,10 +67,13 @@ export class MeasureUnitCategory {
 export class MeasureUnit {
   @Id({ onInsert: uuidv4 })
   id?: string;
+
   @Field()
   name?: string;
+
   @Field({ reference: () => MeasureUnitCategory })
   categoryId?: string;
+
   @ManyToOne({ cascade: 'persist' })
   category?: MeasureUnitCategory;
 }
