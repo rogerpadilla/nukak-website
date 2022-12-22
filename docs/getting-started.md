@@ -5,7 +5,7 @@ root: true
 
 ![code](/code.webp 'code')
 
-The perfectionist `ORM`.
+The smart `ORM`.
 
 &nbsp;
 
