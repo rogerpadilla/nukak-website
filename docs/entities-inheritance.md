@@ -32,7 +32,7 @@ export abstract class BaseEntity {
   @ManyToOne({ entity: () => Company })
   /**
    * The `Relation` wrapper type can be used in ESM projects for the relations to
-   * avoid circular dependency issues .
+   * avoid circular dependency issues.
    */
   company?: Relation<Company>;
   @Field({ reference: () => User })
