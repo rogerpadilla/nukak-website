@@ -97,10 +97,13 @@ import { Id, Field, Entity } from 'nukak/entity';
 export class User {
   @Id({ onInsert: uuidv4 })
   id?: string;
+
   @Field()
   name?: string;
+
   @Field()
   email?: string;
+  
   @Field()
   password?: string;
 }
