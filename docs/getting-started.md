@@ -5,7 +5,7 @@ root: true
 
 ![code](/code.webp 'code')
 
-The smart `ORM`.
+The smart `ORM`. Inspired by others such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
 
 &nbsp;
 
