@@ -31,7 +31,7 @@ export abstract class BaseEntity {
   companyId?: number;
   @ManyToOne({ entity: () => Company })
   /**
-   * The Relation wrapper type should be used in ESM projects for relation properties to
+   * The `Relation` wrapper type can be used in ESM projects for the relations to
    * avoid circular dependency issues .
    */
   company?: Relation<Company>;
