@@ -5,13 +5,13 @@ root: true
 
 ![code](/code.webp 'code')
 
-[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/), and has been designed with `JSON` syntax to squeeze all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`.
+[nukak](https://nukak.org) is a powerful `ORM`, ideated to be fast, secure, and easy to use. Inspired by other `ORMs` such as [TypeORM](https://typeorm.io) and [MongoDB driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
 
 &nbsp;
 
 ## Features
 
-- Serializable queries: the [syntax](https://nukak.org/docs/querying-logical-operators) is `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
+- Serializable queries: the [syntax](https://nukak.org/docs/querying-logical-operators) has been designed with `JSON` syntax to squeeze all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`, allowing the queries to be transported across platforms with ease.
 - Type-safe queries: `TypeScript` will auto-complete and validate the [queries](https://nukak.org/docs/querying-comparison-operators) while coding and refactoring.
 - Context-aware queries: `TypeScript` infers the appropriate operators and fields based on each part of a query.
 - High performance: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
