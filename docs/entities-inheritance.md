@@ -10,39 +10,13 @@ The inline comments in the code below have concise descriptions of advanced use 
 import { v4 as uuidv4 } from 'uuid';
 import { Field, ManyToOne, Id, OneToMany, Entity, OneToOne, ManyToMany } from 'nukak/entity';
 import { raw } from 'nukak/util';
-import { idKey } from 'nukak/type';
-
-/**
- * `interfaces` can (optionally) be used to circumvent circular-references issue between entities,
- * while keeping type-safety.
- */
-export interface IEntity {
-  id?: string;
-  companyId?: number;
-  company?: ICompany;
-  creatorId?: number;
-  creator?: IUser;
-  createdAt?: number;
-  updatedAt?: number;
-}
-
-interface ICompany extends IEntity {
-  name?: string;
-  description?: string;
-}
-
-interface IUser extends IEntity {
-  name?: string;
-  email?: string;
-  password?: string;
-  profile?: Profile;
-}
+import { idKey, type Relation } from 'nukak/type';
 
 /**
  * an `abstract` class can (optionally) be used as the base "template" for the entities
  * (so the common fields' declaration is easily reused).
  */
-export abstract class BaseEntity implements IEntity {
+export abstract class BaseEntity {
   /**
    * primary-key.
    * the `onInsert` callback can be used to specify a custom mechanism for auto-generating
@@ -56,11 +30,15 @@ export abstract class BaseEntity implements IEntity {
   @Field({ reference: () => Company })
   companyId?: number;
   @ManyToOne({ entity: () => Company })
-  company?: ICompany;
+  /**
+   * The Relation wrapper type should be used in ESM projects for relation properties to
+   * avoid circular dependency issues .
+   */
+  company?: Relation<Company>;
   @Field({ reference: () => User })
   creatorId?: number;
   @ManyToOne({ entity: () => User })
-  creator?: IUser;
+  creator?: Relation<User>;
   /**
    * 'onInsert' callback can be used to specify a custom mechanism for
    * obtaining the value of a field when inserting:
@@ -79,7 +57,7 @@ export abstract class BaseEntity implements IEntity {
  * `Company` will inherit all the fields (including the `Id`) declared in `BaseEntity`.
  */
 @Entity()
-export class Company extends BaseEntity implements ICompany {
+export class Company extends BaseEntity {
   @Field()
   name?: string;
   @Field()
@@ -100,11 +78,11 @@ export class Profile extends BaseEntity {
   @Field({ name: 'image' })
   picture?: string;
   @OneToOne({ entity: () => User })
-  declare creator?: IUser;
+  declare creator?: Relation<User>;
 }
 
 @Entity()
-export class User extends BaseEntity implements IUser {
+export class User extends BaseEntity {
   @Field()
   name?: string;
   @Field()
