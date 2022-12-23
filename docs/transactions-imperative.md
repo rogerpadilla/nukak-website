@@ -1,12 +1,13 @@
 ---
 weight: 190
+description: This tutorial explain how to use imperative transactions with the nukak orm.
 ---
 
-## Imperative Transactions
+## Imperative transactions
 
-Both, _declarative_ and _imperative_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
+Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
-To use Imperative Transactions:
+Use `Imperative` transactions as below:
 
 1. get the `querier` instance with `await getQuerier()`.
 2. run the transaction with `await querier.transaction(callback)`.

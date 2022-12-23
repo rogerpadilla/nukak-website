@@ -1,5 +1,6 @@
 ---
 weight: 70
+description: This tutorial explain how to use relations in the entities with the nukak orm.
 ---
 
 ## Relations between entities

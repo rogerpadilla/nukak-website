@@ -1,5 +1,6 @@
 ---
 weight: 110
+description: This tutorial explain how to use logical operators with the nukak orm.
 ---
 
 ## Logical Operators

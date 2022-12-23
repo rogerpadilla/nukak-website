@@ -1,12 +1,13 @@
 ---
 weight: 170
+description: This tutorial explain how to use declarative transactions with the nukak orm.
 ---
 
-## Declarative Transactions
+## Declarative transactions
 
-Both, _declarative_ and _imperative_ transactions are supported, with the former you can just describe the scope of your transactions, with the later you have more flexibility (hence more responsibility).
+Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
-To use Declarative Transactions (using the `@Transactional` decorator):
+Use `Declarative` transactions as below:
 
 1. take any service class, annotate the wanted function with the `@Transactional` decorator.
 2. inject the querier instance by decorating one of the function's arguments with `@InjectQuerier`.

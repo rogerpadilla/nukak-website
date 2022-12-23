@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import s from './header.module.css';
 import { useSnapshot } from 'valtio';
-import { state } from '../state';
+import { state } from './state';
 
 export const Header: React.FC = () => (
   <header className={s.header}>

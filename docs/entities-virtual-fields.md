@@ -1,5 +1,6 @@
 ---
 weight: 90
+description: This tutorial explain how to use virtual-fields in the entities with the nukak orm.
 ---
 
 ## Virtual-Fields for entities

@@ -1,5 +1,6 @@
 ---
 weight: 150
+description: This tutorial explain how to use relations in the queries with the nukak orm.
 ---
 
 ## Querying relations

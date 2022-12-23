@@ -1,5 +1,6 @@
 ---
 weight: 300
+description: This tutorial explain how to use the express plugin with the nukak orm.
 ---
 
 ## Express plugin

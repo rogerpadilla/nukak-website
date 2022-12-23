@@ -1,27 +1,26 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import { projectName } from '../utils/constants';
+import { projectDescription, projectName } from './constants';
 import { Header } from './header';
 import s from './layout.module.css';
 
 export const Layout: React.FC<{
   title?: string;
+  description?: string;
   mainClassName?: string;
   children: React.ReactNode;
-}> = ({ title, mainClassName, children }) => {
+}> = ({ title, description, mainClassName, children }) => {
   const fullTitle = title ? `${title} | ${projectName}` : projectName;
+  const fullDescription = description ?? projectDescription;
 
   return (
     <>
       <Head>
         <link rel="icon" href="/logo.svg" />
         <title>{fullTitle}</title>
-        <meta name="description" content={fullTitle} />
-        <meta
-          name="keywords"
-          content="orm,data-mapper,persistence,typescript-orm,javascript-orm,mariadb,mariadb-orm,mysql,mysql-orm,postgresql,postgresql-orm,sqlite,sqlite-orm,mongodb,mongodb-orm,entity,dao,transaction,repository,service"
-        ></meta>
+        <meta name="description" content={fullDescription} />
         <meta name="og:title" content={fullTitle} />
+        <meta name="og:description" content={fullDescription} />
         <meta property="og:image" content="/logo.svg" />        
       </Head>
       <Header />

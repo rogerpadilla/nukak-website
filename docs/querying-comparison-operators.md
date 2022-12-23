@@ -1,5 +1,6 @@
 ---
 weight: 130
+description: This tutorial explain how to use comparison operators with the nukak orm.
 ---
 
 ## Comparison Operators

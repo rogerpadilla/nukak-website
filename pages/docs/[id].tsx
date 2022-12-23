@@ -4,13 +4,13 @@ import remarkGfm from 'remark-gfm';
 // import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { Layout } from '../../components/layout';
-import { Sidenav } from '../../components/sidenav';
-import { Pager } from '../../components/pager';
-import { Code } from '../../components/code';
-import { getFiles } from '../../utils/files';
-import { buildSidenavItems } from '../../utils/ui';
-import { Badges } from '../../components/badges';
+import { Layout } from '../../shared/layout';
+import { Sidenav } from '../../shared/sidenav';
+import { Pager } from '../../shared/pager';
+import { Code } from '../../shared/code';
+import { getFiles } from '../../shared/files';
+import { buildSidenavItems } from '../../shared/ui';
+import { Badges } from '../../shared/badges';
 import type { FileMetadata, SidenavItem } from '../../types';
 import s from './[id].module.css';
 
@@ -19,7 +19,7 @@ const components = {
 } as const;
 
 const Doc = ({ doc, items }: InferGetStaticPropsType<typeof getStaticProps>) => (
-  <Layout title={doc.title}>
+  <Layout title={doc.title} description={doc.description}>
     <Sidenav category="docs" items={items} />
     <article className={s.article}>
       {doc.root && <Badges />}

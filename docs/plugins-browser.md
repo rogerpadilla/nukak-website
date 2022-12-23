@@ -1,5 +1,6 @@
 ---
 weight: 400
+description: This tutorial explain how to use the browser plugin with the nukak orm.
 ---
 
 ## Browser plugin

@@ -1,5 +1,6 @@
 ---
 weight: 100
+description: This tutorial explain how to use inheritance between entities with the nukak orm.
 ---
 
 ## Inheritance between entities

@@ -1,5 +1,6 @@
 ---
 weight: 170
+description: This tutorial explain how to use sub-queries with the nukak orm.
 ---
 
 ## Sub-Queries

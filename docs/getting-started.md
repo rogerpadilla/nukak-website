@@ -1,6 +1,7 @@
 ---
 weight: 1
 root: true
+description: This tutorial explain how to use get started with the nukak orm.
 ---
 
 ![code](/code.webp 'code')

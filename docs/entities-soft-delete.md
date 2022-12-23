@@ -1,5 +1,6 @@
 ---
 weight: 80
+description: This tutorial explain how to use soft-delete in the entities with the nukak orm.
 ---
 
 ## Soft-Delete for entities

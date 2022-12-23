@@ -1,10 +1,11 @@
 ---
 weight: 60
+description: This tutorial explain how to define basic entities with the nukak orm.
 ---
 
 ## Basic entities
 
-To define a basic `entity`, the following are the essential steps:
+The following are the steps to define a basic `entity`:
 
 1. Take any class and annotate it with the `@Entity` decorator.
 2. Annotate one of its properties with the `@Id` decorator.
