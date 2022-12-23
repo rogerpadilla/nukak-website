@@ -9,7 +9,7 @@ A `querier` is the `nukak`'s abstraction over database drivers to dynamically ge
 
 With a `querier` you can:
 - Manipulate the data related to _any_ `entity`.
-- Use [declarative](/docs/transactions-declarative) or [imperative](/docs/transactions-imperative) transactions.
+- Use [declarative](/docs/transactions-declarative) and [imperative](/docs/transactions-imperative) transactions.
 - Obtain [repositories](/docs/querying-repository) for a _specific_ `entity`.
 
 ```ts
