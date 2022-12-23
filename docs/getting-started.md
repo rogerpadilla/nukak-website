@@ -5,7 +5,7 @@ root: true
 
 ![code](/code.webp 'code')
 
-Powerful [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org) and modern `JavaScript` ideated to be fast, safe, and simple to plug into any application. Inspired by other ORMs such as [TypeORM](https://typeorm.io) and [Mongo driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
+Powerful [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org) and modern `JavaScript` ideated to be fast, safe, and simple to plug into any application. Inspired by others such as [TypeORM](https://typeorm.io) and [Mongo driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
 
 &nbsp;
 
