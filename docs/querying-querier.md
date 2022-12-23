@@ -8,9 +8,9 @@ description: This tutorial explain how to use a querier with the nukak orm.
 A `querier` is the `nukak`'s abstraction over database drivers to dynamically generate the queries for _any_ given entity. It allows interaction with the different databases in a consistent way.
 
 With a `querier` you can:
-- Manipulate the data related to all the `entities`.
-- Use [transactions](/docs/transactions-imperative).
-- Obtain [repositories](/docs/querying-repository)
+- Manipulate the data related to _any_ `entity`.
+- Use [declarative](/docs/transactions-declarative) or [imperative](/docs/transactions-imperative) transactions.
+- Obtain [repositories](/docs/querying-repository) for a _specific_ `entity`.
 
 ```ts
 import { getQuerier } from 'nukak';

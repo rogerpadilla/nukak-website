@@ -9,6 +9,7 @@ A `repository` allows to run queries for a _specific_ `entity`, they can be used
 
 With a `repository` you can:
 - Manipulate the data related to a single `entity`.
+- Access the `querier` instance that is linked to the `repository`.
 
 
 ```ts
