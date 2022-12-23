@@ -5,23 +5,22 @@ root: true
 
 ![code](/code.webp 'code')
 
-The smart `ORM`.
+[nukak](https://nukak.org) is a powerful [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org) and modern `JavaScript` ideated to be fast, safe, and simple to plug into any application. Inspired by other ORMs such as [TypeORM](https://typeorm.io) and [Mongo driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
 
 &nbsp;
 
 ## Features
 
-- Serializable queries: the [syntax](https://nukak.org/docs/querying-logical-operators) has been designed with `JSON` syntax to squeeze all the power from [TypeScript](http://www.typescriptlang.org/) & modern `JavaScript`, allowing the queries to be transported across platforms with ease.
-- Type-safe queries: `TypeScript` will auto-complete and validate the [queries](https://nukak.org/docs/querying-comparison-operators) while coding and refactoring.
-- Context-aware queries: `TypeScript` infers the appropriate operators and fields based on each part of a query.
+- Serializable queries: the [syntax](https://nukak.org/docs/querying-logical-operators) is valid `JSON` allowing the queries to be transported across platforms with ease, squeezing the strengths of `TypeScript` & modern `JavaScript`.
+- Type-safe queries: `TypeScript` auto-completes and validates the [queries](https://nukak.org/docs/querying-comparison-operators) while coding.
+- Context-aware queries: `TypeScript` infers the appropriate operators on any level of the query, [including relations and their fields](https://www.nukak.org/docs/querying-relations).
 - High performance: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
 - Combines the best elements of `OOP` (Object Oriented Programming) and `FP` (Functional Programming).
-- [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions` for flexibility.
+- [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
 - Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) packages. `ESM` is natively supported by Node.js 12 and later.
-- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository), `connection pooling` for scalability.
+- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
 - Supports the Data Mapper pattern for maintainability.
 - Transparent support for [inheritance between entities](https://nukak.org/docs/entities-inheritance).
-- Support for projection, filtering, sorting, and other operations on any level of the query, [including relations and their fields](https://www.nukak.org/docs/querying-relations).
 - Unified syntax across Databases: providing a standard `API` and transparently transforming queries according to the configured database.
 
 &nbsp;
