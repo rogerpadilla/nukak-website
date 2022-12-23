@@ -3,7 +3,9 @@ weight: 180
 description: This tutorial explain how to use a querier with the nukak orm.
 ---
 
-A `querier` is `nukak`'s an abstraction over database drivers. It allows to interact with the different databases in an unified way.
+## Querier
+
+A `querier` is the `nukak`'s abstraction over database drivers to dynamically generate the queries. It allows to interact with the different databases in an consistent way.
 
 With a `querier` you can:
 - Manipulate the data related to all the `entities`.
