@@ -89,6 +89,8 @@ setQuerierPool(querierPool);
 Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
 
 ```ts
+import { Entity, Id, Field } from 'nukak/entity';
+
 /**
  * any class can be annotated with this decorator to make it works as
  * an entity.
