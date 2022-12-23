@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "sitemap": "ts-node --skip-project -T ./utils/sitemap.ts",
+    "sitemap": "ts-node --skip-project -T ./shared/sitemap.ts",
     "build": "next build && npm run sitemap",
     "export": "next export",
     "dev": "next dev -p 5200",
