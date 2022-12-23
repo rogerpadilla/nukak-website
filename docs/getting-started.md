@@ -90,7 +90,7 @@ Take any dump class (aka DTO) and annotate it with the decorators from `nukak/en
 
 ```ts
 /**
- * Any class can be annotated with this decorator to make it works as
+ * any class can be annotated with this decorator to make it works as
  * an entity.
  */
 @Entity()
