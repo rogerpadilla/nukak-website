@@ -5,7 +5,7 @@ description: This tutorial explain how to use relations in the entities with the
 
 ## Relations between entities
 
-Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
+Take any dump class (aka `DTO`) and annotate it with the decorators from `nukak/entity`.
 
 ```ts
 import { v4 as uuidv4 } from 'uuid';
