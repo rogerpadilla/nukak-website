@@ -5,11 +5,11 @@ description: This tutorial explain how to use repositories with the nukak orm.
 
 ## Repository
 
-A `repository` allows to run queries for a _specific_ `entity`, they can be used instead of [queriers](/docs/querying-querier). That way, it is unnecessary to provide the `entity` parameter, and only the `query` parameter is required to run the queries. Each `repository` is also associated with a single [querier](/docs/querying-querier) instance.
+A `repository` allows to run queries for a _specific_ `entity`, they can be used instead of [queriers](/docs/querying-querier) for this purpose. That way, it is unnecessary to provide the `entity` parameter, and only the `query` parameter is required. Every `repository` is also associated with a single [querier](/docs/querying-querier) instance (from where it was obtained).
 
 With a `repository` you can:
 - Manipulate the data related to a single `entity`.
-- Access the `querier` instance that is linked to the `repository`.
+- Access the `querier` instance from where the `repository` was obtained.
 
 
 ```ts
