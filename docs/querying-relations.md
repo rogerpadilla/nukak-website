@@ -5,22 +5,24 @@ description: This tutorial explain how to use relations in the queries with the 
 
 ## Querying relations
 
-`$project` a mandatory relation (via `$required: true`):
+project a mandatory relation with `$required: true`:
 
 ```ts
 @Transactional()
 async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
-  return querier.findOne(User, {
-    $project: {
+  return querier.findOne(User,
+    {
+      $sort: { createdAt: -1 },
+    },
+    {
       id: true,
       name: true,
       profile: {
         $project: ['id', 'picture'],
         $required: true
       }
-    },
-    $sort: { createdAt: -1 },
-  });
+    }
+  );
 }
 ```
 
@@ -42,14 +44,17 @@ import { getQuerier } from 'nukak';
 
 async function findLatestUserWithProfile(): Promise<User> {
   const querier = await getQuerier();
-  const user = querier.findOne(User, {
-    $project: {
+  const user = querier.findOne(
+    User,
+    {
+      $sort: { createdAt: -1 },
+    },
+    {
       id: true,
       name: true,
       profile: ['id', 'picture'],
-    },
-    $sort: { createdAt: -1 },
-  });
+    }
+  );
   await querier.release();
   return user;
 }
@@ -76,8 +81,13 @@ import { Item } from './shared/models/index.js';
 export class ItemService {
   @Transactional()
   async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
-    return querier.findMany(Item, {
-      $project: {
+    return querier.findMany(Item,
+      {
+        $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
+        $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
+        $limit: 100,
+      },
+      {
         id: true,
         name: true,
         measureUnit: {
@@ -86,11 +96,8 @@ export class ItemService {
           $required: true
         },
         tax: ['id', 'name'],
-      },
-      $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
-      $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
-      $limit: 100,
-    });
+      }
+    );
   }
 }
 

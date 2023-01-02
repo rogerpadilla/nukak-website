@@ -34,12 +34,15 @@ description: This tutorial explain how to use comparison operators with the nuka
 Example usage for the `$istartsWith` and `$ne` comparison operators:
 
 ```ts
-await this.querier.findMany(User, {
-  $project: { id: true },
-  $filter: { name: { $istartsWith: 'Some', $ne: 'Something' } },
-  $sort: { name: 1, id: -1 },
-  $limit: 50,
-});
+await this.querier.findMany(
+  User,
+  {
+    $filter: { name: { $istartsWith: 'Some', $ne: 'Something' } },
+    $sort: { name: 1, id: -1 },
+    $limit: 50,
+  },
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL` for `Postgres`:

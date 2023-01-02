@@ -17,18 +17,25 @@ description: This tutorial explain how to use logical operators with the nukak o
 Example usage for the `$and` logical operator (default operator if unspecified):
 
 ```ts
-await querier.findMany(User, {
-  $project: { id: true },
-  $filter: { name: 'maku', creatorId: 1 },
-});
+await querier.findMany(
+  User,
+  {
+    $filter: { name: 'maku', creatorId: 1 },
+  },
+  ['id']
+);
 ```
+
 or the same query with an explicit `$and`
 
 ```ts
-await querier.findMany(User, {
-  $project: { id: true },
-  $filter: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
-});
+await querier.findMany(
+  User,
+  {
+    $filter: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
+  },
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -42,10 +49,13 @@ SELECT `id` FROM `User` WHERE `name` = 'maku' AND `creatorId` = 1
 Example usage for the `$or` logical operator:
 
 ```ts
-await querier.findMany(User, {
-  $project: { id: true },
-  $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
-});
+await querier.findMany(
+  User,
+  {
+    $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
+  },
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -59,10 +69,13 @@ SELECT `id` FROM `User` WHERE `name` = 'maku' OR `creatorId` = 1
 Example usage for the `$not` logical operator
 
 ```ts
-await querier.findMany(User, {
-  $project: { id: true },
-  $filter: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
-});
+await querier.findMany(
+  User,
+  {
+    $filter: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
+  },
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -76,10 +89,13 @@ SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' AND `creatorId` = 1)
 Example usage for the `$nor` logical operator
 
 ```ts
-await querier.findMany(User, {
-  $project: { id: true },
-  $filter: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
-});
+await querier.findMany(
+  User,
+  {
+    $filter: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
+  },
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:

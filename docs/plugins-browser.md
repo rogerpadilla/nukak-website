@@ -30,10 +30,12 @@ import { User } from './shared/models/index.js';
 // 'User' is an entity class.
 const userRepository = getRepository(User);
 
-const users = await userRepository.findMany({
-  $project: { email: true, profile: ['picture'] },
-  $filter: { email: { $endsWith: '@domain.com' } },
-  $sort: { createdAt: -1 },
-  $limit: 100,
-});
+const users = await userRepository.findMany(
+  {
+    $filter: { email: { $endsWith: '@domain.com' } },
+    $sort: { createdAt: -1 },
+    $limit: 100,
+  },
+  { email: true, profile: ['picture'] }
+);
 ```

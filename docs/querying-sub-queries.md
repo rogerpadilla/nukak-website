@@ -5,21 +5,24 @@ description: This tutorial explain how to use sub-queries with the nukak orm.
 
 ## Sub-Queries
 
-`$project` a `raw` expression:
+project a `raw` expression:
 
 ```ts
 import { raw } from 'nukak/util';
 
-this.querier.findMany(Item, {
-  $project: {
+this.querier.findMany(
+  Item,
+  {
+    $group: ['companyId'],
+  },
+  {
     companyId: true,
     total: raw(({ escapedPrefix, dialect }) => `SUM(${escapedPrefix}${dialect.escapeId('salePrice')})`),
-  },
-  $group: ['companyId'],
-});
+  }
+);
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
@@ -32,14 +35,17 @@ SELECT `companyId`, SUM(`salePrice`) `total` FROM `Item` GROUP BY `companyId`
 ```ts
 import { raw } from 'nukak/util';
 
-await this.querier.findMany(Item, {
-  $project: ['id'],
-  $filter: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] },
-  $group: ['creatorId'],
-});
+await this.querier.findMany(
+  Item,
+  {
+    $filter: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] },
+    $group: ['creatorId'],
+  },
+  ['id']
+);
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY `creatorId`
@@ -52,26 +58,27 @@ SELECT `id` FROM `Item` WHERE `companyId` = 1 AND SUM(salePrice) > 500 GROUP BY 
 ```ts
 import { raw } from 'nukak/util';
 
-await this.querier.findMany(Item, {
-  $project: {
-    id: 1,
+await this.querier.findMany(
+  Item,
+  {
+    $filter: {
+      $nexists: raw(({ escapedPrefix, dialect }) =>
+        dialect.find(
+          User,
+          {
+            $project: ['id'],
+            $filter: { companyId: raw(escapedPrefix + dialect.escapeId(`companyId`)) },
+          },
+          { autoPrefix: true }
+        )
+      ),
+    },
   },
-  $filter: {
-    $nexists: raw(({ escapedPrefix, dialect }) =>
-      dialect.find(
-        User,
-        {
-          $project: ['id'],
-          $filter: { companyId: raw(escapedPrefix + dialect.escapeId(`companyId`)) },
-        },
-        { autoPrefix: true }
-      )
-    ),
-  },
-});
+  ['id']
+);
 ```
 
-That &#9650; code will generate this &#9660;  `SQL`:
+That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT `id`

@@ -83,7 +83,7 @@ export class ItemTag {
 
   @Field({ reference: () => Item })
   itemId?: number;
-  
+
   @Field({ reference: () => Tag })
   tagId?: number;
 }
@@ -91,15 +91,10 @@ export class ItemTag {
 
 &nbsp;
 
-If we `$project` the `tagsCount` virtual-column:
+If we project the `tagsCount` virtual-column:
 
 ```ts
-await querier.findMany(Item, {
-  $project: {
-    id: 1,
-    tagsCount: 1,
-  },
-});
+await querier.findMany(Item, {}, ['id', 'tagsCount']);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -116,14 +111,15 @@ FROM `Item`
 If we `$filter` by the `tagsCount` virtual-column:
 
 ```ts
-await querier.findMany(Item, {
-  $project: {
-    id: 1,
+await querier.findMany(
+  Item,
+  {
+    $filter: {
+      tagsCount: { $gte: 10 },
+    },
   },
-  $filter: {
-    tagsCount: { $gte: 10 },
-  },
-});
+  ['id']
+);
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
