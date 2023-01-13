@@ -4,7 +4,9 @@ root: true
 description: This tutorial explain the features of the nukak orm and how to use get started with it.
 ---
 
-The perfectionistic [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org) and modern `JavaScript` ideated to be fast, safe, and simple to plug into any application. Inspired by others such as [TypeORM](https://typeorm.io), [MikroORM](https://mikro-orm.io), and [Mongo driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
+[nukak](https://nukak.org) is a [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org) and modern `JavaScript`, is designed to be fast, safe, and easy to integrate into any application. It draws inspiration from [TypeORM](https://typeorm.io) and [Mongo driver](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
+
+[nukak](https://nukak.org) provides a consistent `API` for a wide variety of databases including `PostgreSQL`, `MySQL`, `SQLite` and `MongoDB`.
 
 &nbsp;
 
@@ -19,7 +21,7 @@ The perfectionistic [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relationa
 - [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
 - Supports the Data Mapper pattern for maintainability.
 - Transparent support for [inheritance between entities](https://nukak.org/docs/entities-inheritance) for reusability and consistency.
-- Unified syntax across Databases: providing a standard `API` and transparently transforming queries according to the configured database.
+- Unified API across Databases: same query is transparently transformed according to the configured database.
 
 &nbsp;
 
