@@ -11,18 +11,18 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "next": "^13.1.2",
+    "next": "^13.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^8.0.4",
+    "react-markdown": "^8.0.5",
     "react-syntax-highlighter": "^15.5.0",
-    "valtio": "^1.8.2"
+    "valtio": "^1.9.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
-    "eslint": "8.31.0",
-    "eslint-config-next": "13.1.2",
+    "@types/react": "^18.0.27",
+    "eslint": "8.32.0",
+    "eslint-config-next": "13.1.4",
     "gray-matter": "^4.0.3",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-slug": "^5.1.0",
