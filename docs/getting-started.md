@@ -12,7 +12,7 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 &nbsp;
 
-![Sample code](https://rawcdn.githack.com/rogerpadilla/nukak/c9cf8c907ec366632ab55dc01d5daf8c307745fa/assets/code-s.jpg?raw=true 'Same code')
+![Sample code](/code-s.jpg?raw=true 'Same code')
 
 &nbsp;
 
