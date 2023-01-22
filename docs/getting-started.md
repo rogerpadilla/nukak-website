@@ -12,7 +12,7 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 &nbsp;
 
-![Sample code](/code-s.jpg?raw=true 'Same code')
+![Sample code](/code-s2.jpg?raw=true 'Same code')
 
 &nbsp;
 
