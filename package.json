@@ -16,12 +16,12 @@
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.5",
     "react-syntax-highlighter": "^15.5.0",
-    "valtio": "^1.10.0"
+    "valtio": "^1.10.2"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.27",
-    "eslint": "8.33.0",
+    "@types/node": "^18.13.0",
+    "@types/react": "^18.0.28",
+    "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "gray-matter": "^4.0.3",
     "rehype-autolink-headings": "^6.1.1",
