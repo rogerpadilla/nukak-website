@@ -8,7 +8,7 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 [nukak](https://nukak.org) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms.
 
-[nukak](https://nukak.org) provides a consistent API for a wide variety of databases including PostgreSQL, MySQL, SQLite and MongoDB.
+[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, SQLite, and MongoDB.
 
 &nbsp;
 
@@ -18,16 +18,16 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 ## Features
 
-- Serializable queries: its [syntax](https://nukak.org/docs/querying-logical-operators) is `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
 - Type-safe and Context-aware queries: squeeze the strength of `TypeScript` so it auto-completes, validates, and infers the appropriate operators on any level of the queries, [including the relations and their fields](https://www.nukak.org/docs/querying-relations).
-- High performance: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
+- Serializable queries: its [syntax](https://nukak.org/docs/querying-logical-operators) is `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
+- Unified API across Databases: same query is transparently transformed according to the configured database.
 - Combines the best elements of `OOP` (Object Oriented Programming) and `FP` (Functional Programming).
 - [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
-- Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) packages. `ESM` is natively supported by Node.js 12 and later.
-- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
-- Supports the Data Mapper pattern for maintainability.
 - Transparent support for [inheritance between entities](https://nukak.org/docs/entities-inheritance) for reusability and consistency.
-- Unified API across Databases: same query is transparently transformed according to the configured database.
+- Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) packages. `ESM` is natively supported by Node.js 12 and later.
+- High performance: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
+- Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern for maintainability.
+- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
 
 &nbsp;
 
@@ -43,11 +43,11 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 | Database     | Driver           | Nukak Adapter    |
 | ------------ | ---------------- | ---------------- |
-| `MySQL`      | `mysql2`         | `nukak-mysql`    |
-| `MariaDB`    | `mariadb`        | `nukak-maria`    |
-| `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
 | `PostgreSQL` | `pg`             | `nukak-postgres` |
+| `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
+| `MariaDB`    | `mariadb`        | `nukak-maria`    |
 | `MongoDB`    | `mongodb`        | `nukak-mongo`    |
+| `MySQL`      | `mysql2`         | `nukak-mysql`    |
 
 For example, for `Postgres`:
 
