@@ -65,28 +65,7 @@ npm install pg nukak-postgres --save
 
 &nbsp;
 
-## Configure
-
-A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
-
-```ts
-import { setQuerierPool } from 'nukak';
-import { PgQuerierPool } from 'nukak-postgres';
-
-export const querierPool = new PgQuerierPool(
-  {
-    host: 'localhost',
-    user: 'theUser',
-    password: 'thePassword',
-    database: 'theDatabase',
-  },
-  // optionally, a logger can be passed to log the generated SQL queries
-  { logger: console.log }
-);
-
-// the default querier pool that `nukak` will use
-setQuerierPool(querierPool);
-```
+---
 
 &nbsp;
 
@@ -129,18 +108,43 @@ export class User {
 
 &nbsp;
 
+## Set up a default querier-pool
+
+A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
+
+```ts
+import { setQuerierPool } from 'nukak';
+import { PgQuerierPool } from 'nukak-postgres';
+
+export const querierPool = new PgQuerierPool(
+  {
+    host: 'localhost',
+    user: 'theUser',
+    password: 'thePassword',
+    database: 'theDatabase',
+  },
+  // optionally, a logger can be passed to log the generated SQL queries
+  { logger: console.log }
+);
+
+// the default querier pool that `nukak` will use
+setQuerierPool(querierPool);
+```
+
+&nbsp;
+
 ## Manipulate the data
 
 ```ts
 import { getQuerier } from 'nukak';
 import { User } from './shared/models/index.js';
 
-async function findLastUsers(limit = 10) {
+async function findFirstUsers(limit = 100) {
   const querier = await getQuerier();
   const users = await querier.findMany(
     User,
     {
-      $sort: { createdAt: -1 },
+      $sort: { createdAt: 1 },
       $limit: limit,
     },
     ['id', 'name', 'email']
