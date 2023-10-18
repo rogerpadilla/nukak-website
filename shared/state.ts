@@ -2,25 +2,23 @@ import { proxy } from 'valtio';
 import { subscribeKey } from 'valtio/utils';
 import { Theme } from '../types';
 
-export const state = proxy({ isSidenavOpen: false, theme: 'dark' as Theme })
+export const state = proxy({ isSidenavOpen: false, theme: undefined as Theme });
+
+function getTheme(): Theme {
+    const theme = localStorage.getItem('theme') as Theme;
+    if (theme) {
+        return theme;
+    }
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    return prefersDarkScheme.matches ? 'dark' : 'light';
+}
 
 function theme() {
-    function setTheme(theme: Theme): void {
+    subscribeKey(state, 'theme', (theme) => {
         document.body.classList.remove('dark', 'light');
         document.body.classList.add(theme);
         localStorage.setItem('theme', theme);
-    }
-
-    function getTheme(): Theme {
-        const theme = localStorage.getItem('theme') as Theme;
-        if (theme) {
-            return theme;
-        }
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        return prefersDarkScheme.matches ? 'dark' : 'light';
-    }
-
-    subscribeKey(state, 'theme', setTheme);
+    });
 
     state.theme = getTheme();
 }

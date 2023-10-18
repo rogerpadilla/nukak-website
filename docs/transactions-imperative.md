@@ -7,11 +7,44 @@ description: This tutorial explain how to use imperative transactions with the n
 
 Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
-Use `Imperative` transactions as below:
+### Method 1: shorthand `querierPool.transaction(...)`.
 
-1. get the `querier` instance with `await getQuerier()`.
-2. run the transaction with `await querier.transaction(callback)`.
-3. perform the different operations using the same `querier` (or `repositories`) inside your `callback` function.
+```ts
+import { PgQuerierPool } from 'nukak-postgres';
+
+export const querierPool = new PgQuerierPool(
+  {
+    host: process.env.DB_HOST,
+    port: +process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+  },
+  { logger: console.log }
+);
+
+
+async function confirm(confirmation: Confirmation): Promise<void> {
+  await querierPool.transaction(async (querier) => {
+    if (confirmation.action === 'signup') {
+      await querier.insertOne(User, {
+        name: confirmation.name,
+        email: confirmation.email,
+        password: confirmation.password,
+      });
+    } else {
+      await querier.updateOneById(User, confirmation.creatorId, {
+        password: confirmation.password,
+      });
+    }
+    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
+  });
+}
+```
+
+&nbsp;
+
+### Method 2: shorthand `querier.transaction(...)`:
 
 ```ts
 import { getQuerier } from 'nukak';
@@ -32,12 +65,13 @@ async function confirm(confirmation: Confirmation): Promise<void> {
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
   });
+  await querier.release()
 }
 ```
 
 &nbsp;
 
-That &#9650; code can also be implemented as this &#9660; (for more granular control):
+### Method 3: independent functions for more granular control `querier.*`.
 
 ```ts
 async function confirm(confirmation: Confirmation): Promise<void> {
