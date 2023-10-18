@@ -7,9 +7,11 @@ description: This tutorial explain how to use imperative transactions with the n
 
 Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
-### Method 1: shorthand `querierPool.transaction(...)`.
+Pre-requisite step, define a querier pool.
 
 ```ts
+// in file querierPool.ts
+import { setQuerierPool } from 'nukak';
 import { PgQuerierPool } from 'nukak-postgres';
 
 export const querierPool = new PgQuerierPool(
@@ -23,6 +25,15 @@ export const querierPool = new PgQuerierPool(
   { logger: console.log }
 );
 
+setQuerierPool(querierPool);
+```
+
+---
+
+### Method 1: shorthand `querierPool.transaction(...)`.
+
+```ts
+import { querierPool } from './querierPool.js';
 
 async function confirm(confirmation: Confirmation): Promise<void> {
   await querierPool.transaction(async (querier) => {
@@ -42,7 +53,7 @@ async function confirm(confirmation: Confirmation): Promise<void> {
 }
 ```
 
-&nbsp;
+---
 
 ### Method 2: shorthand `querier.transaction(...)`:
 
@@ -69,11 +80,13 @@ async function confirm(confirmation: Confirmation): Promise<void> {
 }
 ```
 
-&nbsp;
+---
 
 ### Method 3: independent functions for more granular control `querier.*`.
 
 ```ts
+import { getQuerier } from 'nukak';
+
 async function confirm(confirmation: Confirmation): Promise<void> {
   const querier = await getQuerier();
   try {
