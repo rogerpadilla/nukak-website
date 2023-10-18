@@ -24,7 +24,7 @@ const Doc = ({ doc, items }: InferGetStaticPropsType<typeof getStaticProps>) => 
     <article className={s.article}>
       {doc.root && <Badges />}
       <ReactMarkdown
-        components={components}
+        components={components as any}
         rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
         remarkPlugins={[remarkGfm]}
       >
