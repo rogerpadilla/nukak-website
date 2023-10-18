@@ -7,7 +7,7 @@ description: This tutorial explain how to use imperative transactions with the n
 
 Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
-**NOTE**: Pre-requisite step, define a querier pool.
+**Note**: Pre-requisite step, define a querier pool.
 
 ```ts
 // in file querierPool.ts
