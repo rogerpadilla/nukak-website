@@ -30,13 +30,15 @@ setQuerierPool(querierPool);
 
 ---
 
-### Method 1: shorthand `querierPool.transaction(...)`.
+### Method 1: independent functions for more granular control `querier.*`.
 
 ```ts
-import { querierPool } from './querierPool.js';
+import { getQuerier } from 'nukak';
 
 async function confirm(confirmation: Confirmation): Promise<void> {
-  await querierPool.transaction(async (querier) => {
+  const querier = await getQuerier();
+  try {
+    await querier.beginTransaction();
     if (confirmation.action === 'signup') {
       await querier.insertOne(User, {
         name: confirmation.name,
@@ -49,7 +51,13 @@ async function confirm(confirmation: Confirmation): Promise<void> {
       });
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
-  });
+    await querier.commitTransaction();
+  } catch (error) {
+    await querier.rollbackTransaction();
+    throw error;
+  } finally {
+    await querier.release();
+  }
 }
 ```
 
@@ -82,15 +90,13 @@ async function confirm(confirmation: Confirmation): Promise<void> {
 
 ---
 
-### Method 3: independent functions for more granular control `querier.*`.
+### Method 3: shorthand `querierPool.transaction(...)`.
 
 ```ts
-import { getQuerier } from 'nukak';
+import { querierPool } from './querierPool.js';
 
 async function confirm(confirmation: Confirmation): Promise<void> {
-  const querier = await getQuerier();
-  try {
-    await querier.beginTransaction();
+  await querierPool.transaction(async (querier) => {
     if (confirmation.action === 'signup') {
       await querier.insertOne(User, {
         name: confirmation.name,
@@ -103,12 +109,6 @@ async function confirm(confirmation: Confirmation): Promise<void> {
       });
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
-    await querier.commitTransaction();
-  } catch (error) {
-    await querier.rollbackTransaction();
-    throw error;
-  } finally {
-    await querier.release();
-  }
+  });
 }
 ```
