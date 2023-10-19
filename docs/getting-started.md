@@ -31,7 +31,7 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 &nbsp;
 
-## Install
+## 1. Install
 
 1. Install the core package:
 
@@ -69,7 +69,7 @@ npm install pg nukak-postgres --save
 
 &nbsp;
 
-## Define the entities
+## 2. Define the entities
 
 Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
 
@@ -108,7 +108,7 @@ export class User {
 
 &nbsp;
 
-## Set up a default querier-pool
+## 3. Set up a default querier-pool
 
 A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
@@ -133,7 +133,7 @@ setQuerierPool(querierPool);
 
 &nbsp;
 
-## Manipulate the data
+## 4. Manipulate the data
 
 ```ts
 import { getQuerier } from 'nukak';
