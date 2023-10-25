@@ -4,7 +4,7 @@ root: true
 description: This tutorial explain the features of the nukak orm and how to use get started with it.
 ---
 
-[nukak](https://nukak.org) is the smartest [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) for [TypeScript](http://www.typescriptlang.org), it is designed to be fast, safe, and easy to integrate into any application. It takes inspiration from [Mongo queries](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
+[nukak](https://nukak.org) is the [smartest](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) ORM for TypeScript, it is designed to be fast, safe, and easy to integrate into any application. It takes inspiration from [Mongo queries](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
 
 [nukak](https://nukak.org) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms.
 
