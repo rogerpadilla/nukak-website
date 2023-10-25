@@ -12,7 +12,16 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 &nbsp;
 
-![Sample code](/code-s2.jpg?raw=true 'Same code')
+```ts
+const companyUsers = await userRepository.findMany(
+  {
+    $filter: { email: { $endsWith: '@domain.com' } },
+    $sort: { createdAt: -1 },
+    $limit: 100,
+  },
+  { email: true, profile: ['picture'] }
+);
+```
 
 &nbsp;
 
