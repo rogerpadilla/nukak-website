@@ -16,7 +16,7 @@ description: This tutorial explain the features of the nukak orm and how to use 
 const companyUsers = await userRepository.findMany(
   {
     $filter: { email: { $endsWith: '@domain.com' } },
-    $sort: { createdAt: -1 },
+    $sort: { createdAt: 'desc },
     $limit: 100,
   },
   { email: true, profile: ['picture'] }
