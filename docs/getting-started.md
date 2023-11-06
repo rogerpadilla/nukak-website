@@ -15,11 +15,11 @@ description: This tutorial explain the features of the nukak orm and how to use 
 ```ts
 const companyUsers = await userRepository.findMany(
   {
+    $project: { email: true, profile: ['picture'] },
     $filter: { email: { $endsWith: '@domain.com' } },
     $sort: { createdAt: 'desc' },
     $limit: 100,
-  },
-  { email: true, profile: ['picture'] }
+  }
 );
 ```
 
@@ -160,10 +160,10 @@ async function findLastUsers(limit = 100) {
   const users = await querier.findMany(
     User,
     {
+      $project: { id: true, name: true, email: true },
       $sort: { createdAt: 'desc' },
       $limit: limit,
-    },
-    { id: true, name: true, email: true },
+    }    
   );
   await querier.release();
   return users;

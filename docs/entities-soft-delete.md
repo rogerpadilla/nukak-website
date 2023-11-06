@@ -20,7 +20,7 @@ export class MeasureUnitCategory {
 
   @Field()
   name?: string;
-  
+
   /**
    * `onDelete` callback allows to specify which field will be used
    * when deleting/querying this entity.
@@ -49,7 +49,7 @@ UPDATE `MeasureUnitCategory` SET `deletedAt` = 1627344820381 WHERE `id` 1
 And if we perform any `find` operation for that entity, the soft-deleted records won't be loaded (by default):
 
 ```ts
-await querier.findMany(MeasureUnitCategory, { $limit: 100 }, ['id', 'name']);
+await querier.findMany(MeasureUnitCategory, { $project: ['id', 'name'], $limit: 100 });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:

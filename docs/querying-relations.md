@@ -12,15 +12,15 @@ project a mandatory relation with `$required: true`:
 async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
   return querier.findOne(User,
     {
+      $project: {
+        id: true,
+        name: true,
+        profile: {
+          $project: ['id', 'picture'],
+          $required: true
+        }
+      },
       $sort: { createdAt: -1 },
-    },
-    {
-      id: true,
-      name: true,
-      profile: {
-        $project: ['id', 'picture'],
-        $required: true
-      }
     }
   );
 }
@@ -47,13 +47,13 @@ async function findLatestUserWithProfile(): Promise<User> {
   const user = querier.findOne(
     User,
     {
+      $project: {
+        id: true,
+        name: true,
+        profile: ['id', 'picture'],
+      },
       $sort: { createdAt: -1 },
-    },
-    {
-      id: true,
-      name: true,
-      profile: ['id', 'picture'],
-    }
+    }    
   );
   await querier.release();
   return user;
@@ -83,20 +83,20 @@ export class ItemService {
   async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
     return querier.findMany(Item,
       {
+        $project: {
+          id: true,
+          name: true,
+          measureUnit: {
+            $project: ['id', 'name'],
+            $filter: { name: { $ne: 'unidad' } },
+            $required: true
+          },
+          tax: ['id', 'name'],
+        },
         $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
         $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
         $limit: 100,
-      },
-      {
-        id: true,
-        name: true,
-        measureUnit: {
-          $project: ['id', 'name'],
-          $filter: { name: { $ne: 'unidad' } },
-          $required: true
-        },
-        tax: ['id', 'name'],
-      }
+      }      
     );
   }
 }

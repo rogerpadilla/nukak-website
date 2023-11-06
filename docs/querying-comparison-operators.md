@@ -37,11 +37,11 @@ Example usage for the `$istartsWith` and `$ne` comparison operators:
 await this.querier.findMany(
   User,
   {
+    $project: ['id'],
     $filter: { name: { $istartsWith: 'Some', $ne: 'Something' } },
     $sort: { name: 1, id: -1 },
     $limit: 50,
-  },
-  ['id']
+  }
 );
 ```
 

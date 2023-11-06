@@ -94,7 +94,7 @@ export class ItemTag {
 If we project the `tagsCount` virtual-column:
 
 ```ts
-await querier.findMany(Item, {}, ['id', 'tagsCount']);
+await querier.findMany(Item, { $project: ['id', 'tagsCount'] });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -114,11 +114,11 @@ If we `$filter` by the `tagsCount` virtual-column:
 await querier.findMany(
   Item,
   {
+    $project: ['id'],
     $filter: {
       tagsCount: { $gte: 10 },
     },
-  },
-  ['id']
+  }
 );
 ```
 

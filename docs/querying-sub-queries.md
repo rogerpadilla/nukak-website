@@ -13,9 +13,9 @@ import { raw } from 'nukak/util';
 await this.querier.findMany(
   Item,
   {
+    $project: ['id'],
     $filter: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] }
-  },
-  ['id']
+  }
 );
 ```
 
@@ -35,6 +35,7 @@ import { raw } from 'nukak/util';
 await this.querier.findMany(
   Item,
   {
+    $project: ['id'],
     $filter: {
       $nexists: raw(({ escapedPrefix, dialect }) =>
         dialect.find(
@@ -47,8 +48,7 @@ await this.querier.findMany(
         )
       ),
     },
-  },
-  ['id']
+  }
 );
 ```
 
