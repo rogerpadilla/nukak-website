@@ -32,8 +32,8 @@ const userRepository = getRepository(User);
 
 const users = await userRepository.findMany(
   {
-    $project: { email: true, profile: ['picture'] },
-    $filter: { email: { $endsWith: '@domain.com' } },
+    $select: { email: true, profile: ['picture'] },
+    $where: { email: { $endsWith: '@domain.com' } },
     $sort: { createdAt: -1 },
     $limit: 100,
   }

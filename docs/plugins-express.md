@@ -65,7 +65,7 @@ app
        * Allow augment a filtering request (GET, DELETE) before it runs
        */
       preFilter(req, meta) {
-        req.query.$filter.creatorId = req.identify.userId;
+        req.query.$where.creatorId = req.identify.userId;
       },
     })
   );

@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   pageExtensions: ['tsx', 'md'],
   redirects() {
     return [
@@ -15,3 +15,5 @@ module.exports = {
     ];
   },
 };
+
+export default config;

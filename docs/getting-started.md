@@ -4,19 +4,19 @@ root: true
 description: This tutorial explain the features of the nukak orm and how to use get started with it.
 ---
 
-[nukak](https://nukak.org) is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application. It takes inspiration from [mongo queries](https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/query-document/).
+[nukak](https://nukak.org) is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
 
 [nukak](https://nukak.org) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
 
-[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, SQLite, MariaDB, and MongoDB.
+[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB and SQLite.
 
 &nbsp;
 
 ```ts
 const companyUsers = await userRepository.findMany(
   {
-    $project: { email: true, profile: ['picture'] },
-    $filter: { email: { $endsWith: '@domain.com' } },
+    $select: { email: true, profile: ['picture'] },
+    $where: { email: { $endsWith: '@domain.com' } },
     $sort: { createdAt: 'desc' },
     $limit: 100,
   }
@@ -160,7 +160,7 @@ async function findLastUsers(limit = 100) {
   const users = await querier.findMany(
     User,
     {
-      $project: { id: true, name: true, email: true },
+      $select: { id: true, name: true, email: true },
       $sort: { createdAt: 'desc' },
       $limit: limit,
     }    

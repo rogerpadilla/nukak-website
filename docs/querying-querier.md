@@ -22,8 +22,8 @@ const querier = await getQuerier();
 const users = await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 

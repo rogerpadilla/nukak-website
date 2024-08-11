@@ -5,7 +5,7 @@ description: This tutorial explain how to use sub-queries with the nukak orm.
 
 ## Sub-Queries
 
-`$filter` by a `raw` expression:
+`$where` by a `raw` expression:
 
 ```ts
 import { raw } from 'nukak/util';
@@ -13,8 +13,8 @@ import { raw } from 'nukak/util';
 await this.querier.findMany(
   Item,
   {
-    $project: ['id'],
-    $filter: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] }
+    $select: ['id'],
+    $where: { $and: [{ companyId: 1 }, raw('SUM(salePrice) > 500')] }
   }
 );
 ```
@@ -35,14 +35,14 @@ import { raw } from 'nukak/util';
 await this.querier.findMany(
   Item,
   {
-    $project: ['id'],
-    $filter: {
+    $select: ['id'],
+    $where: {
       $nexists: raw(({ escapedPrefix, dialect }) =>
         dialect.find(
           User,
           {
-            $project: ['id'],
-            $filter: { companyId: raw(escapedPrefix + dialect.escapeId(`companyId`)) },
+            $select: ['id'],
+            $where: { companyId: raw(escapedPrefix + dialect.escapeId(`companyId`)) },
           },
           { autoPrefix: true }
         )

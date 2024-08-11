@@ -2,8 +2,9 @@
   "name": "nukak-website",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "sitemap": "ts-node --skip-project -T ./shared/sitemap.ts",
+    "sitemap": "tsx ./shared/sitemap.ts",
     "build": "next build && npm run sitemap",
     "export": "next export",
     "dev": "next dev -p 5200",
@@ -11,29 +12,30 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "next": "^14.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-markdown": "^9.0.0",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
-    "valtio": "^1.12.0"
+    "valtio": "^1.13.2"
   },
   "devDependencies": {
-    "@types/node": "^20.8.10",
-    "@types/react": "^18.2.36",
-    "eslint": "8.53.0",
-    "eslint-config-next": "14.0.1",
+    "@types/node": "^22.2.0",
+    "@types/react": "^18.3.3",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
     "gray-matter": "^4.0.3",
-    "rehype-autolink-headings": "^7.0.0",
+    "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
   },
   "prettier": {
     "tabWidth": 2,
     "semi": true,
     "singleQuote": true,
     "printWidth": 120
-  }
+  },
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }

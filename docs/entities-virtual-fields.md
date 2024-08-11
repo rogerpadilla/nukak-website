@@ -26,14 +26,14 @@ export class Item {
     /**
      * `virtual` property allows defining the value for a non-persistent field,
      * such value might be a scalar or a (`raw`) function. Virtual-fields can
-     * be used in `$project`, and `$filter` as a common field whose value is
+     * be used in `$select`, and `$where` as a common field whose value is
      * replaced at runtime.
      */
     virtual: raw(({ escapedPrefix, dialect }) => {
       const query = dialect.count(
         ItemTag,
         {
-          $filter: {
+          $where: {
             itemId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
           },
         },
@@ -58,13 +58,13 @@ export class Tag {
       /**
        * `virtual` property allows defining the value for a non-persistent field,
        * such value might be a scalar or a (`raw`) function. Virtual-fields can
-       * be used in `$project`, and `$filter` as a common field whose value is
+       * be used in `$select`, and `$where` as a common field whose value is
        * replaced at runtime.
        */
       const query = dialect.count(
         ItemTag,
         {
-          $filter: {
+          $where: {
             tagId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
           },
         },
@@ -91,10 +91,10 @@ export class ItemTag {
 
 &nbsp;
 
-If we project the `tagsCount` virtual-column:
+If we select the `tagsCount` virtual-column:
 
 ```ts
-await querier.findMany(Item, { $project: ['id', 'tagsCount'] });
+await querier.findMany(Item, { $select: ['id', 'tagsCount'] });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
@@ -108,14 +108,14 @@ FROM `Item`
 
 &nbsp;
 
-If we `$filter` by the `tagsCount` virtual-column:
+If we `$where` by the `tagsCount` virtual-column:
 
 ```ts
 await querier.findMany(
   Item,
   {
-    $project: ['id'],
-    $filter: {
+    $select: ['id'],
+    $where: {
       tagsCount: { $gte: 10 },
     },
   }

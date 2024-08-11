@@ -21,8 +21,8 @@ const userRepository = querier.getRepository(User);
 
 const users = await userRepository.findMany(
   {
-    $project: ['id'],
-    $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 

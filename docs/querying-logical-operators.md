@@ -20,8 +20,8 @@ Example usage for the `$and` logical operator (default operator if unspecified):
 await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { name: 'maku', creatorId: 1 },
+    $select: ['id'],
+    $where: { name: 'maku', creatorId: 1 },
   }
 );
 ```
@@ -32,8 +32,8 @@ or the same query with an explicit `$and`
 await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 ```
@@ -52,8 +52,8 @@ Example usage for the `$or` logical operator:
 await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 ```
@@ -72,8 +72,8 @@ Example usage for the `$not` logical operator
 await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 ```
@@ -92,8 +92,8 @@ Example usage for the `$nor` logical operator
 await querier.findMany(
   User,
   {
-    $project: ['id'],
-    $filter: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
+    $select: ['id'],
+    $where: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
 ```

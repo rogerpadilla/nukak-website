@@ -5,18 +5,18 @@ description: This tutorial explain how to use relations in the queries with the 
 
 ## Querying relations
 
-project a mandatory relation with `$required: true`:
+select a mandatory relation with `$required: true`:
 
 ```ts
 @Transactional()
 async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
   return querier.findOne(User,
     {
-      $project: {
+      $select: {
         id: true,
         name: true,
         profile: {
-          $project: ['id', 'picture'],
+          $select: ['id', 'picture'],
           $required: true
         }
       },
@@ -47,7 +47,7 @@ async function findLatestUserWithProfile(): Promise<User> {
   const user = querier.findOne(
     User,
     {
-      $project: {
+      $select: {
         id: true,
         name: true,
         profile: ['id', 'picture'],
@@ -83,17 +83,17 @@ export class ItemService {
   async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
     return querier.findMany(Item,
       {
-        $project: {
+        $select: {
           id: true,
           name: true,
           measureUnit: {
-            $project: ['id', 'name'],
-            $filter: { name: { $ne: 'unidad' } },
+            $select: ['id', 'name'],
+            $where: { name: { $ne: 'unidad' } },
             $required: true
           },
           tax: ['id', 'name'],
         },
-        $filter: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
+        $where: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
         $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
         $limit: 100,
       }      
