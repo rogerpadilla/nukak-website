@@ -8,19 +8,17 @@ description: This tutorial explain the features of the nukak orm and how to use 
 
 [nukak](https://nukak.org) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
 
-[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB and SQLite.
+[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, and SQLite.
 
 &nbsp;
 
 ```ts
-const companyUsers = await userRepository.findMany(
-  {
-    $select: { email: true, profile: ['picture'] },
-    $where: { email: { $endsWith: '@domain.com' } },
-    $sort: { createdAt: 'desc' },
-    $limit: 100,
-  }
-);
+const companyUsers = await userRepository.findMany({
+  $select: { email: true, profile: ['picture'] },
+  $where: { email: { $endsWith: '@example.com' } },
+  $sort: { createdAt: -1 },
+  $limit: 100,
+});
 ```
 
 &nbsp;
@@ -43,6 +41,7 @@ See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-or
 - **High performance**: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
 - Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern for maintainability.
 - [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
+- Automatic handing of `json`, `jsonb` and `vector` fields.
 
 &nbsp;
 
@@ -89,7 +88,7 @@ npm install pg nukak-postgres --save
 Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
 
 ```ts
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'node:crypto';
 import { Id, Field, Entity } from 'nukak/entity';
 
 /**
@@ -99,11 +98,11 @@ import { Id, Field, Entity } from 'nukak/entity';
 @Entity()
 export class User {
   /**
-   * an entity should specify an ID Field, its name and type are automatically detected.
+   * an entity must specify an ID Field, its name and type are automatically detected.
    * the `onInsert` property can be used to specify a custom mechanism for
    * auto-generating the primary-key's value when inserting.
    */
-  @Id({ onInsert: () => uuidv4() })
+  @Id({ onInsert: () => randomUUID })
   id?: string;
 
   /**
@@ -113,22 +112,29 @@ export class User {
   @Field()
   name?: string;
 
-  @Field()
+  /**
+   * fields are `updatable: true` by default but can also be marked as `updatable: false` so they can only be inserted and read after.
+   */
+  @Field({ updatable: false })
   email?: string;
 
-  @Field()
+  /**
+   * fields are `eager: true` by default but can also be marked as `eager: false` (aka lazy fields).
+   */
+  @Field({ eager: false })
   password?: string;
 }
 ```
 
 &nbsp;
 
-## 3. Setup a default querier-pool
+## 3. Setup a querier-pool
 
-A default querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
+A querier-pool can be set in any of the bootstrap files of your app (e.g. in the `server.ts`).
 
 ```ts
-import { setQuerierPool } from 'nukak';
+// file: ./shared/orm.ts
+
 import { PgQuerierPool } from 'nukak-postgres';
 
 export const querierPool = new PgQuerierPool(
@@ -139,12 +145,8 @@ export const querierPool = new PgQuerierPool(
     database: 'theDatabase',
   },
   // optionally, a logger can be passed to log the generated SQL queries
-  { logger: console.log },
+  { logger: console.debug },
 );
-
-// the default querier pool that `nukak` will use when calling `getQuerier()` and
-// in the `@Transactional` decorator (by default).
-setQuerierPool(querierPool);
 ```
 
 &nbsp;
@@ -152,28 +154,31 @@ setQuerierPool(querierPool);
 ## 4. Manipulate the data
 
 ```ts
-import { getQuerier } from 'nukak';
+import { querierPool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
 async function findLastUsers(limit = 100) {
-  const querier = await getQuerier();
-  const users = await querier.findMany(
-    User,
-    {
+  const querier = await querierPool.getQuerier();
+  try {
+    const users = await querier.findMany(User, {
       $select: { id: true, name: true, email: true },
       $sort: { createdAt: 'desc' },
       $limit: limit,
-    }    
-  );
-  await querier.release();
-  return users;
+    });
+    return users;
+  } finally {
+    await querier.release();
+  }
 }
 
-async function createUser(body: User) {
-  const querier = await getQuerier();
-  const id = await querier.insertOne(User, body);
-  await querier.release();
-  return id;
+async function createUser(data: User) {
+  const querier = await querierPool.getQuerier();
+  try {
+    const id = await querier.insertOne(User, data);
+    return id;
+  } finally {
+    await querier.release();
+  }
 }
 ```
 
