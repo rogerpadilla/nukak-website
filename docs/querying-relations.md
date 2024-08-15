@@ -55,7 +55,6 @@ async function findLatestUserWithProfile(): Promise<User> {
       $sort: { createdAt: -1 },
     }    
   );
-  await querier.release();
   return user;
 }
 ```

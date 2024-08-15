@@ -26,7 +26,5 @@ const users = await querier.findMany(
     $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
   }
 );
-
-await querier.release();
 ```
 

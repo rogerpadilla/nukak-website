@@ -84,7 +84,6 @@ async function confirm(confirmation: Confirmation): Promise<void> {
     }
     await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
   });
-  await querier.release()
 }
 ```
 
