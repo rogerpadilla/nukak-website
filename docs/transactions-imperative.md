@@ -1,5 +1,5 @@
 ---
-weight: 170
+weight: 190
 description: This tutorial explain how to use imperative transactions with the nukak orm.
 ---
 
@@ -30,7 +30,8 @@ setQuerierPool(querierPool);
 
 ---
 
-### Method 1: independent functions for more granular control `querier.*`.
+
+### Independent functions for granular control `querier.*`.
 
 ```ts
 import { getQuerier } from 'nukak';
@@ -58,56 +59,5 @@ async function confirm(confirmation: Confirmation): Promise<void> {
   } finally {
     await querier.release();
   }
-}
-```
-
----
-
-### Method 2: shorthand `querier.transaction(...)`:
-
-```ts
-import { getQuerier } from 'nukak';
-
-async function confirm(confirmation: Confirmation): Promise<void> {
-  const querier = await getQuerier();
-  await querier.transaction(async () => {
-    if (confirmation.action === 'signup') {
-      await querier.insertOne(User, {
-        name: confirmation.name,
-        email: confirmation.email,
-        password: confirmation.password,
-      });
-    } else {
-      await querier.updateOneById(User, confirmation.creatorId, {
-        password: confirmation.password,
-      });
-    }
-    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
-  });
-}
-```
-
----
-
-### Method 3: shorthand `querierPool.transaction(...)`.
-
-```ts
-import { querierPool } from './querierPool.js';
-
-async function confirm(confirmation: Confirmation): Promise<void> {
-  await querierPool.transaction(async (querier) => {
-    if (confirmation.action === 'signup') {
-      await querier.insertOne(User, {
-        name: confirmation.name,
-        email: confirmation.email,
-        password: confirmation.password,
-      });
-    } else {
-      await querier.updateOneById(User, confirmation.creatorId, {
-        password: confirmation.password,
-      });
-    }
-    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
-  });
 }
 ```

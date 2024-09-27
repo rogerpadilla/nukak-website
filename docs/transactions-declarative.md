@@ -1,5 +1,5 @@
 ---
-weight: 190
+weight: 170
 description: This tutorial explain how to use declarative transactions with the nukak orm.
 ---
 
@@ -8,6 +8,34 @@ description: This tutorial explain how to use declarative transactions with the 
 Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
 
 Use `Declarative` transactions as below:
+
+### Method 1: shorthand `querier.transaction(...)`:
+
+```ts
+import { getQuerier } from 'nukak';
+
+async function confirm(confirmation: Confirmation): Promise<void> {
+  const querier = await getQuerier();
+  await querier.transaction(async () => {
+    if (confirmation.action === 'signup') {
+      await querier.insertOne(User, {
+        name: confirmation.name,
+        email: confirmation.email,
+        password: confirmation.password,
+      });
+    } else {
+      await querier.updateOneById(User, confirmation.creatorId, {
+        password: confirmation.password,
+      });
+    }
+    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
+  });
+}
+```
+
+---
+
+### Method 2: decorators way `querier.transaction(...)`:
 
 1. take any service class, annotate the wanted function with the `@Transactional` decorator.
 2. inject the querier instance by decorating one of the function's arguments with `@InjectQuerier`.
