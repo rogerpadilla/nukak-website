@@ -1,6 +1,6 @@
 ---
 weight: 190
-description: This tutorial explain how to use imperative transactions with the nukak orm.
+description: This tutorial explain how to use imperative transactions with the UQL orm.
 ---
 
 ## Imperative transactions
@@ -10,11 +10,11 @@ Both, [Declarative](/docs/transactions-declarative) and [Imperative](/docs/trans
 **Note**: Pre-requisite step, define a querier pool.
 
 ```ts
-// in file querierPool.ts
-import { setQuerierPool } from 'nukak';
-import { PgQuerierPool } from 'nukak-postgres';
+// in file pool.ts
+import { setQuerierPool } from '@uql/core';
+import { PgQuerierPool } from '@uql/core/postgres';
 
-export const querierPool = new PgQuerierPool(
+export const pool = new PgQuerierPool(
   {
     host: process.env.DB_HOST,
     port: +process.env.DB_PORT,
@@ -24,8 +24,6 @@ export const querierPool = new PgQuerierPool(
   },
   { logger: console.log }
 );
-
-setQuerierPool(querierPool);
 ```
 
 ---
@@ -34,10 +32,11 @@ setQuerierPool(querierPool);
 ### Independent functions for granular control `querier.*`.
 
 ```ts
-import { getQuerier } from 'nukak';
+import { pool } from './shared/orm.js';
+import { User, Confirmation } from './shared/models/index.js';
 
 async function confirm(confirmation: Confirmation): Promise<void> {
-  const querier = await getQuerier();
+  const querier = await pool.getQuerier();
   try {
     await querier.beginTransaction();
     if (confirmation.action === 'signup') {

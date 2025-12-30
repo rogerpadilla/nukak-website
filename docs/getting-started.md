@@ -1,16 +1,16 @@
 ---
 weight: 1
 root: true
-description: This tutorial explain the features of the nukak orm and how to use get started with it.
+description: This tutorial explain the features of the UQL orm and how to use get started with it.
 ---
 
-[![nukak maku](/nukak-maku.jpg)](https://nukak.org)
+[![UQL logo](/logo.svg)](https://uql.app)
 
-[nukak](https://nukak.org) is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
+[UQL](https://uql.app) is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
 
-[nukak](https://nukak.org) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
+[UQL](https://uql.app) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
 
-[nukak](https://nukak.org) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, and SQLite.
+[UQL](https://uql.app) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, SQLite, and MongoDB.
 
 &nbsp;
 
@@ -25,7 +25,7 @@ const companyUsers = await userRepository.findMany({
 
 &nbsp;
 
-## Why nukak?
+## Why UQL?
 
 See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) in medium.com.
 
@@ -33,16 +33,16 @@ See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-or
 
 ## Features
 
-- **Type-safe and Context-aware queries**: squeeze the powers of `TypeScript` so it auto-completes and validates, the appropriate operators on any level of the queries, [including the relations and their fields](https://www.nukak.org/docs/querying-relations).
-- **Serializable queries**: its [syntax](https://nukak.org/docs/querying-logical-operators) can be `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
+- **Type-safe and Context-aware queries**: squeeze the powers of `TypeScript` so it auto-completes and validates, the appropriate operators on any level of the queries, [including the relations and their fields](https://uql.app/docs/querying-relations).
+- **Serializable queries**: its [syntax](https://uql.app/docs/querying-logical-operators) can be `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
 - **Unified API across Databases**: same query is transparently transformed according to the configured database.
 - **FP + OOP**: Combines the best elements of `FP` (Functional Programming) and `OOP` (Object Oriented Programming).
-- [Declarative](https://nukak.org/docs/transactions-declarative) and [imperative](https://nukak.org/docs/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
-- Transparent support for [inheritance between entities](https://nukak.org/docs/entities-inheritance) for reusability and consistency.
+- [Declarative](https://uql.app/docs/transactions-declarative) and [imperative](https://uql.app/docs/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
+- Transparent support for [inheritance between entities](https://uql.app/docs/entities-inheritance) for reusability and consistency.
 - Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): `ESM` is natively supported by Node.js 16 and later.
-- **High performance**: the [generated queries](https://www.nukak.org/docs/querying-logical-operators) are fast, safe, and human-readable.
+- **High performance**: the [generated queries](https://uql.app/docs/querying-logical-operators) are fast, safe, and human-readable.
 - Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern for maintainability.
-- [soft-delete](https://nukak.org/docs/entities-soft-delete), [virtual fields](https://nukak.org/docs/entities-virtual-fields), [repositories](https://nukak.org/docs/querying-repository).
+- [soft-delete](https://uql.app/docs/entities-soft-delete), [virtual fields](https://uql.app/docs/entities-virtual-fields), [repositories](https://uql.app/docs/querying-repository).
 - Automatic handing of `json`, `jsonb` and `vector` fields.
 
 &nbsp;
@@ -52,31 +52,36 @@ See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-or
 1. Install the core package:
 
    ```sh
-   npm install nukak --save
+   npm install @uql/core --save
    ```
 
-2. Install one of the specific adapters for your database:
+2. Install the driver for your database:
 
-| Database     | Driver           | Nukak Adapter    |
-| ------------ | ---------------- | ---------------- |
-| `PostgreSQL` | `pg`             | `nukak-postgres` |
-| `SQLite`     | `sqlite sqlite3` | `nukak-sqlite`   |
-| `MariaDB`    | `mariadb`        | `nukak-maria`    |
-| `MongoDB`    | `mongodb`        | `nukak-mongo`    |
-| `MySQL`      | `mysql2`         | `nukak-mysql`    |
+| Database     | Driver           | UQL Adapter          |
+| ------------ | ---------------- | -------------------- |
+| `PostgreSQL` | `pg`             | `@uql/core/postgres` |
+| `SQLite`     | `better-sqlite3` | `@uql/core/sqlite`   |
+| `MariaDB`    | `mariadb`        | `@uql/core/maria`    |
+| `MongoDB`    | `mongodb`        | `@uql/core/mongo`    |
+| `MySQL`      | `mysql2`         | `@uql/core/mysql`    |
 
 For example, for `Postgres`:
 
 ```sh
-npm install pg nukak-postgres --save
+npm install pg --save
 ```
+*(UQL adapters are now included in `@uql/core`)*
 
 3. Additionally, your `tsconfig.json` may need the following flags:
 
    ```json
-   "target": "es2022",
-   "experimentalDecorators": true,
-   "emitDecoratorMetadata": true
+   {
+     "compilerOptions": {
+       "target": "es2022",
+       "experimentalDecorators": true,
+       "emitDecoratorMetadata": true
+     }
+   }
    ```
 
 &nbsp;
@@ -87,42 +92,23 @@ npm install pg nukak-postgres --save
 
 ## 2. Define the entities
 
-Take any dump class (aka DTO) and annotate it with the decorators from `nukak/entity`.
+Take any class and annotate it with the decorators from `@uql/core`.
 
 ```ts
-import { randomUUID } from 'node:crypto';
-import { Id, Field, Entity } from 'nukak/entity';
+import { v7 as uuidv7 } from 'uuid';
+import { Id, Field, Entity } from '@uql/core';
 
-/**
- * any class can be annotated with this decorator to make it works as
- * an entity.
- */
 @Entity()
 export class User {
-  /**
-   * an entity must specify an ID Field, its name and type are automatically detected.
-   * the `onInsert` property can be used to specify a custom mechanism for
-   * auto-generating the primary-key's value when inserting.
-   */
-  @Id({ onInsert: () => randomUUID })
+  @Id({ onInsert: () => uuidv7() })
   id?: string;
 
-  /**
-   * the properties of the class can be annotated with this decorator so they
-   * are interpreted as a column, its name and type are automatically detected.
-   */
   @Field()
   name?: string;
 
-  /**
-   * fields are `updatable: true` by default but can also be marked as `updatable: false` so they can only be inserted and read after.
-   */
   @Field({ updatable: false })
   email?: string;
 
-  /**
-   * fields are `eager: true` by default but can also be marked as `eager: false` (aka lazy fields).
-   */
   @Field({ eager: false })
   password?: string;
 }
@@ -136,18 +122,20 @@ A querier-pool can be set in any of the bootstrap files of your app (e.g. in the
 
 ```ts
 // file: ./shared/orm.ts
+import { PgQuerierPool } from '@uql/core/postgres';
+import { SnakeCaseNamingStrategy } from '@uql/core';
 
-import { PgQuerierPool } from 'nukak-postgres';
-
-export const querierPool = new PgQuerierPool(
+export const pool = new PgQuerierPool(
   {
     host: 'localhost',
     user: 'theUser',
     password: 'thePassword',
     database: 'theDatabase',
   },
-  // optionally, a logger can be passed to log the generated SQL queries
-  { logger: console.debug },
+  {
+    logger: console.debug,
+    namingStrategy: new SnakeCaseNamingStrategy(),
+  },
 );
 ```
 
@@ -155,24 +143,43 @@ export const querierPool = new PgQuerierPool(
 
 ## 4. Manipulate the data
 
+UQL provides multiple ways to interact with your data, from low-level `Queriers` to high-level `Repositories`.
+
+### Using Repositories (Recommended)
+
 ```ts
-import { querierPool } from './shared/orm.js';
+import { GenericRepository } from '@uql/core';
 import { User } from './shared/models/index.js';
+import { pool } from './shared/orm.js';
 
-async function findLastUsers(limit = 100) {
-  const querier = await querierPool.getQuerier();
-  const users = await querier.findMany(User, {
-    $select: { id: true, name: true, email: true },
-    $sort: { createdAt: 'desc' },
-    $limit: limit,
+// Get a querier from the pool
+const querier = await pool.getQuerier();
+
+try {
+  const userRepository = new GenericRepository(User, querier);
+
+  const users = await userRepository.findMany({
+    $select: { id: true, name: true },
+    $where: { email: { $iincludes: '@example.com' } },
+    $sort: { createdAt: -1 },
+    $limit: 100
   });
-  return users;
-}
-
-async function createUser(data: User) {
-  const querier = await querierPool.getQuerier();
-  const id = await querier.insertOne(User, data);
-  return id;
+} finally {
+  // Always release the querier to the pool
+  await querier.release();
 }
 ```
 
+### Using Transactions
+
+```ts
+import { pool } from './shared/orm.js';
+import { User, Profile } from './shared/models/index.js';
+
+const result = await pool.transaction(async (querier) => {
+  const user = await querier.findOne(User, { $where: { email: '...' } });
+  const profileId = await querier.insertOne(Profile, { userId: user.id, ... });
+  return { userId: user.id, profileId };
+});
+// Connection is automatically released after transaction
+```

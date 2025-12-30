@@ -1,5 +1,5 @@
 {
-  "name": "nukak-website",
+  "name": "uql-website",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -12,24 +12,24 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "next": "^14.2.13",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-markdown": "^9.0.1",
-    "react-syntax-highlighter": "^15.5.0",
-    "valtio": "^2.0.0"
+    "next": "^16.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^16.1.0",
+    "valtio": "^2.2.0"
   },
   "devDependencies": {
-    "@types/node": "^22.7.3",
-    "@types/react": "^18.3.9",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.13",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.1.1",
     "gray-matter": "^4.0.3",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.0",
-    "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "remark-gfm": "^4.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "prettier": {
     "tabWidth": 2,

@@ -1,64 +1,67 @@
 ---
 weight: 130
-description: This tutorial explain how to use comparison operators with the nukak orm.
+description: This tutorial explain how to use comparison operators with the UQL orm.
 ---
 
 ## Comparison Operators
 
+UQL provide a comprehensive set of operators for comparing field values. These operators are context-aware, meaning they are typed according to the field they are applied to.
+
 | Name           | Description                                                                        |
 | -------------- | ---------------------------------------------------------------------------------- |
-| `$eq`          | whether a value is equal to the given value.                                       |
-| `$ne`          | whether a value is not equal to the given value.                                   |
-| `$not`         | negates the given comparison.                                                      |
-| `$lt`          | whether a value is less than the given value.                                      |
-| `$lte`         | whether a value is less than or equal to the given value.                          |
-| `$gt`          | whether a value is greater than the given value.                                   |
-| `$gte`         | whether a value is greater than or equal to the given value.                       |
-| `$startsWith`  | whether a string begins with the given string (case sensitive).                    |
-| `$istartsWith` | whether a string begins with the given string (case insensitive).                  |
-| `$endsWith`    | whether a string ends with the given string (case sensitive).                      |
-| `$iendsWith`   | whether a string ends with the given string (case insensitive).                    |
-| `$includes`    | whether a string is contained within the given string (case sensitive).            |
-| `$iincludes`   | whether a string is contained within the given string (case insensitive).          |
-| `$like`        | whether a string fulfills the given pattern (case sensitive).                      |
-| `$ilike`       | whether a string fulfills the given pattern (case insensitive).                    |
-| `$regex`       | whether a string matches the given regular expression.                             |
-| `$in`          | whether a value matches any of the given values.                                   |
-| `$nin`         | whether a value does not match any of the given values.                            |
-| `$text`        | whether the specified fields match against a full-text search of the given string. |
-| `$exists`      | whether the record exists in the given sub-query.                                  |
-| `$nexists`     | whether the record does not exists in the given sub-query.                         |
+| `$eq`          | Equal to.                                                                          |
+| `$ne`          | Not equal to.                                                                      |
+| `$lt`          | Less than.                                                                         |
+| `$lte`         | Less than or equal to.                                                             |
+| `$gt`          | Greater than.                                                                      |
+| `$gte`         | Greater than or equal to.                                                          |
+| `$startsWith`  | Starts with (case-sensitive).                                                      |
+| `$istartsWith` | Starts with (case-insensitive).                                                    |
+| `$endsWith`    | Ends with (case-sensitive).                                                        |
+| `$iendsWith`   | Ends with (case-insensitive).                                                      |
+| `$includes`    | Contains substring (case-sensitive).                                               |
+| `$iincludes`   | Contains substring (case-insensitive).                                             |
+| `$in`          | Value matches any in a given array.                                                |
+| `$nin`         | Value does not match any in a given array.                                         |
+| `$text`        | Full-text search (where supported by the database).                                |
 
 &nbsp;
 
-Example usage for the `$istartsWith` and `$ne` comparison operators:
+### Practical Example
 
 ```ts
-await this.querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { name: { $istartsWith: 'Some', $ne: 'Something' } },
-    $sort: { name: 1, id: -1 },
-    $limit: 50,
-  }
-);
+import { pool } from './shared/orm.js';
+import { User } from './shared/models/index.js';
+
+const users = await pool.transaction(async (querier) => {
+  return querier.findMany(User, {
+    $select: { id: true, name: true },
+    $where: { 
+      name: { $istartsWith: 'Some', $ne: 'Something' },
+      age: { $gte: 18, $lte: 65 }
+    },
+    $sort: { name: 1 },
+    $limit: 50
+  });
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL` for `Postgres`:
+### Context-Aware SQL Generation
 
+UQL transparently handles the differences between database vendors. For example, `$istartsWith` is translated to `ILIKE` in PostgreSQL, but to `LOWER(field) LIKE 'some%'` in MySQL.
+
+**SQL for PostgreSQL:**
 ```sql
-SELECT  "id" FROM "User"
-WHERE ("name" ILIKE 'Some%' AND "name" <> 'Something')
-ORDER BY "name", "id" DESC
+SELECT "id", "name" FROM "User"
+WHERE "name" ILIKE 'Some%' AND "name" <> 'Something' AND "age" >= 18 AND "age" <= 65
+ORDER BY "name" ASC
 LIMIT 50
 ```
 
-And that same code above will generate this other &#9660; `SQL` for `MySQL`, `MariaDB` and `SQLite`:
-
+**SQL for MySQL/SQLite:**
 ```sql
-SELECT  `id` FROM `User`
-WHERE (LOWER(`name`) LIKE 'some%' AND `name` <> 'Something')
-ORDER BY `name`, `id` DESC
+SELECT `id`, `name` FROM `User`
+WHERE LOWER(`name`) LIKE 'some%' AND `name` <> 'Something' AND `age` >= 18 AND `age` <= 65
+ORDER BY `name` ASC
 LIMIT 50
 ```

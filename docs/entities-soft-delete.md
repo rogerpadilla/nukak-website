@@ -1,18 +1,19 @@
 ---
 weight: 80
-description: This tutorial explain how to use soft-delete in the entities with the nukak orm.
+description: This tutorial explain how to use soft-delete in the entities with the UQL orm.
 ---
 
 ## Soft-Delete for entities
 
-The `softDelete` property of the `@Entity` decorator can be used as below.
+Soft-delete allows you to mark records as "deleted" instead of physically removing them from the database. This is useful for auditing, data recovery, and maintaining relational integrity.
 
-Note that it is also required to use the `onDelete` property in one of the fields to instruct `nukak` which field to use as the deletion mark when deleting the records.
+### Configuring Soft-Delete
+
+To enable soft-delete, set `softDelete: true` in the `@Entity` decorator and specify which field should be used as the deletion mark with `onDelete`.
 
 ```ts
-/**
- * `softDelete: true` will make the entity "soft deletable".
- */
+import { Entity, Id, Field } from '@uql/core';
+
 @Entity({ softDelete: true })
 export class MeasureUnitCategory {
   @Id()
@@ -22,38 +23,50 @@ export class MeasureUnitCategory {
   name?: string;
 
   /**
-   * `onDelete` callback allows to specify which field will be used
-   * when deleting/querying this entity.
+   * The 'onDelete' callback instructs UQL what value to set when deleting.
+   * Common values are a boolean true or a timestamp.
    */
-  @Field({ onDelete: Date.now })
-  deletedAt?: number;
+  @Field({ onDelete: () => new Date() })
+  deletedAt?: Date;
 }
 ```
 
 &nbsp;
 
-If we delete a record for that entity, it will be soft-deleted, and won't be load by the `find` operations:
+### How it works
 
+When soft-delete is enabled, UQL automatically transforms `delete` operations into `update` operations and adds filters to `find` operations.
+
+#### Deleting a record
 ```ts
 await querier.deleteOneById(MeasureUnitCategory, 1);
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
-
+**Resulting SQL:**
 ```sql
-UPDATE `MeasureUnitCategory` SET `deletedAt` = 1627344820381 WHERE `id` 1
+UPDATE "MeasureUnitCategory" SET "deletedAt" = '2025-12-30T12:00:00Z' WHERE "id" = 1
 ```
 
-&nbsp;
-
-And if we perform any `find` operation for that entity, the soft-deleted records won't be loaded (by default):
+#### Querying records
+By default, soft-deleted records are excluded from all queries.
 
 ```ts
-await querier.findMany(MeasureUnitCategory, { $select: ['id', 'name'], $limit: 100 });
+await querier.findMany(MeasureUnitCategory, { $select: { id: true, name: true } });
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
-
+**Resulting SQL:**
 ```sql
-SELECT `id`, `name` FROM `MeasureUnitCategory` WHERE `deletedAt` IS NULL LIMIT 100
+SELECT "id", "name" FROM "MeasureUnitCategory" WHERE "deletedAt" IS NULL
 ```
+
+### Advanced: Including Soft-Deleted Records
+
+If you need to include soft-deleted records in a specific query (e.g., for an admin panel or trash view), you can bypass the filter in the query options.
+
+```ts
+// Note: UQL provides options to include deleted records at the querier level if needed.
+const allCategories = await querier.findMany(MeasureUnitCategory, {
+  $where: { /* your filters */ }
+}, { includeDeleted: true });
+```
+*(Check the full API reference for available options on including deleted records)*

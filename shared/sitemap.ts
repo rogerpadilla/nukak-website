@@ -3,7 +3,7 @@ import fs from 'fs';
 import { getFileIds } from './files';
 
 function generate() {
-  const baseUrl = 'https://nukak.org';
+  const baseUrl = 'https://uql.app';
   const ids = getFileIds();
   const urls = ids.map((id) => `${baseUrl}/docs/${id}`);
   const lastMod = new Date().toISOString().split('T')[0];
@@ -17,15 +17,15 @@ function generate() {
         <lastmod>${lastMod}</lastmod>
       </url>
       ${urls
-        .map(
-          (url) => /*xml */ `
+      .map(
+        (url) => /*xml */ `
             <url>
               <loc>${url}</loc>
               <lastmod>${lastMod}</lastmod>
             </url>
           `
-        )
-        .join('')}
+      )
+      .join('')}
     </urlset>
   `;
 

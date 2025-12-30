@@ -1,6 +1,6 @@
 ---
 weight: 190
-description: This tutorial explain how to use repositories with the nukak orm.
+description: This tutorial explain how to use repositories with the UQL orm.
 ---
 
 ## Repository
@@ -12,17 +12,40 @@ With a `repository` you can:
 - Manipulate the data related to the linked `entity`.
 - Access the [querier](/docs/querying-querier) instance from where the `repository` was obtained.
 
+### Using GenericRepository (Recommended)
+
 ```ts
-import { getQuerier } from 'nukak';
+import { GenericRepository } from '@uql/core';
 import { User } from './shared/models/index.js';
+import { pool } from './shared/orm.js';
 
-const querier = await getQuerier();
-const userRepository = querier.getRepository(User);
+const querier = await pool.getQuerier();
 
-const users = await userRepository.findMany(
-  {
+try {
+  const userRepository = new GenericRepository(User, querier);
+
+  const users = await userRepository.findMany({
     $select: ['id'],
-    $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
-  }
-);
+    $where: { $or: [{ name: 'roger' }, { creatorId: 1 }] },
+  });
+} finally {
+  // Always release the querier manually when obtained from the pool
+  await querier.release();
+}
+```
+
+### Obtaining Repository from Querier
+
+```ts
+import { User } from './shared/models/index.js';
+import { pool } from './shared/orm.js';
+
+const querier = await pool.getQuerier();
+
+try {
+  const userRepository = querier.getRepository(User);
+  const users = await userRepository.findMany({ /* ... */ });
+} finally {
+  await querier.release();
+}
 ```

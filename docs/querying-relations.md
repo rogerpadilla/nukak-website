@@ -1,118 +1,96 @@
 ---
 weight: 150
-description: This tutorial explain how to use relations in the queries with the nukak orm.
+description: This tutorial explain how to use relations in the queries with the UQL orm.
 ---
 
 ## Querying relations
 
-select a mandatory relation with `$required: true`:
+UQL's query syntax is context-aware. When you query a relation, the available fields and operators are automatically suggested and validated based on that related entity.
+
+### Basic Selection
+
+You can select specific fields from a related entity using an array or a nested object.
 
 ```ts
-@Transactional()
-async function findLatestUserWithProfile(@InjectQuerier() querier?: Querier): Promise<User> {
-  return querier.findOne(User,
-    {
-      $select: {
-        id: true,
-        name: true,
-        profile: {
-          $select: ['id', 'picture'],
-          $required: true
-        }
-      },
-      $sort: { createdAt: -1 },
+import { pool } from './shared/orm.js';
+import { User } from './shared/models/index.js';
+
+const users = await pool.transaction(async (querier) => {
+  return querier.findMany(User, {
+    $select: {
+      id: true,
+      name: true,
+      profile: ['picture'] // Select specific fields from a 1-1 relation
+    },
+    $where: {
+      email: { $iincludes: '@example.com' }
     }
-  );
-}
+  });
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+### Advanced: Deep Selection & Mandatory Relations
 
-```sql
-SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
-FROM `User`
-INNER JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
-ORDER BY `User.createdAt` DESC
-```
-
-&nbsp;
-
-Simple query using `getQuerier()`:
+Use `$required: true` to enforce an `INNER JOIN` (by default UQL uses `LEFT JOIN` for nullable relations).
 
 ```ts
-import { getQuerier } from 'nukak';
+import { pool } from './shared/orm.js';
+import { User } from './shared/models/index.js';
 
-async function findLatestUserWithProfile(): Promise<User> {
-  const querier = await getQuerier();
-  const user = querier.findOne(
-    User,
-    {
-      $select: {
-        id: true,
-        name: true,
-        profile: ['id', 'picture'],
-      },
-      $sort: { createdAt: -1 },
-    }    
-  );
-  return user;
-}
+const latestUsersWithProfiles = await pool.transaction(async (querier) => {
+  return querier.findOne(User, {
+    $select: {
+      id: true,
+      name: true,
+      profile: {
+        $select: ['picture', 'bio'],
+        $where: { bio: { $ne: null } },
+        $required: true // Enforce INNER JOIN
+      }
+    },
+    $sort: { createdAt: -1 },
+  });
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+### Filtering on Related Collections
 
-```sql
-SELECT `User`.`id`, `User`.`name`, `profile.id`, `profile.picture`
-FROM `User`
-LEFT JOIN `Profile` `profile` ON `profile`.`creatorId` = `User`.`id`
-ORDER BY `User.createdAt` DESC
-```
-
-&nbsp;
-
-More complex queries can be used, like the following:
+You can filter and sort when querying collections (One-to-Many or Many-to-Many).
 
 ```ts
-import { Querier } from 'nukak';
-import { Transactional, InjectQuerier } from 'nukak/querier';
-import { Item } from './shared/models/index.js';
+import { pool } from './shared/orm.js';
+import { User } from './shared/models/index.js';
 
-export class ItemService {
-  @Transactional()
-  async function findItems(@InjectQuerier() querier?: Querier): Promise<Item[]> {
-    return querier.findMany(Item,
-      {
-        $select: {
-          id: true,
-          name: true,
-          measureUnit: {
-            $select: ['id', 'name'],
-            $where: { name: { $ne: 'unidad' } },
-            $required: true
-          },
-          tax: ['id', 'name'],
-        },
-        $where: { salePrice: { $gte: 1000 }, name: { $istartsWith: 'A' } },
-        $sort: { tax: { name: 1 }, measureUnit: { name: 1 }, createdAt: -1 },
-        $limit: 100,
-      }      
-    );
+const authorsWithPopularPosts = await pool.transaction(async (querier) => {
+  return querier.findMany(User, {
+    $select: {
+      id: true,
+      name: true,
+      posts: {
+        $select: ['title', 'createdAt'],
+        $where: { title: { $iincludes: 'typescript' } },
+        $sort: { createdAt: -1 },
+        $limit: 5
+      }
+    },
+    $where: {
+      name: { $istartsWith: 'a' }
+    }
+  });
+});
+```
+
+### Sorting by Related Fields
+
+UQL allows sorting by fields of related entities directly in the `$sort` object.
+
+```ts
+const items = await querier.findMany(Item, {
+  $select: { id: true, name: true },
+  $sort: { 
+    tax: { name: 1 }, 
+    measureUnit: { name: 1 }, 
+    createdAt: -1 
   }
-}
-
-export const itemService = new ItemService();
-```
-
-That &#9650; code will generate this &#9660; `SQL`:
-
-```sql
-SELECT `Item`.`id`, `Item`.`name`,
-       `measureUnit`.`id` `measureUnit.id`, `measureUnit`.`name` `measureUnit.name`,
-       `tax`.`id` `tax.id`, `tax`.`name` `tax.name`
-FROM `Item`
-INNER JOIN `MeasureUnit` `measureUnit` ON `measureUnit`.`id` = `Item`.`measureUnitId`
-  AND `measureUnit`.`name` <> 'unidad' AND `measureUnit`.`deletedAt` IS NULL
-LEFT JOIN `Tax` `tax` ON `tax`.`id` = `Item`.`taxId`
-WHERE `Item`.`salePrice` >= 1000 AND LOWER(`Item`.`name`) LIKE 'a%'
-ORDER BY `tax`.`name`, `measureUnit`.`name`, `Item`.`createdAt` DESC LIMIT 100
+});
 ```

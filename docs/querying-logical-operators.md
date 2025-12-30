@@ -1,105 +1,73 @@
 ---
 weight: 110
-description: This tutorial explain how to use logical operators with the nukak orm.
+description: This tutorial explain how to use logical operators with the UQL orm.
 ---
 
 ## Logical Operators
 
+Logical operators allow you to combine multiple conditions in a single query. UQL uses a MongoDB-inspired syntax that is 100% valid JSON.
+
 | Name   | Description                                                                                    |
 | ------ | ---------------------------------------------------------------------------------------------- |
-| `$and` | joins query clauses with a logical `AND`, returns records that match all the clauses.          |
-| `$or`  | joins query clauses with a logical `OR`, returns records that match any of the clauses.        |
-| `$not` | joins query clauses with a logical `AND`, returns records that do not match all the clauses.   |
-| `$nor` | joins query clauses with a logical `OR`, returns records that do not match any of the clauses. |
+| `$and` | joins query clauses with a logical `AND` (default).                                            |
+| `$or`  | joins query clauses with a logical `OR`, returns records that match any clause.                |
+| `$not` | negates the given clause.                                                                      |
+| `$nor` | joins query clauses with a logical `OR` and then negates the result.                           |
 
 &nbsp;
 
-Example usage for the `$and` logical operator (default operator if unspecified):
+### Implicit vs Explicit `$and`
+
+The `$and` operator is implicit when you specify multiple fields in the `$where` object.
 
 ```ts
-await querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { name: 'maku', creatorId: 1 },
-  }
-);
+import { pool } from './shared/orm.js';
+import { User } from './shared/models/index.js';
+
+// Implicit AND
+const users = await pool.transaction(async (querier) => {
+  return querier.findMany(User, {
+    $where: { name: 'roger', status: 'active' },
+  });
+});
 ```
 
-or the same query with an explicit `$and`
+The same query with an explicit `$and`:
 
 ```ts
-await querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { $and: [{ name: 'maku' }, { creatorId: 1 }] },
-  }
-);
-```
-
-That &#9650; code will generate this &#9660; `SQL`:
-
-```sql
-SELECT `id` FROM `User` WHERE `name` = 'maku' AND `creatorId` = 1
+const users = await querier.findMany(User, {
+  $where: { 
+    $and: [{ name: 'roger' }, { status: 'active' }] 
+  },
+});
 ```
 
 &nbsp;
 
-Example usage for the `$or` logical operator:
+### Complex Logical Nesting
+
+Logical operators can be nested to create complex filters.
 
 ```ts
-await querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { $or: [{ name: 'maku' }, { creatorId: 1 }] },
-  }
-);
+const users = await querier.findMany(User, {
+  $where: { 
+    $or: [
+      { name: { $startsWith: 'A' } },
+      { 
+        $and: [
+          { status: 'pending' },
+          { createdAt: { $lt: new Date('2025-01-01') } }
+        ]
+      }
+    ]
+  },
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
+That &#9650; code will generate clean, parameterized SQL:
 
 ```sql
-SELECT `id` FROM `User` WHERE `name` = 'maku' OR `creatorId` = 1
-```
-
-&nbsp;
-
-Example usage for the `$not` logical operator
-
-```ts
-await querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { $not: [{ name: 'maku' }, { creatorId: 1 }] },
-  }
-);
-```
-
-That &#9650; code will generate this &#9660; `SQL`:
-
-```sql
-SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' AND `creatorId` = 1)
-```
-
-&nbsp;
-
-Example usage for the `$nor` logical operator
-
-```ts
-await querier.findMany(
-  User,
-  {
-    $select: ['id'],
-    $where: { $nor: [{ name: 'maku' }, { creatorId: 1 }] },
-  }
-);
-```
-
-That &#9650; code will generate this &#9660; `SQL`:
-
-```sql
-SELECT `id` FROM `User` WHERE NOT (`name` = 'maku' OR `creatorId` = 1)
+SELECT * FROM "User" 
+WHERE "name" LIKE 'A%' 
+   OR ("status" = 'pending' AND "createdAt" < '2025-01-01')
 ```

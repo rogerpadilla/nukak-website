@@ -1,30 +1,18 @@
 ---
 weight: 400
-description: This tutorial explain how to use the browser plugin with the nukak orm.
+description: This tutorial explain how to use the browser plugin with the UQL orm.
 ---
 
 ## Browser plugin
 
 ### Use the generated REST API similarly as if you were on the backend
 
-The `nukak-browser` package allows to easily consume `nukak` REST APIs from the frontend.
+The `@uql/core` package includes a browser library to easily consume UQL REST APIs from the frontend. It is accessible via the `@uql/core/browser` sub-path.
 
-1. Install `nukak-browser` in your frontend project:
-
-```sh
-npm install nukak-browser --save
-```
-
-or with _yarn_
-
-```sh
-yarn add nukak-browser
-```
-
-2. Use `nukak-browser` to call a `nukak` REST API
+1. Use `@uql/core/browser` to call a UQL REST API
 
 ```ts
-import { getRepository } from 'nukak-browser';
+import { getRepository } from '@uql/core/browser';
 import { User } from './shared/models/index.js';
 
 // 'User' is an entity class.

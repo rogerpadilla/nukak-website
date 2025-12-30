@@ -1,6 +1,6 @@
 ---
 weight: 60
-description: This tutorial explain how to define basic entities with the nukak orm.
+description: This tutorial explain how to define basic entities with the UQL orm.
 ---
 
 ## Basic entities
@@ -12,12 +12,12 @@ The following are the steps to define a basic `entity`:
 3. Annotate the rest of fields with the `@Field` decorator.
 
 ```ts
-import { v4 as uuidv4 } from 'uuid';
-import { Entity, Id, Field } from 'nukak/entity';
+import { v7 as uuidv7 } from 'uuid';
+import { Entity, Id, Field } from '@uql/core';
 
 @Entity()
 export class User {
-  @Id({ onInsert: uuidv4 })
+  @Id({ onInsert: uuidv7 })
   id?: string;
 
   @Field()

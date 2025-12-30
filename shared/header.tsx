@@ -8,14 +8,14 @@ export const Header: React.FC = () => (
   <header className={s.header}>
     <nav className={s.nav}>
       <Link href="/docs" className={[s.item, s.logo].join(' ')}>
-        <Image src="/logo.svg" width="28" height="28" alt="nukak" />
-        <span>nukak</span>
+        <Image src="/logo.svg" width="28" height="28" alt="UQL" />
+        <span>UQL</span>
       </Link>
       <SidenavToggler />
       <ThemeToggler />
       <a
         className={s.item}
-        href="https://github.com/rogerpadilla/nukak"
+        href="https://github.com/rogerpadilla/uql"
         title="github"
         target="_blank"
         rel="noopener noreferrer"

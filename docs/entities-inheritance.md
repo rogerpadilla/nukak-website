@@ -1,60 +1,42 @@
 ---
 weight: 100
-description: This tutorial explain how to use inheritance between entities with the nukak orm.
+description: This tutorial explain how to use inheritance between entities with the UQL orm.
 ---
 
 ## Inheritance between entities
 
-The inline comments in the code below have concise descriptions of advanced use cases.
+UQL supports both abstract and concrete inheritance, allowing you to reuse field definitions and relationship configurations across your domain model.
+
+### Base Entity Pattern
+
+A common pattern is to define a base class with common fields like `id`, `createdAt`, and `updatedAt`.
 
 ```ts
+import { v7 as uuidv7 } from 'uuid';
+import { Entity, Id, Field, ManyToOne, type Relation } from '@uql/core';
+
 /**
- * an `abstract` class can (optionally) be used as the base "template" for the entities
- * (so common fields' declaration is easily reused).
+ * An abstract class for shared audit fields.
  */
 export abstract class BaseEntity {
-  /**
-   * auto-generated primary-key (when the `onInsert` property is omitted).
-   */
-  @Id()
-  id?: number;
+  @Id({ onInsert: () => uuidv7() })
+  id?: string;
 
-  /**
-   * foreign-keys are really simple to specify with the `reference` property.
-   */
-  @Field({ reference: () => Company })
-  companyId?: number;
+  @Field({ onInsert: () => new Date() })
+  createdAt?: Date;
 
-  /**
-   * The `Relation` wrapper type can be used in ESM projects for the relations to
-   * avoid circular dependency issues.
-   */
-  @ManyToOne({ entity: () => Company })
-  company?: Relation<Company>;
+  @Field({ onUpdate: () => new Date() })
+  updatedAt?: Date;
 
   @Field({ reference: () => User })
-  creatorId?: number;
+  creatorId?: string;
 
   @ManyToOne({ entity: () => User })
   creator?: Relation<User>;
-
-  /**
-   * 'onInsert' property can be used to specify a custom mechanism for
-   * obtaining the value of a field when inserting:
-   */
-  @Field({ onInsert: Date.now })
-  createdAt?: number;
-
-  /**
-   * 'onUpdate' property can be used to specify a custom mechanism for
-   * obtaining the value of a field when updating:
-   */
-  @Field({ onUpdate: Date.now })
-  updatedAt?: number;
 }
 
 /**
- * `Company` will inherit all the fields (including the `Id`) declared in `BaseEntity`.
+ * 'Company' inherits all fields from 'BaseEntity'.
  */
 @Entity()
 export class Company extends BaseEntity {
@@ -66,22 +48,18 @@ export class Company extends BaseEntity {
 }
 
 /**
- * and entity can specify the table name.
+ * You can also specify a custom table name.
  */
 @Entity({ name: 'user_profile' })
 export class Profile extends BaseEntity {
-  /**
-   * an entity can specify its own ID Field and still inherit the others
-   * columns/relations from its parent entity.
-   */
-  @Id()
-  pk?: number;
-
   @Field({ name: 'image' })
   picture?: string;
 
+  /**
+   * You can override or refine relations from the parent.
+   */
   @OneToOne({ entity: () => User })
-  declare creator?: Relation<User>;
+  user?: Relation<User>;
 }
 
 @Entity()
@@ -89,275 +67,41 @@ export class User extends BaseEntity {
   @Field()
   name?: string;
 
-  @Field()
+  @Field({ updatable: false })
   email?: string;
 
-  @Field()
+  @Field({ eager: false })
   password?: string;
 
-  /**
-   * `mappedBy` property can be a callback or a string (callback is useful for auto-refactoring).
-   */
-  @OneToOne({ entity: () => Profile, mappedBy: (profile) => profile.creator, cascade: true })
+  @OneToOne({ entity: () => Profile, mappedBy: 'userId', cascade: true })
   profile?: Profile;
-
-  @OneToMany({ entity: () => User, mappedBy: 'creator' })
-  users?: User[];
 }
+```
 
-@Entity()
-export class LedgerAccount extends BaseEntity {
-  @Field()
-  name?: string;
+### Advanced: Custom Identifier Keys
 
-  @Field()
-  description?: string;
+If your database uses a different primary key name (like `pk`), you can use the `idKey` symbol to maintain type safety.
 
-  @Field({ reference: () => LedgerAccount })
-  parentLedgerId?: number;
-
-  @ManyToOne()
-  parentLedger?: LedgerAccount;
-}
+```ts
+import { Entity, Id, Field, idKey } from '@uql/core';
 
 @Entity()
 export class TaxCategory extends BaseEntity {
   /**
-   * `idKey` symbol can be used to specify the name of the identifier property,
-   * so the type of the identifier can always be type-safe
-   * (the identifiers named as `id` or `_id` are auto-inferred).
+   * Specifies the name of the identifier property for type inference.
    */
   [idKey]?: 'pk';
 
-  /**
-   * an entity can override the ID Field and still inherit the others
-   * columns/relations from its parent entity.
-   * 'onInsert' property can be used to specify a custom mechanism for
-   * auto-generating the primary-key's value when inserting.
-   */
-  @Id({ onInsert: uuidv4 })
+  @Id({ onInsert: () => uuidv7() })
   pk?: string;
 
   @Field()
   name?: string;
-
-  @Field()
-  description?: string;
-}
-
-@Entity()
-export class Tax extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @Field()
-  percentage?: number;
-
-  @Field({ reference: () => TaxCategory })
-  categoryId?: string;
-
-  @ManyToOne()
-  category?: TaxCategory;
-
-  @Field()
-  description?: string;
-}
-
-/**
- * `softDelete` will make the entity "soft deletable".
- */
-@Entity({ softDelete: true })
-export class MeasureUnitCategory extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @OneToMany({ entity: () => MeasureUnit, mappedBy: (measureUnit) => measureUnit.categoryId })
-  measureUnits?: MeasureUnit[];
-
-  /**
-   * `onDelete` callback allows to specify which field will be used when deleting/querying this entity.
-   */
-  @Field({ onDelete: Date.now })
-  deletedAt?: number;
-}
-
-@Entity({ softDelete: true })
-export class MeasureUnit extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @Field({ reference: () => MeasureUnitCategory })
-  categoryId?: number;
-
-  @ManyToOne({ cascade: 'persist' })
-  category?: MeasureUnitCategory;
-
-  @Field({ onDelete: Date.now })
-  deletedAt?: number;
-}
-
-@Entity()
-export class Storehouse extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @Field()
-  address?: string;
-
-  @Field()
-  description?: string;
-}
-
-@Entity()
-export class Item extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @Field()
-  description?: string;
-
-  @Field()
-  code?: string;
-
-  @Field({ reference: () => LedgerAccount })
-  buyLedgerAccountId?: number;
-
-  @ManyToOne()
-  buyLedgerAccount?: LedgerAccount;
-
-  @Field({ reference: () => LedgerAccount })
-  saleLedgerAccountId?: number;
-
-  @ManyToOne()
-  saleLedgerAccount?: LedgerAccount;
-
-  @Field({ reference: () => Tax })
-  taxId?: number;
-
-  @ManyToOne()
-  tax?: Tax;
-
-  @Field({ reference: () => MeasureUnit })
-  measureUnitId?: number;
-
-  @ManyToOne()
-  measureUnit?: MeasureUnit;
-
-  @Field()
-  salePrice?: number;
-
-  @Field()
-  inventoryable?: boolean;
-
-  @ManyToMany({ entity: () => Tag, through: () => ItemTag, cascade: true })
-  tags?: Tag[];
-
-  @Field({
-    /**
-     * `virtual` property allows defining the value for a non-persistent field,
-     * such value might be a scalar or a (`raw`) function. Virtual-fields can
-     * be used in `$select`, and `$where` as a common field whose value is
-     * replaced at runtime.
-     */
-    virtual: raw(({ escapedPrefix, dialect }) => {
-      const query = dialect.count(
-        ItemTag,
-        {
-          $where: {
-            itemId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
-          },
-        },
-        { autoPrefix: true }
-      );
-      return `(${query})`;
-    }),
-  })
-  tagsCount?: number;
-}
-
-@Entity()
-export class Tag extends BaseEntity {
-  @Field()
-  name?: string;
-
-  @ManyToMany({ entity: () => Item, mappedBy: (item) => item.tags })
-  items?: Item[];
-
-  @Field({
-    virtual: raw(({ escapedPrefix, dialect }) => {
-      /**
-       * `virtual` property allows defining the value for a non-persistent field,
-       * such value might be a scalar or a (`raw`) function. Virtual-fields can
-       * be used in `$select`, and `$where` as a common field whose value is
-       * replaced at runtime.
-       */
-      const query = dialect.count(
-        ItemTag,
-        {
-          $where: {
-            tagId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
-          },
-        },
-        { autoPrefix: true }
-      );
-      return `(${query})`;
-    }),
-  })
-  itemsCount?: number;
-}
-
-@Entity()
-export class ItemTag {
-  @Id()
-  id?: number;
-
-  @Field({ reference: () => Item })
-  itemId?: number;
-
-  @Field({ reference: () => Tag })
-  tagId?: number;
-}
-
-@Entity()
-export class InventoryAdjustment extends BaseEntity {
-  @OneToMany({
-    entity: () => ItemAdjustment,
-    mappedBy: (rel) => rel.inventoryAdjustment,
-    cascade: true,
-  })
-  itemAdjustments?: ItemAdjustment[];
-
-  @Field()
-  date?: Date;
-
-  @Field()
-  description?: string;
-}
-
-@Entity()
-export class ItemAdjustment extends BaseEntity {
-  @Field({ reference: () => Item })
-  itemId?: number;
-
-  @ManyToOne()
-  item?: Item;
-
-  @Field()
-  number?: number;
-
-  @Field()
-  buyPrice?: number;
-
-  @Field({ reference: () => Storehouse })
-  storehouseId?: number;
-
-  @ManyToOne()
-  storehouse?: Storehouse;
-
-  @Field({ reference: () => InventoryAdjustment })
-  inventoryAdjustmentId?: number;
-
-  @ManyToOne()
-  inventoryAdjustment?: InventoryAdjustment;
 }
 ```
+
+### Benefits of Inheritance
+
+- **Consistency**: Ensure all entities have standard audit fields.
+- **Refactoring**: Change a base field type in one place, and it propagates to all children.
+- **Type Safety**: UQL's query engine understands inherited fields, giving you full auto-completion on `Company.id` or `Profile.createdAt`.

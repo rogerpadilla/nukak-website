@@ -1,15 +1,17 @@
 ---
 weight: 90
-description: This tutorial explain how to use virtual-fields in the entities with the nukak orm.
+description: This tutorial explain how to use virtual-fields in the entities with the UQL orm.
 ---
 
 ## Virtual-Fields for entities
 
-The `virtual` property of the `@Field` decorator can be used as below:
+The `virtual` property of the `@Field` decorator allows you to define non-persistent fields whose values are calculated at runtime using SQL or MongoDB expressions.
+
+UQL's virtual fields use the `QueryContext` pattern, ensuring robust SQL generation and performance.
 
 ```ts
-import { Entity, Id, Field, ManyToMany } from 'nukak/entity';
-import { raw } from 'nukak/util';
+import { Entity, Id, Field, ManyToMany } from '@uql/core';
+import { raw } from '@uql/core/util';
 
 @Entity()
 export class Item {
@@ -24,56 +26,32 @@ export class Item {
 
   @Field({
     /**
-     * `virtual` property allows defining the value for a non-persistent field,
-     * such value might be a scalar or a (`raw`) function. Virtual-fields can
-     * be used in `$select`, and `$where` as a common field whose value is
-     * replaced at runtime.
+     * `virtual` property allows defining the value for a non-persistent field.
+     * Use the `raw` function to append SQL directly to the QueryContext.
      */
-    virtual: raw(({ escapedPrefix, dialect }) => {
-      const query = dialect.count(
-        ItemTag,
-        {
-          $where: {
-            itemId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
-          },
-        },
-        { autoPrefix: true }
-      );
-      return `(${query})`;
-    }),
+    virtual: raw(({ ctx, dialect, escapedPrefix }) => {
+      ctx.append('(');
+      dialect.count(ctx, ItemTag, {
+        $where: {
+          itemId: raw(({ ctx }) => ctx.append(`${escapedPrefix}.id`))
+        }
+      }, { autoPrefix: true });
+      ctx.append(')');
+    })
   })
   tagsCount?: number;
 }
 
 @Entity()
 export class Tag {
+  @Id()
+  id?: number;
+
   @Field()
   name?: string;
 
   @ManyToMany({ entity: () => Item, mappedBy: (item) => item.tags })
   items?: Item[];
-
-  @Field({
-    virtual: raw(({ escapedPrefix, dialect }) => {
-      /**
-       * `virtual` property allows defining the value for a non-persistent field,
-       * such value might be a scalar or a (`raw`) function. Virtual-fields can
-       * be used in `$select`, and `$where` as a common field whose value is
-       * replaced at runtime.
-       */
-      const query = dialect.count(
-        ItemTag,
-        {
-          $where: {
-            tagId: raw(`${escapedPrefix}${dialect.escapeId('id')}`),
-          },
-        },
-        { autoPrefix: true }
-      );
-      return `(${query})`;
-    }),
-  })
-  itemsCount?: number;
 }
 
 @Entity()
@@ -91,19 +69,21 @@ export class ItemTag {
 
 &nbsp;
 
+### Querying with Virtual Fields
+
 If we select the `tagsCount` virtual-column:
 
 ```ts
-await querier.findMany(Item, { $select: ['id', 'tagsCount'] });
+await querier.findMany(Item, { $select: { id: true, tagsCount: true } });
 ```
 
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
 SELECT
-  `id`,
-  (SELECT COUNT(*) FROM `ItemTag` WHERE `ItemTag`.`itemId` = `id`) `tagsCount`
-FROM `Item`
+  "id",
+  (SELECT COUNT(*) FROM "ItemTag" WHERE "ItemTag"."itemId" = "id") "tagsCount"
+FROM "Item"
 ```
 
 &nbsp;
@@ -114,7 +94,7 @@ If we `$where` by the `tagsCount` virtual-column:
 await querier.findMany(
   Item,
   {
-    $select: ['id'],
+    $select: { id: true },
     $where: {
       tagsCount: { $gte: 10 },
     },
@@ -125,7 +105,7 @@ await querier.findMany(
 That &#9650; code will generate this &#9660; `SQL`:
 
 ```sql
-SELECT `id` FROM `Item`
+SELECT "id" FROM "Item"
 WHERE
-  (SELECT COUNT(*) `count` FROM `ItemTag` WHERE `ItemTag`.`itemId` = `id`) >= 10
+  (SELECT COUNT(*) FROM "ItemTag" WHERE "ItemTag"."itemId" = "id") >= 10
 ```

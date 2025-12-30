@@ -1,88 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-        <loc>https://nukak.org</loc>
-        <lastmod>2024-08-11</lastmod>
+        <loc>https://uql.app</loc>
+        <lastmod>2025-12-30</lastmod>
       </url>
       
             <url>
-              <loc>https://nukak.org/docs/entities-basic</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/entities-basic</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/entities-inheritance</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/entities-inheritance</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/entities-relations</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/entities-relations</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/entities-soft-delete</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/entities-soft-delete</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/entities-virtual-fields</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/entities-virtual-fields</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/getting-started</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/getting-started</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/plugins-browser</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/migrations</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/plugins-express</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/naming-strategy</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-comparison-operators</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/plugins-browser</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-logical-operators</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/plugins-express</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-querier</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-comparison-operators</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-relations</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-logical-operators</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-repository</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-querier</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/querying-sub-queries</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-relations</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/transactions-declarative</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-repository</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
             <url>
-              <loc>https://nukak.org/docs/transactions-imperative</loc>
-              <lastmod>2024-08-11</lastmod>
+              <loc>https://uql.app/docs/querying-sub-queries</loc>
+              <lastmod>2025-12-30</lastmod>
+            </url>
+          
+            <url>
+              <loc>https://uql.app/docs/transactions-declarative</loc>
+              <lastmod>2025-12-30</lastmod>
+            </url>
+          
+            <url>
+              <loc>https://uql.app/docs/transactions-imperative</loc>
+              <lastmod>2025-12-30</lastmod>
             </url>
           
     </urlset>

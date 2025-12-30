@@ -1,37 +1,24 @@
 ---
 weight: 300
-description: This tutorial explain how to use the express plugin with the nukak orm.
+description: This tutorial explain how to use the express plugin with the UQL orm.
 ---
 
 ## Express plugin
 
 ### Autogenerate REST APIs for the entities with Express
 
-The `nukak-express` package automatically generates REST APIs for your entities.
+The `@uql/core` package includes an express plugin to automatically generate REST APIs for your entities. It is accessible via the `@uql/core/express` sub-path.
 
-1. Install `nukak-express` in your server project:
-
-```sh
-npm install nukak-express --save
-```
-
-or with _yarn_
-
-```sh
-yarn add nukak-express
-```
-
-2. Initialize the `querierMiddleware` middleware in your server code to generate REST APIs for your entities
+1. Initialize the `querierMiddleware` middleware in your server code to generate REST APIs for your entities
 
 ```ts
 import * as express from 'express';
-import { querierMiddleware } from 'nukak-express';
+import { querierMiddleware } from '@uql/core/express';
 import { User, Product, Category } from './shared/models/index.js';
 
 const app = express();
 
 app
-  // ...
   .use(
     '/api',
     // this will generate REST APIs for the entities.
