@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { FileMetadata } from '../types';
+import { FileMetadata } from '~/types';
 
 const docsDirectory = path.join(process.cwd(), 'docs');
 

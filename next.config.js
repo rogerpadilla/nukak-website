@@ -1,18 +1,10 @@
+/** @type {import('next').NextConfig} */
 const config = {
+  output: 'export',
+  reactStrictMode: true,
   pageExtensions: ['tsx', 'md'],
-  redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/docs/getting-started',
-        permanent: true,
-      },
-      {
-        source: '/docs',
-        destination: '/docs/getting-started',
-        permanent: true,
-      },
-    ];
+  images: {
+    unoptimized: true,
   },
 };
 

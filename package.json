@@ -6,7 +6,6 @@
   "scripts": {
     "sitemap": "tsx ./shared/sitemap.ts",
     "build": "next build && npm run sitemap",
-    "export": "next export",
     "dev": "next dev -p 5200",
     "start": "next start -p 5200",
     "lint": "next lint --fix"

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import { projectDescription, projectName } from './constants';
+import { projectDescription, projectName } from '~/shared/constants';
 import { Header } from './header';
 import s from './layout.module.css';
 
@@ -21,7 +21,7 @@ export const Layout: React.FC<{
         <meta name="description" content={fullDescription} />
         <meta name="og:title" content={fullTitle} />
         <meta name="og:description" content={fullDescription} />
-        <meta property="og:image" content="/logo.svg" />        
+        <meta property="og:image" content="/logo.svg" />
       </Head>
       <Header />
       <main className={[s.main, mainClassName].join(' ')}>

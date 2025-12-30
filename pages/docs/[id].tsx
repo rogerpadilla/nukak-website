@@ -4,14 +4,14 @@ import remarkGfm from 'remark-gfm';
 // import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { Layout } from '../../shared/layout';
-import { Sidenav } from '../../shared/sidenav';
-import { Pager } from '../../shared/pager';
-import { Code } from '../../shared/code';
-import { getFiles } from '../../shared/files';
-import { buildSidenavItems } from '../../shared/ui';
-import { Badges } from '../../shared/badges';
-import type { FileMetadata, SidenavItem } from '../../types';
+import { Layout } from '~/shared/layout';
+import { Sidenav } from '~/shared/sidenav';
+import { Pager } from '~/shared/pager';
+import { Code } from '~/shared/code';
+import { getFiles } from '~/shared/files';
+import { buildSidenavItems } from '~/shared/ui';
+import { Badges } from '~/shared/badges';
+import type { FileMetadata, SidenavItem } from '~/types';
 import s from './[id].module.css';
 
 const components = {

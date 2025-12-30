@@ -7,7 +7,7 @@ import { state } from './state';
 export const Header: React.FC = () => (
   <header className={s.header}>
     <nav className={s.nav}>
-      <Link href="/docs" className={[s.item, s.logo].join(' ')}>
+      <Link href="/" className={[s.item, s.logo].join(' ')}>
         <Image src="/logo.svg" width="28" height="28" alt="UQL" />
         <span>UQL</span>
       </Link>
