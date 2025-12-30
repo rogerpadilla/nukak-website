@@ -12,7 +12,7 @@ UQL provides a powerful way to write sub-queries using `raw` expressions that in
 ### `$where` by a `raw` expression
 
 ```ts
-import { raw } from '@uql/core/util';
+import { raw } from '@uql/core';
 import { pool } from './shared/orm.js';
 
 const querier = await pool.getQuerier();
@@ -43,7 +43,7 @@ SELECT "id" FROM "Item" WHERE "companyId" = 1 AND SUM(salePrice) > 500
 Use the `dialect` methods inside a `raw` callback to generate a sub-query that is correctly prefixed and context-aware.
 
 ```ts
-import { raw } from '@uql/core/util';
+import { raw } from '@uql/core';
 import { pool } from './shared/orm.js';
 import { User, Item } from './shared/models/index.js';
 
