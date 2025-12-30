@@ -7,11 +7,10 @@ description: This tutorial explain the features of the UQL orm and how to use ge
 ---
 
 
-[UQL](https:/uql.app) is the [smartest ORM](https:/medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
+**[UQL](https://uql.app)** is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript. It is engineered to be **fast**, **safe**, and **universally compatible**.
 
-[UQL](https:/uql.app) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
-
-[UQL](https:/uql.app) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, SQLite, and MongoDB.
+- **Runs Everywhere**: Node.js, Bun, Deno, Cloudflare Workers, Electron, React Native, and even the Browser.
+- **Unified API**: A consistent, expressive query interface for PostgreSQL, MySQL, MariaDB, SQLite, LibSQL, Neon, Cloudflare D1, and MongoDB (inspired by its glorious syntax).
 
 &nbsp;
 
