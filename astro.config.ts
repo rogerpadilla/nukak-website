@@ -41,7 +41,8 @@ const config: AstroUserConfig = {
             },
             lastUpdated: true,
             social: [
-                { icon: 'github', label: 'GitHub', href: githubRepo }
+                { icon: 'github', label: 'GitHub', href: githubRepo },
+                { icon: 'rocket', label: 'NPM', href: 'https://www.npmjs.com/package/@uql/core' }
             ],
             tableOfContents: {
                 minHeadingLevel: 2,

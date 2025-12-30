@@ -14,6 +14,11 @@ hero:
     - text: View on GitHub
       link: https://github.com/rogerpadilla/uql
       icon: external
+      variant: secondary
+    - text: NPM Package
+      link: https://www.npmjs.com/package/@uql/core
+      icon: external
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
