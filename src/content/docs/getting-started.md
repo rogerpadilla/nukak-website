@@ -1,18 +1,17 @@
 ---
-title: Why UQL?
+title: Getting Started
 sidebar:
   order: 1
 root: true
 description: This tutorial explain the features of the UQL orm and how to use get started with it.
 ---
 
-[![UQL logo](/logo.svg)](https://uql.app)
 
-[UQL](https://uql.app) is the [smartest ORM](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
+[UQL](https:/uql.app) is the [smartest ORM](https:/medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) for TypeScript, it is designed to be fast, safe, and easy to integrate into any application.
 
-[UQL](https://uql.app) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
+[UQL](https:/uql.app) can run in Node.js, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, Electron, Bun and Deno.
 
-[UQL](https://uql.app) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, SQLite, and MongoDB.
+[UQL](https:/uql.app) has a consistent API for distinct databases, including PostgreSQL, MySQL, MariaDB, SQLite, and MongoDB.
 
 &nbsp;
 
@@ -29,22 +28,22 @@ const companyUsers = await userRepository.findMany({
 
 ## Why UQL?
 
-See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) in medium.com.
+See [this article](https:/medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) in medium.com.
 
 &nbsp;
 
 ## Features
 
-- **Type-safe and Context-aware queries**: squeeze the powers of `TypeScript` so it auto-completes and validates, the appropriate operators on any level of the queries, [including the relations and their fields](https://uql.app/docs/querying-relations).
-- **Serializable queries**: its [syntax](https://uql.app/docs/querying-logical-operators) can be `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
+- **Type-safe and Context-aware queries**: squeeze the powers of `TypeScript` so it auto-completes and validates, the appropriate operators on any level of the queries, [including the relations and their fields](/querying/relations).
+- **Serializable queries**: its [syntax](/querying/logical-operators) can be `100%` valid `JSON` allowing the queries to be transported across platforms with ease.
 - **Unified API across Databases**: same query is transparently transformed according to the configured database.
 - **FP + OOP**: Combines the best elements of `FP` (Functional Programming) and `OOP` (Object Oriented Programming).
-- [Declarative](https://uql.app/docs/transactions-declarative) and [imperative](https://uql.app/docs/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
-- Transparent support for [inheritance between entities](https://uql.app/docs/entities-inheritance) for reusability and consistency.
-- Modern [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): `ESM` is natively supported by Node.js 16 and later.
-- **High performance**: the [generated queries](https://uql.app/docs/querying-logical-operators) are fast, safe, and human-readable.
-- Supports the [Data Mapper](https://en.wikipedia.org/wiki/Data_mapper_pattern) pattern for maintainability.
-- [soft-delete](https://uql.app/docs/entities-soft-delete), [virtual fields](https://uql.app/docs/entities-virtual-fields), [repositories](https://uql.app/docs/querying-repository).
+- [Declarative](/transactions-declarative) and [imperative](/transactions-imperative) `transactions` for flexibility, and `connection pooling` for scalability.
+- Transparent support for [inheritance between entities](/entities/inheritance) for reusability and consistency.
+- Modern [Pure ESM](https:/gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): `ESM` is natively supported by Node.js 16 and later.
+- **High performance**: the [generated queries](/querying/logical-operators) are fast, safe, and human-readable.
+- Supports the [Data Mapper](https:/en.wikipedia.org/wiki/Data_mapper_pattern) pattern for maintainability.
+- [soft-delete](/entities/soft-delete), [virtual fields](/entities/virtual-fields), [repositories](/querying/repository).
 - Automatic handing of `json`, `jsonb` and `vector` fields.
 
 &nbsp;

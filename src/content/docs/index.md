@@ -18,19 +18,25 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Why UQL?
+## Elegant, Fast, and Type-Safe
 
 <CardGrid stagger>
-	<Card title="Type-safe" icon="pencil">
-		Full auto-completion and validation of operators at any depth.
+	<Card title="Full Type Safety" icon="pencil">
+		Deeply nested auto-completion for your queries and entity definitions. Stop catching bugs in production.
 	</Card>
-	<Card title="Consistent API" icon="add-document">
-		Seamlessly switch between PostgreSQL, MySQL, MariaDB, and SQLite.
+	<Card title="Multiple Dialects" icon="add-document">
+		First-class support for PostgreSQL, MySQL, MariaDB, and SQLite with a unified, consistent API.
 	</Card>
-	<Card title="High Performance" icon="setting">
-		Optimized "Sticky Connections" and minimal SQL generation.
+	<Card title="Performant by Design" icon="setting">
+		Zero-overhead query generation and smart connection pooling for high-concurrency environments.
 	</Card>
-	<Card title="Modern Architecture" icon="open-book">
-		Pure ESM support, designed for Node.js, Bun, Deno, and Browser.
+	<Card title="Modern First" icon="open-book">
+		Engineered for the ESM era. Works out of the box with Node.js, Bun, Deno, and even the Browser.
 	</Card>
 </CardGrid>
+
+---
+
+:::note[Tip]
+UQL is designed to be **unobtrusive**. You don't need to change your architecture to fit the ORM; UQL fits into yours.
+:::

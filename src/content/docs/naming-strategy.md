@@ -28,7 +28,7 @@ export const pool = new PgQuerierPool(
   {
     host: 'localhost',
     database: 'my_db',
-    // ...
+    // ... other options
   },
   {
     // Automatically translate between TypeScript camelCase and database snake_case.
