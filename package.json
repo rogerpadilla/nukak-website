@@ -4,36 +4,23 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sitemap": "tsx ./shared/sitemap.ts",
-    "build": "next build && npm run sitemap",
-    "dev": "next dev -p 5200",
-    "start": "next start -p 5200",
-    "lint": "next lint --fix"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "next": "^16.1.1",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/starlight": "^0.37.1",
+    "@astrojs/vercel": "^9.0.2",
+    "astro": "^5.16.6",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-markdown": "^10.1.0",
-    "react-syntax-highlighter": "^16.1.0",
-    "valtio": "^2.2.0"
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "16.1.1",
-    "gray-matter": "^4.0.3",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": true,
-    "printWidth": 120
+    "@types/react-dom": "^19.2.3"
   }
 }

@@ -1,3 +1,0 @@
-export const projectName = 'UQL - The smartest ORM for TypeScript and modern JavaScript';
-
-export const projectDescription = 'The smartest ORM for TypeScript and modern JavaScript designed to be fast, safe, and easy to integrate into any application.';

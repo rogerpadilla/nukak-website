@@ -1,0 +1,28 @@
+:root {
+    --sl-color-accent-low: #0f3854;
+    --sl-color-accent: #3282b8;
+    --sl-color-accent-high: #b1d4e0;
+    --sl-color-bg: #f2f6f5;
+}
+
+:root[data-theme='dark'] {
+    --sl-color-accent-low: #3d2f0a;
+    --sl-color-accent: #a9822d;
+    --sl-color-accent-high: #dac842;
+    --sl-color-bg: #14224E;
+    --sl-content-margin-inline: 0;
+}
+
+/* Premium touches */
+.content-panel {
+    padding-bottom: 4rem;
+}
+
+pre {
+    border: 1px solid var(--sl-color-gray-5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.sidebar-content {
+    background-color: var(--sl-color-bg-nav, var(--sl-color-bg));
+}
