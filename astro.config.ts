@@ -78,6 +78,11 @@ const config: AstroUserConfig = {
                         { label: 'Browser', link: '/plugins-browser' },
                     ],
                 },
+                {
+                    label: 'Sponsors',
+                    link: 'https://variability.ai',
+                    badge: { text: '❤️', variant: 'danger' },
+                },
             ],
             customCss: ['./src/styles/custom.css'],
             expressiveCode: {
