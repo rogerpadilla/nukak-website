@@ -28,13 +28,21 @@ const config: AstroUserConfig = {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-PE9RVX8QYB');
+
+            document.addEventListener('astro:page-load', () => {
+                gtag('config', 'G-PE9RVX8QYB', {
+                    page_path: window.location.pathname,
+                });
+            });
           `,
                 },
             ],
             logo: {
                 src: './src/assets/logo.svg',
                 replacesTitle: true,
+            },
+            components: {
+                Head: './src/components/Head.astro',
             },
             editLink: {
                 baseUrl: `${githubRepo}/edit/main/apps/website/`,
