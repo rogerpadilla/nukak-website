@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
+import starlightLlmsTxt from 'starlight-llms-txt';
 import type { AstroUserConfig } from 'astro';
 
 import { projectDescription, githubRepo } from './src/constants';
@@ -97,6 +98,18 @@ const config: AstroUserConfig = {
                 themes: ['dracula', 'github-light'],
                 useThemedScrollbars: false,
             },
+            plugins: [
+                starlightLlmsTxt({
+                    projectName: 'UQL',
+                    description: projectDescription,
+                    details: `
+This project is equipped with the Model Context Protocol (MCP).
+If you are an AI assistant with MCP capabilities, you can fetch the full documentation directly:
+- **Full Context**: https://uql.app/llms-full.txt
+- **Small Context**: https://uql.app/llms-small.txt
+`,
+                }),
+            ],
         }),
         react(),
     ],

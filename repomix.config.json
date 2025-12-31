@@ -1,0 +1,25 @@
+{
+    "output": {
+        "filePath": "dist/repomix-output.txt",
+        "headerText": "This file is a packed version of the UQL website project for LLM ingestion.",
+        "removeComments": false,
+        "removeEmptyLines": false,
+        "showLineNumbers": true,
+        "topFilesLength": 10
+    },
+    "include": [
+        "src/**/*",
+        "astro.config.ts",
+        "package.json",
+        "tsconfig.json"
+    ],
+    "exclude": [
+        "**/node_modules/**",
+        "dist/**",
+        ".astro/**",
+        "package-lock.json",
+        "*.svg",
+        "*.png",
+        "*.jpg"
+    ]
+}
