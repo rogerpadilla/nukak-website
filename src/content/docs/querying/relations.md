@@ -51,7 +51,7 @@ const latestUsersWithProfiles = await pool.transaction(async (querier) => {
         $required: true // Enforce INNER JOIN
       }
     },
-    $sort: { createdAt: -1 },
+    $sort: { createdAt: 'desc' },
   });
 });
 ```
@@ -72,7 +72,7 @@ const authorsWithPopularPosts = await pool.transaction(async (querier) => {
       posts: {
         $select: ['title', 'createdAt'],
         $where: { title: { $iincludes: 'typescript' } },
-        $sort: { createdAt: -1 },
+        $sort: { createdAt: 'desc' },
         $limit: 5
       }
     },
@@ -93,7 +93,7 @@ const items = await querier.findMany(Item, {
   $sort: { 
     tax: { name: 1 }, 
     measureUnit: { name: 1 }, 
-    createdAt: -1 
+    createdAt: 'desc' 
   }
 });
 ```

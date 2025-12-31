@@ -5,7 +5,7 @@ sidebar:
 description: This tutorial explain how to use the express plugin with the UQL orm.
 ---
 
-## Express plugin
+## Express plugin (optional, this is if you want to expose your entities as REST APIs)
 
 ### Autogenerate REST APIs for the entities with Express
 

@@ -42,7 +42,7 @@ const users = await pool.transaction(async (querier) => {
       name: { $istartsWith: 'Some', $ne: 'Something' },
       age: { $gte: 18, $lte: 65 }
     },
-    $sort: { name: 1 },
+    $sort: { name: 'asc' },
     $limit: 50
   });
 });
