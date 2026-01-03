@@ -15,7 +15,6 @@ Create a `uql.config.ts` file in your project root to configure the CLI:
 
 ```typescript
 import { PgQuerierPool } from '@uql/core/postgres';
-import { User, Post } from './shared/models/index.js';
 
 export default {
   querierPool: new PgQuerierPool({ 
@@ -24,7 +23,8 @@ export default {
     password: 'thePassword',
     database: 'theDatabase'
   }),
-  entities: [User, Post],
+  // Optional: UQL automatically loads all classes decorated with @Entity.
+  // entities: [User, Post],
   migrationsPath: './migrations',
 };
 ```
@@ -55,6 +55,7 @@ In development, you can use `autoSync` to automatically keep your database in sy
 import { Migrator } from '@uql/core/migrate';
 import { querierPool } from './shared/orm.js';
 
+// The Migrator will automatically load all classes decorated with @Entity by default.
 const migrator = new Migrator(querierPool);
 
 // Automatically add missing tables and columns

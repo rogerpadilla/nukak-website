@@ -353,11 +353,11 @@ Create a `uql.config.ts` file in your project root:
 
 ```typescript
 import { PgQuerierPool } from '@uql/core/postgres';
-import { User, Post } from './shared/models/index.js';
 
 export default {
   pool: new PgQuerierPool({ /* config */ }),
-  entities: [User, Post],
+  // Optional: UQL automatically loads all classes decorated with @Entity.
+  // entities: [User, Post],
   migrationsPath: './migrations',
 };
 ```
@@ -396,6 +396,7 @@ We recommend using `autoSync` (in development) to automatically keep your databa
 import { Migrator } from '@uql/core/migrate';
 import { pool } from './shared/orm.js';
 
+// The Migrator will automatically load all classes decorated with @Entity by default.
 const migrator = new Migrator(pool);
 await migrator.autoSync({ logging: true });
 ```
