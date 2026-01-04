@@ -226,7 +226,7 @@ export const pool = new PgQuerierPool(
 
 ## 4. Manipulate the data
 
-UQL provides multiple ways to interact with your data, from generic `Queriers` (that work with any entity) to entity-specific `Repositories`.
+UQL provides a straightforward API to interact with your data using `Queriers`.
 
 ```ts
 import { User } from './shared/models/index.js';

@@ -14,28 +14,22 @@ This extension is completely optional. UQL works perfectly fine as a standalone 
 
 ### Quick Start
 
-1.  **Configure the Pool**: Set up the base URL for your API. By default, it points to `/api`.
-
+1.  **Initialize the HttpQuerier**:
+    
     ```ts
-    import { setQuerierPool } from '@uql/core/browser';
     import { HttpQuerier } from '@uql/core/browser';
 
     // Configure the frontend to point to your backend API
-    setQuerierPool({
-      getQuerier: () => new HttpQuerier('https://api.yourdomain.com/api')
-    });
+    const querier = new HttpQuerier('https://api.yourdomain.com/api');
     ```
 
-2.  **Use Repositories**: Interact with your entities as if you were on the backend.
+2.  **Query Data**: Interact with your entities as if you were on the backend.
 
     ```ts
-    import { getRepository } from '@uql/core/browser';
     import { User } from './shared/models/index.js';
 
-    const userRepository = getRepository(User);
-
     // Deeply type-safe queries in the browser!
-    const users = await userRepository.findMany({
+    const users = await querier.findMany(User, {
       $select: { 
         email: true, 
         profile: { $select: ['picture'] } 
@@ -55,10 +49,10 @@ This extension is completely optional. UQL works perfectly fine as a standalone 
 
 ### Request Options
 
-You can pass standard `fetch` options (like headers for authentication) to any repository method:
+You can pass standard `fetch` options (like headers for authentication) to any querier method:
 
 ```ts
-const users = await userRepository.findMany({
+const users = await querier.findMany(User, {
   $where: { status: 'active' }
 }, {
   headers: {

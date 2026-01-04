@@ -110,7 +110,8 @@ export class PostTag {
 When you query relations in UQL, the syntax remains consistent and type-safe. You can select specific fields from related entities or filter based on them.
 
 ```ts
-const posts = await postRepository.findMany({
+// Assuming `querier` is obtained from the pool
+const posts = await querier.findMany(Post, {
   $select: {
     id: true,
     title: true,

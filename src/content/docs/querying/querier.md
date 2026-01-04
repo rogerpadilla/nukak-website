@@ -13,7 +13,6 @@ With a `querier` you can:
 
 - Manipulate the data related to _any_ `entity`.
 - Use [declarative]/transactions-declarative) and [imperative]/transactions-imperative) transactions.
-- Obtain [repositories](/querying/repository) for _specific_ `entities`.
 
 ```ts
 import { User } from './shared/models/index.js';
