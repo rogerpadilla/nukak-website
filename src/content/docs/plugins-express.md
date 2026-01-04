@@ -5,57 +5,72 @@ sidebar:
 description: This tutorial explain how to use the express plugin with the UQL orm.
 ---
 
-## Express plugin (optional, this is if you want to expose your entities as REST APIs)
+## Express Plugin
 
-### Autogenerate REST APIs for the entities with Express
+UQL provides a built-in Express middleware to automatically generate RESTful APIs for your entities with zero boilerplate. It handles the entire request lifecycle, including query parsing, transaction management, and automatic querier release.
 
-The `@uql/core` package includes an express plugin to automatically generate REST APIs for your entities. It is accessible via the `@uql/core/express` sub-path.
+### Quick Start
 
-1. Initialize the `querierMiddleware` middleware in your server code to generate REST APIs for your entities
+1. Initialize the `querierMiddleware` in your Express app:
 
 ```ts
-import * as express from 'express';
+import express from 'express';
 import { querierMiddleware } from '@uql/core/express';
-import { User, Product, Category } from './shared/models/index.js';
+import { pool } from './shared/orm.js';
+import { User, Post } from './shared/models/index.js';
 
 const app = express();
+app.use(express.json());
 
-app
-  .use(
-    '/api',
-    // this will generate REST APIs for the entities.
-    querierMiddleware({
-      /**
-       * allow specify which entities will be used by the middleware
-       * (all of them are used by default)
-       */
-      include: [User, Product, Category],
-      /**
-       * allow excluding some entities of being used by the middleware
-       * (all of them are used by default)
-       */
-      exclude: [User],
-      /**
-       * Allow augment any kind of request before it runs
-       */
-      pre(req, meta) {
-        console.log(`${req.method} ${req.url} ${meta.name}`);
-        if (req.method === 'POST' && meta.entity === Product) {
-          console.log(`A new product is going to be created!`);
-        }
-      },
-      /**
-       * Allow augment a saving request (POST, PATCH, PUT) before it runs
-       */
-      preSave(req, meta) {
-        req.body.creatorId = req.identify.userId;
-      },
-      /**
-       * Allow augment a filtering request (GET, DELETE) before it runs
-       */
-      preFilter(req, meta) {
-        req.query.$where.creatorId = req.identify.userId;
-      },
-    })
-  );
+// This will automatically generate routes like /api/user and /api/post
+app.use('/api', querierMiddleware({
+  include: [User, Post]
+}));
+
+app.listen(3000);
 ```
+
+### Advanced Configuration
+
+The middleware is highly customizable, allowing you to intercept requests, filter data based on the authenticated user, and more.
+
+```ts
+app.use('/api', querierMiddleware({
+  // Intercept every request
+  pre(req, meta) {
+    console.log(`Processing ${req.method} on ${meta.name}`);
+  },
+
+  // Intercept save operations (POST, PATCH, PUT)
+  preSave(req, meta) {
+    // Automatically set the creatorId from the session
+    req.body.creatorId = req.user.id;
+  },
+
+  // Intercept filter operations (GET, DELETE)
+  preFilter(req, meta) {
+    // Enforce row-level security
+    req.query.$where = { 
+      ...req.query.$where, 
+      creatorId: req.user.id 
+    };
+  }
+}));
+```
+
+### Generated Endpoints
+
+For an entity named `User`, the following endpoints are automatically generated:
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/user` | List users (supports pagination, filtering, and sorting). |
+| `GET` | `/user/:id` | Get a single user by ID. |
+| `POST` | `/user` | Create a new user. |
+| `PATCH` | `/user/:id` | Update a user partially. |
+| `DELETE` | `/user/:id` | Delete a user (supports soft-delete if configured). |
+
+:::tip
+All `GET` endpoints support UQL's powerful [Serializable JSON Query Syntax](/querying/querier), allowing your frontend to perform complex joins and filters directly via URL parameters.
+:::
+

@@ -5,60 +5,41 @@ sidebar:
 description: This tutorial explain how to use imperative transactions with the UQL orm.
 ---
 
-## Imperative transactions
+## Imperative Transactions
 
-Both, [Declarative]/transactions-declarative) and [Imperative]/transactions-imperative) `transactions` are supported for flexibility, with the former you can just _describe_ the scope of your transactions, with the later you have more flexibility to programmatically specify the lifecycle of a transaction.
+For scenarios requiring granular control over the transaction lifecycle, UQL provides explicit transaction management methods on the `querier` instance.
 
-**Note**: Pre-requisite step, define a querier pool.
-
-```ts
-// in file pool.ts
-import { setQuerierPool } from '@uql/core';
-import { PgQuerierPool } from '@uql/core/postgres';
-
-export const pool = new PgQuerierPool(
-  {
-    host: process.env.DB_HOST,
-    port: +process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-  },
-  { logger: console.log }
-);
-```
-
----
-
-
-### Independent functions for granular control `querier.*`.
+**Always ensure queriers are released back to the pool**, even in the event of an error.
 
 ```ts
 import { pool } from './shared/orm.js';
-import { User, Confirmation } from './shared/models/index.js';
+import { User, Profile } from './shared/models/index.js';
 
-async function confirm(confirmation: Confirmation): Promise<void> {
+async function registerUser(userData: any, profileData: any) {
+  // 1. Obtain a querier from the pool
   const querier = await pool.getQuerier();
+  
   try {
+    // 2. Start the transaction
     await querier.beginTransaction();
-    if (confirmation.action === 'signup') {
-      await querier.insertOne(User, {
-        name: confirmation.name,
-        email: confirmation.email,
-        password: confirmation.password,
-      });
-    } else {
-      await querier.updateOneById(User, confirmation.creatorId, {
-        password: confirmation.password,
-      });
-    }
-    await querier.updateOneById(Confirmation, confirmation.id, { status: 1 });
+
+    const userId = await querier.insertOne(User, userData);
+    await querier.insertOne(Profile, { ...profileData, userId });
+
+    // 3. Commit the transaction
     await querier.commitTransaction();
   } catch (error) {
+    // 4. Rollback on error
     await querier.rollbackTransaction();
     throw error;
   } finally {
+    // 5. Always release the querier
     await querier.release();
   }
 }
 ```
+
+### Manual vs Functional Transactions
+
+While imperative transactions provide the most control, the functional [pool.transaction()](/transactions-declarative#method-1-functional-pooltransaction-recommended) approach is recommended for most use cases as it automatically handles the lifecycle (start, commit, rollback, and release) for you.
+

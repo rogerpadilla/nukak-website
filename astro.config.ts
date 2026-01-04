@@ -77,6 +77,7 @@ const config: AstroUserConfig = {
                         { label: 'Declarative Transactions', link: '/transactions-declarative' },
                         { label: 'Imperative Transactions', link: '/transactions-imperative' },
                         { label: 'Migrations', link: '/migrations' },
+                        { label: 'Logging & Monitoring', link: '/logging' },
                         { label: 'Naming Strategy', link: '/naming-strategy' },
                     ],
                 },

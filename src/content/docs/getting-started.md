@@ -27,65 +27,63 @@ const users = await querier.findMany(User, {
 
 ## Why UQL?
 
-See [this article](https://medium.com/@rogerpadillac/in-search-of-the-perfect-orm-e01fcc9bce3d) on medium.com.
+| Feature | **UQL** | Traditional ORMs |
+| :--- | :--- | :--- |
+| **API** | **Unified & Intuitive**: Same syntax for SQL & NoSQL. | Fragmented: SQL and Mongo feel like different worlds. |
+| **Safety** | **Deep Type-Safety**: Validates relations & operators at any depth. | Surface-level: Often loses types in complex joins. |
+| **Syntax** | **Serializable JSON**: Pure data, perfect for APIs/Websockets. | Method-Chaining: Hard to transport over the wire. |
+| **Efficiency** | **Sticky Connections**: Minimal overhead, human-readable SQL. | Heavy: Often generates "SQL Soup" that's hard to debug. |
 
 &nbsp;
 
 ## Features
 
-- **Type-safe and Context-aware queries**: Squeeze all the power of `TypeScript` for auto-completion and validation of operators at any depth, [including relations and their fields](/querying/relations).
-- **Context-Object SQL Generation**: Uses a sophisticated `QueryContext` pattern to ensure perfectly indexed placeholders ($1, $2, etc.) and robust SQL fragment management, even in the most complex sub-queries.
-- **Unified API across Databases**: Write once, run anywhere. Seamlessly switch between `PostgreSQL`, `MySQL`, `MariaDB`, `SQLite`, `LibSQL`, `Neon`, `Cloudflare D1`, and even `MongoDB`.
-- **Serializable JSON Syntax**: Queries can be expressed as `100%` valid `JSON`, allowing them to be easily transported from frontend to backend.
-- **Naming Strategies**: Effortlessly translate between TypeScript `CamelCase` and database `snake_case` (or any custom format) with a pluggable system.
-- **Built-in Serialization**: A centralized task queue and the `@Serialized()` decorator ensure that database operations are thread-safe and race-condition-free by default.
-- **Database Migrations**: Integrated migration system for version-controlled schema management and auto-generation from entities.
-- **High Performance**: Optimized "Sticky Connections" and human-readable, minimal SQL generation.
-- **Modern Architecture**: Pure `ESM` support, designed for `Node.js`, `Bun`, `Deno`, and even mobile/browser environments.
-- **Rich Feature Set**: [Soft-delete](/entities/soft-delete/), [virtual fields](/entities/virtual-fields), [repositories](/querying/repository), and automatic handling of `JSON`, `JSONB`, and `Vector` types.
+| Feature | Description |
+| :--- | :--- |
+| **[Context-Aware Queries](/querying/relations)** | Deep type-safety for operators and [relations](/querying/relations) at any depth. |
+| **Serializable JSON** | 100% valid JSON queries for easy transport over HTTP/Websockets. |
+| **Unified Dialects** | Write once, run anywhere: PostgreSQL, MySQL, SQLite, MongoDB, and more. |
+| **Naming Strategies** | Pluggable system to translate between TypeScript `camelCase` and database `snake_case`. |
+| **Smart SQL Engine** | Optimized sub-queries, placeholders ($1, $2), and minimal SQL generation via `QueryContext`. |
+| **Thread-Safe by Design** | Centralized task queue and `@Serialized()` decorator prevent race conditions. |
+| **Declarative Transactions** | Standard `@Transactional()` and `@InjectQuerier()` decorators for NestJS/DI. |
+| **[Modern & Versatile](/entities/virtual-fields)** | **Pure ESM**, high-res timing, [Soft-delete](/entities/soft-delete), and **Vector/JSONB/JSON** support. |
+| **[Structured Logging](/logging)** | Professional-grade monitoring with slow-query detection and colored output. |
 
 &nbsp;
 
 ## 1. Install
 
-1. Install the core package:
-
-   ```sh
-   npm install @uql/core
-   # or
-   bun add @uql/core
-   ```
-
-2. Install one of the specific adapters for your database:
-
-| Database | Driver
-| :--- | :---
-| `PostgreSQL` (incl. CockroachDB, YugabyteDB) | `pg`
-| `MySQL` (incl. TiDB, Aurora) | `mysql2`
-| `MariaDB` | `mariadb`
-| `SQLite` | `better-sqlite3`
-| `Cloudflare D1` | `Native Binding`
-| `LibSQL` (Turso) | `@libsql/client`
-| `Neon` (Serverless Postgres) | `@neondatabase/serverless`
-
-
-For example, for `Postgres`, install the `pg` driver:
+Install the core package and the driver for your database:
 
 ```sh
-npm install pg
-# or
-bun add pg
+# Core
+npm install @uql/core       # or bun add / pnpm add
+
+# Potential Drivers (choose only ONE!)
+npm install pg              # PostgreSQL / Neon / Cockroach / Yugabyte
+npm install mysql2          # MySQL / TiDB / Aurora
+npm install mariadb         # MariaDB
+npm install better-sqlite3  # SQLite
+npm install @libsql/client  # LibSQL / Turso
+npm install mongodb         # MongoDB
+# Cloudflare D1 uses native bindings (no extra driver needed)
 ```
 
-3. Additionally, your `tsconfig.json` may need the following flags:
+### TypeScript Configuration
 
-   ```json
-   "target": "ES2024",
-   "experimentalDecorators": true,
-   "emitDecoratorMetadata": true
-   ```
+Ensure your `tsconfig.json` is configured to support decorators and metadata:
 
-> **Note**: `ES2020`, `ES2022`, `ES2023`, or `ESNext` will also work fine for the `target`.
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "NodeNext",
+    "target": "ESNext"
+  }
+}
+```
 
 ---
 
@@ -210,10 +208,11 @@ export const pool = new PgQuerierPool(
   },
   // Extra options (optional).
   {
-    // Pass any custom logger function here (optional).
-    logger: console.debug,
+    // Enable logging (true uses the DefaultLogger with colored output).
+    logger: true,
+    // Threshold in milliseconds to log slow queries.
+    slowQueryThreshold: 200,
     // Pass a naming strategy here (optional, by default no automatic names translation).
-    // This affects both queries and schema generation.
     // E.g. `SnakeCaseNamingStrategy` automatically translate between TypeScript camelCase and database snake_case.
     namingStrategy: new SnakeCaseNamingStrategy()
   },

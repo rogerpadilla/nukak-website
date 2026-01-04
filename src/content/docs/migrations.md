@@ -17,7 +17,7 @@ Create a `uql.config.ts` file in your project root to configure the CLI:
 import { PgQuerierPool } from '@uql/core/postgres';
 
 export default {
-  querierPool: new PgQuerierPool({ 
+  pool: new PgQuerierPool({ 
     host: 'localhost',
     user: 'theUser',
     password: 'thePassword',
@@ -34,10 +34,13 @@ export default {
 UQL provides a dedicated CLI tool for migrations.
 
 ```bash
-# Generate a migration by comparing entities vs database
-npx uql-migrate generate initial_schema
+# Generate a new empty migration file
+npx uql-migrate generate add_users_table
 
-# Run pending migrations
+# Generate a migration by comparing entities vs database
+npx uql-migrate generate:entities initial_schema
+
+# Run all pending migrations
 npx uql-migrate up
 
 # Rollback the last migration
@@ -53,10 +56,10 @@ In development, you can use `autoSync` to automatically keep your database in sy
 
 ```ts
 import { Migrator } from '@uql/core/migrate';
-import { querierPool } from './shared/orm.js';
+import { pool } from './shared/orm.js';
 
 // The Migrator will automatically load all classes decorated with @Entity by default.
-const migrator = new Migrator(querierPool);
+const migrator = new Migrator(pool);
 
 // Automatically add missing tables and columns
 await migrator.autoSync({ logging: true });
