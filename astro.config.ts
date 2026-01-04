@@ -82,10 +82,10 @@ const config: AstroUserConfig = {
                     ],
                 },
                 {
-                    label: 'Plugins',
+                    label: 'Extensions',
                     items: [
-                        { label: 'Express', link: '/plugins-express' },
-                        { label: 'Browser', link: '/plugins-browser' },
+                        { label: 'Express', link: '/extensions-express' },
+                        { label: 'Browser', link: '/extensions-browser' },
                     ],
                 },
                 {

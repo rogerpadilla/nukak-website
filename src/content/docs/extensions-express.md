@@ -1,13 +1,16 @@
 ---
-title: Express plugin
+title: Express extension
 sidebar:
   order: 300
-description: This tutorial explain how to use the express plugin with the UQL orm.
+description: This tutorial explain how to use the express extension with the UQL orm.
 ---
 
-## Express Plugin
+## Express Extension
 
 UQL provides a built-in Express middleware to automatically generate RESTful APIs for your entities with zero boilerplate. It handles the entire request lifecycle, including query parsing, transaction management, and automatic querier release.
+:::note
+This extension is completely optional. UQL works perfectly fine as a standalone ORM without it.
+:::
 
 ### Quick Start
 

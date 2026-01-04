@@ -108,6 +108,9 @@ export class User {
   @Field({ unique: true, comment: 'User login email' })
   email?: string;
 
+  > **Pro Tip**: Use the `Relation<T>` utility type for relationship properties. It prevents TypeScript circular dependency errors while maintaining full type-safety.
+>
+> **Note**: For `string` fields, UQL uses dialect-aware defaults if no `length` is specified: `TEXT` for PostgreSQL/SQLite (optimal) and `VARCHAR(255)` for MySQL/MariaDB (compatibility).
   @OneToOne({ entity: () => Profile, mappedBy: 'user', cascade: true })
   profile?: Relation<Profile>; // Relation<T> handles circular dependencies
 
@@ -346,11 +349,13 @@ const result = await pool.transaction(async (querier) => {
 
 UQL includes a robust *migration system* and an *Entity-First auto-synchronization* engine built directly into the core.
 
-### 1. Create Configuration
+### 1. Unified Configuration (Recommended)
 
-Create a `uql.config.ts` file in your project root:
+Ideally, use the same `uql.config.ts` for your application bootstrap and the CLI:
 
 ```typescript
+// uql.config.ts
+import type { Config } from '@uql/core';
 import { PgQuerierPool } from '@uql/core/postgres';
 
 export default {
@@ -358,8 +363,10 @@ export default {
   // Optional: UQL automatically loads all classes decorated with @Entity.
   // entities: [User, Post],
   migrationsPath: './migrations',
-};
+} satisfies Config;
 ```
+
+**Why?** Using a single config for both your app and the CLI is recommended for consistency. It prevents bugs where your runtime uses one naming strategy (e.g. `camelCase`) but your migrations use another (e.g. `snake_case`). It enforces a Single Source of Truth for your database connection and schema.
 
 ### 2. Manage via CLI
 

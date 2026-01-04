@@ -29,13 +29,13 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	<Card title="Full Type Safety" icon="pencil">
 		Deeply nested auto-completion for your queries and entity definitions. Stop catching bugs in production.
 	</Card>
-	<Card title="Multiple Dialects" icon="add-document">
-		First-class support for PostgreSQL, MySQL, MariaDB, SQLite, LibSQL, Neon, Cloudflare D1, and even MongoDB with a unified, consistent API.
+	<Card title="Unified API" icon="add-document">
+		First-class support for PostgreSQL, MySQL, MariaDB, SQLite, LibSQL, Neon, Cloudflare D1, and even MongoDB with a consistent API.
 	</Card>
 	<Card title="Performant by Design" icon="setting">
 		Zero-overhead query generation and smart connection pooling for high-concurrency environments.
 	</Card>
-	<Card title="Modern First" icon="open-book">
+	<Card title="Universal Compatibility" icon="open-book">
 		Engineered for the ESM era. Works out of the box with Node.js, Bun, Deno, and even the Browser.
 	</Card>
 </CardGrid>
@@ -45,6 +45,17 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 :::note[Tip]
 UQL is designed to be **unobtrusive**. You don't need to change your architecture to fit the ORM; UQL fits into yours.
 :::
+
+---
+
+## Why UQL?
+
+| Feature | **UQL** | Traditional ORMs |
+| :--- | :--- | :--- |
+| **API** | **Unified & Intuitive**: Same syntax for SQL & NoSQL. | Fragmented: SQL and Mongo feel like different worlds. |
+| **Safety** | **Deep Type-Safety**: Validates relations & operators at any depth. | Surface-level: Often loses types in complex joins. |
+| **Syntax** | **Serializable JSON**: Pure data, perfect for APIs/Websockets. | Method-Chaining: Hard to transport over the wire. |
+| **Efficiency** | **Sticky Connections**: Minimal overhead, human-readable SQL. | Heavy: Often generates "SQL Soup" that's hard to debug. |
 
 ---
 

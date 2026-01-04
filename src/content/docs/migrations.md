@@ -9,11 +9,13 @@ description: This tutorial explain how to use database migrations with UQL.
 
 UQL includes a robust migration system and an "Entity-First" synchronization engine built directly into the core.
 
-### 1. Create Configuration
+### 1. Unified Configuration
 
-Create a `uql.config.ts` file in your project root to configure the CLI:
+Ideally, reuse the same `uql.config.ts` for both your application bootstrap and the CLI. This ensures your app and migrations share the same settings (like [Naming Strategies](/naming-strategy)).
 
 ```typescript
+// uql.config.ts
+import type { Config } from '@uql/core';
 import { PgQuerierPool } from '@uql/core/postgres';
 
 export default {
@@ -26,8 +28,11 @@ export default {
   // Optional: UQL automatically loads all classes decorated with @Entity.
   // entities: [User, Post],
   migrationsPath: './migrations',
-};
+} satisfies Config;
 ```
+
+
+By default, the CLI looks for `uql.config.ts` in the project root, but you can specify a custom path using the `--config` flag.
 
 ### 2. Manage via CLI
 
@@ -45,6 +50,9 @@ npx uql-migrate up
 
 # Rollback the last migration
 npx uql-migrate down
+
+# Using a custom config path
+npx uql-migrate up --config ./configs/uql.config.ts
 
 # Check status of migrations
 npx uql-migrate status
@@ -65,4 +73,4 @@ const migrator = new Migrator(pool);
 await migrator.autoSync({ logging: true });
 ```
 
-Check out the [getting started]/getting-started) guide for more details on setting up your project.
+Check out the [getting started](/getting-started) guide for more details on setting up your project.
