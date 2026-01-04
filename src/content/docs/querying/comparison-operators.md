@@ -32,21 +32,19 @@ UQL provide a comprehensive set of operators for comparing field values. These o
 ### Practical Example
 
 ```ts
-import { pool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
-const users = await pool.transaction(async (querier) => {
-  return querier.findMany(User, {
-    $select: { id: true, name: true },
-    $where: { 
-      name: { $istartsWith: 'Some', $ne: 'Something' },
-      age: { $gte: 18, $lte: 65 }
-    },
-    $sort: { name: 'asc' },
-    $limit: 50
-  });
+const users = await querier.findMany(User, {
+  $select: { id: true, name: true },
+  $where: { 
+    name: { $istartsWith: 'Some', $ne: 'Something' },
+    age: { $gte: 18, $lte: 65 }
+  },
+  $sort: { name: 'asc' },
+  $limit: 50
 });
 ```
+
 
 ### Context-Aware SQL Generation
 

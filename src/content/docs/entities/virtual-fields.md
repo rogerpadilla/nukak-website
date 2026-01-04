@@ -5,31 +5,26 @@ sidebar:
 description: This tutorial explain how to use virtual-fields in the entities with the UQL orm.
 ---
 
-## Virtual-Fields for entities
+## Virtual Fields
 
 The `virtual` property of the `@Field` decorator allows you to define non-persistent fields whose values are calculated at runtime using SQL or MongoDB expressions.
 
-UQL's virtual fields use the `QueryContext` pattern, ensuring robust SQL generation and performance.
+UQL's virtual fields use the `QueryContext` pattern, ensuring robust SQL generation and top-tier performance.
 
 ```ts
-import { Entity, Id, Field, ManyToMany } from '@uql/core';
-import { raw } from '@uql/core';
+import { Entity, Id, Field, ManyToMany, raw } from '@uql/core';
 
 @Entity()
 export class Item {
-  @Id()
-  id?: number;
-
-  @Field()
-  name?: string;
+  @Id() id?: number;
+  @Field() name?: string;
 
   @ManyToMany({ entity: () => Tag, through: () => ItemTag, cascade: true })
   tags?: Tag[];
 
   @Field({
     /**
-     * `virtual` property allows defining the value for a non-persistent field.
-     * Use the `raw` function to append SQL directly to the QueryContext.
+     * Define the value for a non-persistent field using a sub-query.
      */
     virtual: raw(({ ctx, dialect, escapedPrefix }) => {
       ctx.append('(');
@@ -43,44 +38,22 @@ export class Item {
   })
   tagsCount?: number;
 }
-
-@Entity()
-export class Tag {
-  @Id()
-  id?: number;
-
-  @Field()
-  name?: string;
-
-  @ManyToMany({ entity: () => Item, mappedBy: (item) => item.tags })
-  items?: Item[];
-}
-
-@Entity()
-export class ItemTag {
-  @Id()
-  id?: number;
-
-  @Field({ reference: () => Item })
-  itemId?: number;
-
-  @Field({ reference: () => Tag })
-  tagId?: number;
-}
 ```
 
 &nbsp;
 
 ### Querying with Virtual Fields
 
-If we select the `tagsCount` virtual-column:
+Virtual fields behave exactly like regular fields in your queries. You can select them or filter by them.
 
+#### 1. Selection
 ```ts
-await querier.findMany(Item, { $select: { id: true, tagsCount: true } });
+const items = await querier.findMany(Item, { 
+  $select: { id: true, tagsCount: true } 
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
-
+**Generated SQL:**
 ```sql
 SELECT
   "id",
@@ -88,26 +61,20 @@ SELECT
 FROM "Item"
 ```
 
-&nbsp;
-
-If we `$where` by the `tagsCount` virtual-column:
-
+#### 2. Filtering
 ```ts
-await querier.findMany(
-  Item,
-  {
-    $select: { id: true },
-    $where: {
-      tagsCount: { $gte: 10 },
-    },
-  }
-);
+const items = await querier.findMany(Item, {
+  $select: { id: true },
+  $where: {
+    tagsCount: { $gte: 10 },
+  },
+});
 ```
 
-That &#9650; code will generate this &#9660; `SQL`:
 
+**Generated SQL:**
 ```sql
 SELECT "id" FROM "Item"
-WHERE
-  (SELECT COUNT(*) FROM "ItemTag" WHERE "ItemTag"."itemId" = "id") >= 10
+WHERE (SELECT COUNT(*) FROM "ItemTag" WHERE "ItemTag"."itemId" = "id") >= 10
 ```
+

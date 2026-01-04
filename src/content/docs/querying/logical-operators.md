@@ -23,16 +23,14 @@ Logical operators allow you to combine multiple conditions in a single query. UQ
 The `$and` operator is implicit when you specify multiple fields in the `$where` object.
 
 ```ts
-import { pool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
 // Implicit AND
-const users = await pool.transaction(async (querier) => {
-  return querier.findMany(User, {
-    $where: { name: 'roger', status: 'active' },
-  });
+const users = await querier.findMany(User, {
+  $where: { name: 'roger', status: 'active' },
 });
 ```
+
 
 The same query with an explicit `$and`:
 

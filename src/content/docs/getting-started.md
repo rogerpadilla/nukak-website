@@ -59,16 +59,19 @@ Install the core package and the driver for your database:
 ```sh
 # Core
 npm install @uql/core       # or bun add / pnpm add
-
-# Potential Drivers (choose only ONE!)
-npm install pg              # PostgreSQL / Neon / Cockroach / Yugabyte
-npm install mysql2          # MySQL / TiDB / Aurora
-npm install mariadb         # MariaDB
-npm install better-sqlite3  # SQLite
-npm install @libsql/client  # LibSQL / Turso
-npm install mongodb         # MongoDB
-# Cloudflare D1 uses native bindings (no extra driver needed)
 ```
+
+### Supported Drivers
+
+| Database | Command |
+| :--- | :--- |
+| **PostgreSQL** (incl. Neon, Cockroach, Yugabyte) | `npm install pg` |
+| **MySQL** (incl. TiDB, Aurora) | `npm install mysql2` |
+| **MariaDB** | `npm install mariadb` |
+| **SQLite** | `npm install better-sqlite3` |
+| **LibSQL** (incl. Turso) | `npm install @libsql/client` |
+| **MongoDB** | `npm install mongodb` |
+| **Cloudflare D1** | _Native (no driver needed)_ |
 
 ### TypeScript Configuration
 
@@ -85,13 +88,31 @@ Ensure your `tsconfig.json` is configured to support decorators and metadata:
 }
 ```
 
+:::tip
+UQL works best with `target` set to `ES2020` or higher to leverage modern JavaScript features and high-resolution timing.
+:::
+
 ---
 
 &nbsp;
 
 ## 2. Define the entities
 
-Annotate your classes with decorators from `@uql/core`. UQL supports detailed schema metadata for precise DDL generation.
+Annotate your classes with decorators from `@uql/core`. UQL's engine uses this metadata for both type-safe querying and precise DDL generation.
+
+### Core Decorators
+
+| Decorator | Purpose |
+| :--- | :--- |
+| `@Entity()` | Marks a class as a database table/collection. |
+| `@Id()` | Defines the Primary Key with support for `onInsert` generators (UUIDs, etc). |
+| `@Field()` | Standard column. Use `{ reference: ... }` for Foreign Keys. |
+| `@OneToOne` | Defines a one-to-one relationship. |
+| `@OneToMany` | Defines a one-to-many relationship. |
+| `@ManyToOne` | Defines a many-to-one relationship. |
+| `@ManyToMany` | Defines a many-to-many relationship. |
+
+&nbsp;
 
 ```ts
 import { v7 as uuidv7 } from 'uuid';
@@ -108,15 +129,18 @@ export class User {
   @Field({ unique: true, comment: 'User login email' })
   email?: string;
 
-  > **Pro Tip**: Use the `Relation<T>` utility type for relationship properties. It prevents TypeScript circular dependency errors while maintaining full type-safety.
->
-> **Note**: For `string` fields, UQL uses dialect-aware defaults if no `length` is specified: `TEXT` for PostgreSQL/SQLite (optimal) and `VARCHAR(255)` for MySQL/MariaDB (compatibility).
   @OneToOne({ entity: () => Profile, mappedBy: 'user', cascade: true })
   profile?: Relation<Profile>; // Relation<T> handles circular dependencies
 
   @OneToMany({ entity: () => Post, mappedBy: 'author' })
   posts?: Relation<Post>[];
 }
+```
+
+:::tip
+Use the `Relation<T>` utility type for relationship properties. It prevents TypeScript circular dependency errors while maintaining full type-safety.
+:::
+
 
 @Entity()
 export class Profile {
@@ -175,164 +199,84 @@ export class PostTag {
 
 &nbsp;
 
-## 3. Set up a pool (of queriers)
+## 3. Set up a pool
 
-A pool is an abstraction that manages connections (queriers) to your database. A querier is an abstraction that represents a connection to the database.
-
-The pool can be set in any of the bootstrap files of your app (e.g., in `server.ts`).
-
-### Available built-in QuerierPool classes per database
-
-| Database | QuerierPool class
-| :--- | :---
-| `PostgreSQL` (incl. CockroachDB, YugabyteDB) | `@uql/core/postgres/PgQuerierPool`
-| `MySQL` (incl. TiDB, Aurora) | `@uql/core/mysql/Mysql2QuerierPool`
-| `MariaDB` | `@uql/core/maria/MariadbQuerierPool`
-| `SQLite` | `@uql/core/sqlite/SqliteQuerierPool`
-| `Cloudflare D1` | `@uql/core/d1/D1QuerierPool`
-| `LibSQL` (Turso) | `@uql/core/libsql/LibsqlQuerierPool`
-| `Neon` (Serverless Postgres) | `@uql/core/neon/NeonQuerierPool`
-
-### Example of setting up a pool for PostgreSQL
+A pool manages connections (queriers). We recommend creating a `uql.config.ts` file to share the configuration between your application and the CLI.
 
 ```ts
-// file: ./shared/orm.ts
-import { SnakeCaseNamingStrategy } from '@uql/core';
+// file: uql.config.ts
+import { SnakeCaseNamingStrategy, type Config } from '@uql/core';
 import { PgQuerierPool } from '@uql/core/postgres';
 
 export const pool = new PgQuerierPool(
+  { host: 'localhost', database: 'uql_app', max: 10 },
   {
-    host: 'localhost',
-    user: 'theUser',
-    password: 'thePassword',
-    database: 'theDatabase',
-    min: 1,
-    max: 10,
-  },
-  // Extra options (optional).
-  {
-    // Enable logging (true uses the DefaultLogger with colored output).
     logger: true,
-    // Threshold in milliseconds to log slow queries.
     slowQueryThreshold: 200,
-    // Pass a naming strategy here (optional, by default no automatic names translation).
-    // E.g. `SnakeCaseNamingStrategy` automatically translate between TypeScript camelCase and database snake_case.
     namingStrategy: new SnakeCaseNamingStrategy()
-  },
+  }
 );
+
+export default {
+  pool,
+  migrationsPath: './migrations',
+} satisfies Config;
 ```
+
+:::tip
+Reusing the same `pool` instance for both your application and migrations ensures consistent settings (like naming strategies) and reduces connection overhead.
+:::
+
+---
 
 &nbsp;
 
 ## 4. Manipulate the data
 
-UQL provides a straightforward API to interact with your data using `Queriers`.
+UQL provides a straightforward API to interact with your data using `Queriers`. Always remember to release the querier back to the pool when done.
 
 ```ts
 import { User } from './shared/models/index.js';
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 
-// Get a querier from the pool
+// 1. Obtain a querier from the pool
 const querier = await pool.getQuerier();
 
 try {
-  // Advanced querying with relations and virtual fields
+  // 2. Perform operations
   const users = await querier.findMany(User, {
     $select: {
-      id: true,
       name: true,
-      profile: ['picture'], // Select specific fields from a 1-1 relation
-      tagsCount: true       // Virtual field (calculated at runtime)
+      profile: { $select: ['bio'], $required: true } // INNER JOIN
     },
     $where: {
-      email: { $iincludes: '@example.com' }, // Case-insensitive search
+      name: { $istartsWith: 'a' }, // Case-insensitive search
       status: 'active'
     },
-    $sort: { createdAt: 'desc' },
-    $skip: 10
     $limit: 10,
   });
 } finally {
-  // Always release the querier to the pool
+  // 3. Always release the querier
   await querier.release();
 }
 ```
 
-### Advanced: Deep Selection & Filtering
+**Generated SQL (PostgreSQL):**
 
-UQL's query syntax is context-aware. When you query a relation, the available fields and operators are automatically suggested and validated based on that related entity.
-
-```ts
-import { pool } from './shared/orm.js';
-import { User } from './shared/models/index.js';
-
-const querier = await pool.getQuerier();
-
-try {
-  const authorsWithPopularPosts = await querier.findMany(User, {
-    $select: {
-      id: true,
-      name: true,
-      profile: {
-        $select: ['bio'],
-        // Filter related record and enforce INNER JOIN
-        $where: { bio: { $ne: null } },
-        $required: true
-      },
-      posts: {
-        $select: ['title', 'createdAt'],
-        // Filter the related collection directly
-        $where: { title: { $iincludes: 'typescript' } },
-        $sort: { createdAt: 'desc' },
-      }
-    },
-    $where: {
-      name: { $istartsWith: 'a' }
-    }
-  });
-} finally {
-  await querier.release();
-}
-```
-
-### Advanced: Virtual Fields & Raw SQL
-
-Define complex logic directly in your entities using `raw` functions from `uql/util`. These are highly efficient as they are resolved during SQL generation.
-
-```ts
-import { v7 as uuidv7 } from 'uuid';
-import { Entity, Id, Field, raw } from '@uql/core';
-import { ItemTag } from './shared/models/index.js';
-
-@Entity()
-export class Item {
-  @Id()
-  id: number;
-
-  @Field()
-  name: string;
-
-  @Field({
-    virtual: raw(({ ctx, dialect, escapedPrefix }) => {
-      ctx.append('(');
-      dialect.count(ctx, ItemTag, {
-        $where: {
-          itemId: raw(({ ctx }) => ctx.append(`${escapedPrefix}.id`))
-        }
-      }, { autoPrefix: true });
-      ctx.append(')');
-    })
-  })
-  tagsCount?: number;
-}
+```sql
+SELECT "User"."name", "profile"."id" AS "profile_id", "profile"."bio" AS "profile_bio"
+FROM "User"
+INNER JOIN "Profile" AS "profile" ON "profile"."userId" = "User"."id"
+WHERE "User"."name" ILIKE 'a%' AND "User"."status" = 'active'
+LIMIT 10
 ```
 
 ### Thread-Safe Transactions
 
-UQL ensures your operations are serialized and thread-safe.
+For data modifications or multi-step operations, use declarative transactions to ensure safety and automatic resource management.
 
 ```ts
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 import { User, Profile } from './shared/models/index.js';
 
 const result = await pool.transaction(async (querier) => {
@@ -340,33 +284,18 @@ const result = await pool.transaction(async (querier) => {
   const profileId = await querier.insertOne(Profile, { userId: user.id, ... });
   return { userId: user.id, profileId };
 });
-// Connection is automatically released after a transaction.
+// Querier is automatically released after the transaction
 ```
 
 &nbsp;
 
 ## 5. Migrations & Synchronization
 
-UQL includes a robust *migration system* and an *Entity-First auto-synchronization* engine built directly into the core.
+UQL includes a robust migration system and an Entity-First auto-synchronization engine built directly into the core.
 
 ### 1. Unified Configuration (Recommended)
 
-Ideally, use the same `uql.config.ts` for your application bootstrap and the CLI:
-
-```typescript
-// uql.config.ts
-import type { Config } from '@uql/core';
-import { PgQuerierPool } from '@uql/core/postgres';
-
-export default {
-  pool: new PgQuerierPool({ /* config */ }),
-  // Optional: UQL automatically loads all classes decorated with @Entity.
-  // entities: [User, Post],
-  migrationsPath: './migrations',
-} satisfies Config;
-```
-
-**Why?** Using a single config for both your app and the CLI is recommended for consistency. It prevents bugs where your runtime uses one naming strategy (e.g. `camelCase`) but your migrations use another (e.g. `snake_case`). It enforces a Single Source of Truth for your database connection and schema.
+As shown in [step 3](#3-set-up-a-pool), using a single `uql.config.ts` for both your app and the CLI is recommended for consistency. It enforces a Single Source of Truth for your database connection and schema.
 
 ### 2. Manage via CLI
 
@@ -375,23 +304,15 @@ UQL provides a dedicated CLI tool for migrations.
 ```bash
 # Generate a migration by comparing entities vs database
 npx uql-migrate generate:entities initial_schema
-# or
-bunx uql-migrate generate:entities initial_schema
 
 # Run pending migrations
 npx uql-migrate up
-# or
-bunx uql-migrate up
 
 # Rollback the last migration
 npx uql-migrate down
-# or
-bunx uql-migrate down
 
 # Check status
 npx uql-migrate status
-# or
-bunx uql-migrate status
 ```
 
 ### 3. Entity-First Synchronization (recommended for development)
@@ -400,7 +321,7 @@ We recommend using `autoSync` (in development) to automatically keep your databa
 
 ```ts
 import { Migrator } from '@uql/core/migrate';
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 
 // The Migrator will automatically load all classes decorated with @Entity by default.
 const migrator = new Migrator(pool);

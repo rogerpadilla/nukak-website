@@ -12,7 +12,7 @@ For scenarios requiring granular control over the transaction lifecycle, UQL pro
 **Always ensure queriers are released back to the pool**, even in the event of an error.
 
 ```ts
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 import { User, Profile } from './shared/models/index.js';
 
 async function registerUser(userData: any, profileData: any) {

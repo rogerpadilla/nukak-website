@@ -19,7 +19,7 @@ This extension is completely optional. UQL works perfectly fine as a standalone 
 ```ts
 import express from 'express';
 import { querierMiddleware } from '@uql/core/express';
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 import { User, Post } from './shared/models/index.js';
 
 const app = express();
@@ -52,7 +52,7 @@ app.use('/api', querierMiddleware({
 
   // Intercept filter operations (GET, DELETE)
   preFilter(req, meta) {
-    // Enforce row-level security
+    // Enforce Row-Level Security: users only see their own data
     req.query.$where = { 
       ...req.query.$where, 
       creatorId: req.user.id 
@@ -60,6 +60,15 @@ app.use('/api', querierMiddleware({
   }
 }));
 ```
+
+### Hook Reference
+
+| Hook | Lifecycle | Use Case |
+| :--- | :--- | :--- |
+| `pre` | Before every operation. | Logging, auditing, global validation. |
+| `preSave` | Before `POST`, `PATCH`, `PUT`. | Injecting `creatorId`, `updatedAt`, or data sanitization. |
+| `preFilter` | Before `GET`, `DELETE`. | Row-level security, tenant isolation, enforcing `softDelete`. |
+
 
 ### Generated Endpoints
 

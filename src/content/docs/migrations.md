@@ -51,6 +51,9 @@ npx uql-migrate up
 # Rollback the last migration
 npx uql-migrate down
 
+# Sync schema directly (development only! - drops/recreates if --force is used)
+npx uql-migrate sync
+
 # Using a custom config path
 npx uql-migrate up --config ./configs/uql.config.ts
 
@@ -60,11 +63,11 @@ npx uql-migrate status
 
 ### 3. Entity-First Synchronization (Development)
 
-In development, you can use `autoSync` to automatically keep your database in sync with your entities without manual migrations. It is **safe by default**, meaning it only adds missing tables and columns.
+In development, you can use `autoSync` to automatically keep your database in sync with your entities without manual migrations. It uses **semantic type comparison** to avoid unnecessary alterations and is **safe by default**, meaning it only adds missing tables and columns.
 
 ```ts
 import { Migrator } from '@uql/core/migrate';
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 
 // The Migrator will automatically load all classes decorated with @Entity by default.
 const migrator = new Migrator(pool);

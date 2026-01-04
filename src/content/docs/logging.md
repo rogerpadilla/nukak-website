@@ -9,7 +9,7 @@ UQL features a professional-grade, structured logging system designed for high v
 
 ## Configuration
 
-Logging is configured at the pool level. You can enable it by passing `logger: true` in the extra options, which uses the built-in `DefaultLogger`.
+Logging is configured at the pool level, typically within your `uql.config.ts`. You can enable it by passing `logger: true` in the extra options, which uses the built-in `DefaultLogger`.
 
 ```ts
 import { PgQuerierPool } from '@uql/core/postgres';

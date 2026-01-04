@@ -40,6 +40,26 @@ export class User {
   posts?: Post[];
 }
 
+### Handling Circular Dependencies
+
+In modern ESM environments, circular dependencies between entity classes can sometimes cause issues. UQL provides a `Relation<T>` utility type to safely handle these scenarios while maintaining full type safety.
+
+```ts
+import { Entity, Id, Field, OneToOne, type Relation } from '@uql/core';
+
+@Entity()
+export class User {
+  @Id() id?: string;
+  @OneToOne({ entity: () => Profile, mappedBy: 'user' })
+  profile?: Relation<Profile>; // Use Relation<T> for linked properties
+}
+```
+
+:::tip
+Always use `Relation<T>` for properties decorated with `@OneToOne`, `@OneToMany`, `@ManyToOne`, or `@ManyToMany`. It ensures TypeScript correctly resolves types even when entities reference each other.
+:::
+
+
 @Entity()
 export class Profile {
   @Id({ onInsert: () => uuidv7() })

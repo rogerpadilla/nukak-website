@@ -24,17 +24,11 @@ export abstract class BaseEntity {
   @Id({ onInsert: () => uuidv7() })
   id?: string;
 
-  @Field({ onInsert: () => new Date() })
+  @Field({ columnType: 'timestamptz', onInsert: () => new Date() })
   createdAt?: Date;
 
-  @Field({ onUpdate: () => new Date() })
+  @Field({ columnType: 'timestamptz', onUpdate: () => new Date() })
   updatedAt?: Date;
-
-  @Field({ reference: () => User })
-  creatorId?: string;
-
-  @ManyToOne({ entity: () => User })
-  creator?: Relation<User>;
 }
 
 /**
@@ -42,27 +36,35 @@ export abstract class BaseEntity {
  */
 @Entity()
 export class Company extends BaseEntity {
-  @Field()
+  @Field({ length: 150 })
   name?: string;
 
-  @Field()
+  @Field({ columnType: 'text' })
   description?: string;
 }
+```
 
+### Specifying Custom Metadata
+
+You can customize the entity name and field properties in the child classes.
+
+```ts
 /**
  * You can also specify a custom table name.
  */
 @Entity({ name: 'user_profile' })
 export class Profile extends BaseEntity {
-  @Field({ name: 'image' })
+  @Field({ name: 'image', columnType: 'text' })
   picture?: string;
 
-  /**
-   * You can override or refine relations from the parent.
-   */
+  @Field({ reference: () => User })
+  userId?: string;
+
   @OneToOne({ entity: () => User })
   user?: Relation<User>;
 }
+```
+
 
 @Entity()
 export class User extends BaseEntity {

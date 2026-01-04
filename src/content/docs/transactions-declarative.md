@@ -14,7 +14,7 @@ UQL ensures your operations are serialized and thread-safe. You can use declarat
 This is the simplest way to run a group of operations in a transaction. It handles acquiring a querier from the pool, starting the transaction, committing on success, rolling back on error, and releasing the querier back to the pool.
 
 ```ts
-import { pool } from './shared/orm.js';
+import { pool } from './uql.config.js';
 import { User, Profile } from './shared/models/index.js';
 
 const result = await pool.transaction(async (querier) => {

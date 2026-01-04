@@ -12,25 +12,26 @@ A `querier` is the `@uql/core`'s abstraction over database drivers to dynamicall
 With a `querier` you can:
 
 - Manipulate the data related to _any_ `entity`.
-- Use [declarative]/transactions-declarative) and [imperative]/transactions-imperative) transactions.
+- Use [declarative transactions](/transactions-declarative) and [imperative transactions](/transactions-imperative).
 
 ```ts
 import { User } from './shared/models/index.js';
-import { pool } from './shared/orm.js';
 
-// Obtain a querier from the pool
-const querier = await pool.getQuerier();
-
-try {
-  const users = await querier.findMany(
-    User,
-    {
-      $select: ['id'],
-      $where: { $or: [{ name: 'roger' }, { creatorId: 1 }] },
-    }
-  );
-} finally {
-  // IMPORTANT: Always release the querier to return the connection to the pool
-  await querier.release();
-}
+// Deeply type-safe queries!
+const users = await querier.findMany(User, {
+  $select: ['id', 'name'],
+  $where: { 
+    $or: [
+      { name: 'roger' }, 
+      { creatorId: 1 }
+    ] 
+  },
+  $sort: { createdAt: 'desc' },
+  $limit: 10
+});
 ```
+
+:::note
+In the examples above and throughout these docs, `querier` is assumed to be an active instance obtained from your [pool](/getting-started#3-set-up-a-pool).
+:::
+

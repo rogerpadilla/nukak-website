@@ -20,11 +20,12 @@ UQL comes with two built-in naming strategies:
 
 ### Using a Naming Strategy
 
-Configure the naming strategy when initializing your `QuerierPool`. This affects both runtime queries and [schema generation/migrations](/migrations).
+Configure the naming strategy when initializing your `pool` in your `uql.config.ts`. This affects both runtime queries and [schema generation/migrations](/migrations).
 
 ```ts
+// uql.config.ts
+import { SnakeCaseNamingStrategy, type Config } from '@uql/core';
 import { PgQuerierPool } from '@uql/core/postgres';
-import { SnakeCaseNamingStrategy } from '@uql/core';
 
 export const pool = new PgQuerierPool(
   { host: 'localhost', database: 'my_db' },
@@ -33,12 +34,13 @@ export const pool = new PgQuerierPool(
     namingStrategy: new SnakeCaseNamingStrategy()
   }
 );
-);
+
+export default {
+  pool,
+  migrationsPath: './migrations',
+} satisfies Config;
 ```
 
-:::tip
-Ensure this `pool` instance (or configuration) is the one exported in your `uql.config.ts`. This guarantees that the CLI and migrations respect the same Naming Strategy as your runtime application.
-:::
 
 ### How it works
 

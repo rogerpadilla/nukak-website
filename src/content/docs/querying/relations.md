@@ -15,20 +15,17 @@ UQL's query syntax is context-aware. When you query a relation, the available fi
 You can select specific fields from a related entity using an array or a nested object.
 
 ```ts
-import { pool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
-const users = await pool.transaction(async (querier) => {
-  return querier.findMany(User, {
-    $select: {
-      id: true,
-      name: true,
-      profile: ['picture'] // Select specific fields from a 1-1 relation
-    },
-    $where: {
-      email: { $iincludes: '@example.com' }
-    }
-  });
+const users = await querier.findMany(User, {
+  $select: {
+    id: true,
+    name: true,
+    profile: ['picture'] // Select specific fields from a 1-1 relation
+  },
+  $where: {
+    email: { $iincludes: '@example.com' }
+  }
 });
 ```
 
@@ -37,22 +34,19 @@ const users = await pool.transaction(async (querier) => {
 Use `$required: true` to enforce an `INNER JOIN` (by default UQL uses `LEFT JOIN` for nullable relations).
 
 ```ts
-import { pool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
-const latestUsersWithProfiles = await pool.transaction(async (querier) => {
-  return querier.findOne(User, {
-    $select: {
-      id: true,
-      name: true,
-      profile: {
-        $select: ['picture', 'bio'],
-        $where: { bio: { $ne: null } },
-        $required: true // Enforce INNER JOIN
-      }
-    },
-    $sort: { createdAt: 'desc' },
-  });
+const latestUsersWithProfiles = await querier.findOne(User, {
+  $select: {
+    id: true,
+    name: true,
+    profile: {
+      $select: ['picture', 'bio'],
+      $where: { bio: { $ne: null } },
+      $required: true // Enforce INNER JOIN
+    }
+  },
+  $sort: { createdAt: 'desc' },
 });
 ```
 
@@ -61,27 +55,25 @@ const latestUsersWithProfiles = await pool.transaction(async (querier) => {
 You can filter and sort when querying collections (One-to-Many or Many-to-Many).
 
 ```ts
-import { pool } from './shared/orm.js';
 import { User } from './shared/models/index.js';
 
-const authorsWithPopularPosts = await pool.transaction(async (querier) => {
-  return querier.findMany(User, {
-    $select: {
-      id: true,
-      name: true,
-      posts: {
-        $select: ['title', 'createdAt'],
-        $where: { title: { $iincludes: 'typescript' } },
-        $sort: { createdAt: 'desc' },
-        $limit: 5
-      }
-    },
-    $where: {
-      name: { $istartsWith: 'a' }
+const authorsWithPopularPosts = await querier.findMany(User, {
+  $select: {
+    id: true,
+    name: true,
+    posts: {
+      $select: ['title', 'createdAt'],
+      $where: { title: { $iincludes: 'typescript' } },
+      $sort: { createdAt: 'desc' },
+      $limit: 5
     }
-  });
+  },
+  $where: {
+    name: { $istartsWith: 'a' }
+  }
 });
 ```
+
 
 ### Sorting by Related Fields
 

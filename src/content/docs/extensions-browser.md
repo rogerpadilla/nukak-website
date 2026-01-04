@@ -40,26 +40,47 @@ This extension is completely optional. UQL works perfectly fine as a standalone 
     });
     ```
 
-### Why use the Browser Extension?
+### Shared Entities & Type Safety
 
-*   **Shared Types**: Use the exact same entity classes on both frontend and backend.
-*   **Zero Boilerplate**: No need to write manual `fetch` calls or define DTOs for every endpoint.
-*   **Type Safety**: Your frontend queries are validated against your entity definitions at compile-time.
-*   **Powerful Querying**: Perform complex joins and filters from the frontend without creating custom backend endpoints.
+One of the biggest advantages of the Browser Extension is the ability to easily share your entity classes between your backend and frontend.
 
-### Request Options
+```ts
+// shared/models/User.ts
+import { Entity, Id, Field } from '@uql/core';
 
-You can pass standard `fetch` options (like headers for authentication) to any querier method:
+@Entity()
+export class User {
+  @Id() id: string;
+  @Field() name: string;
+}
+
+// frontend/app.ts
+import { User } from '../shared/models/User.js';
+const users = await querier.findMany(User, { 
+  $where: { name: { $startsWith: 'A' } } 
+});
+// 'users' is automatically typed as User[]
+```
+
+### Authentication & Headers
+
+You can pass standard `fetch` options (like `headers`) to any querier method. This is typically used for passing JWT tokens or other authentication credentials.
 
 ```ts
 const users = await querier.findMany(User, {
   $where: { status: 'active' }
 }, {
   headers: {
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${session.token}`,
+    'X-Custom-Header': 'value'
   }
 });
 ```
+
+:::tip
+For a truly seamless experience, wrap the `HttpQuerier` in a service that automatically injects the current user's token into every request.
+:::
+
 
 :::tip
 Combine this with the [Express Extension](/extensions-express) to create a full-stack, type-safe data layer in minutes.
