@@ -13,10 +13,12 @@ UQL's virtual fields use the `QueryContext` pattern, ensuring robust SQL generat
 
 ```ts
 import { Entity, Id, Field, ManyToMany, raw } from '@uql/core';
+import { v7 as uuidv7 } from 'uuid';
 
 @Entity()
 export class Item {
-  @Id() id?: number;
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
+  id?: string;
   @Field() name?: string;
 
   @ManyToMany({ entity: () => Tag, through: () => ItemTag, cascade: true })

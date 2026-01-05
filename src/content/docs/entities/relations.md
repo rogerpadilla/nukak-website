@@ -1,6 +1,5 @@
 ---
 title: Relations between entities
-
 sidebar:
   order: 70
 description: This tutorial explain how to use relations in the entities with the UQL orm.
@@ -16,11 +15,11 @@ Take any class and annotate it with the decorators from `@uql/core`. You can use
 
 ```ts
 import { v7 as uuidv7 } from 'uuid';
-import { Entity, Id, Field, OneToOne, OneToMany, ManyToOne, ManyToMany } from '@uql/core';
+import { Entity, Id, Field, OneToOne, OneToMany, ManyToOne, ManyToMany, type Relation } from '@uql/core';
 
 @Entity()
 export class User {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field()
@@ -28,51 +27,38 @@ export class User {
 
   /**
    * One-to-One: A user has one profile.
-   * mappedBy can be a string referring to the field in the target entity.
+   * mappedBy can be a callback for better refactoring support.
    */
-  @OneToOne({ entity: () => Profile, mappedBy: 'userId', cascade: true })
-  profile?: Profile;
+  @OneToOne({
+    entity: () => Profile,
+    mappedBy: (profile) => profile.user,
+    cascade: true,
+  })
+  profile?: Relation<Profile>;
 
   /**
    * One-to-Many: A user can have many posts.
    */
-  @OneToMany({ entity: () => Post, mappedBy: (post) => post.author })
-  posts?: Post[];
+  @OneToMany({
+    entity: () => Post,
+    mappedBy: (post) => post.author,
+  })
+  posts?: Relation<Post>[];
 }
-
-### Handling Circular Dependencies
-
-In modern ESM environments, circular dependencies between entity classes can sometimes cause issues. UQL provides a `Relation<T>` utility type to safely handle these scenarios while maintaining full type safety.
-
-```ts
-import { Entity, Id, Field, OneToOne, type Relation } from '@uql/core';
-
-@Entity()
-export class User {
-  @Id() id?: string;
-  @OneToOne({ entity: () => Profile, mappedBy: 'user' })
-  profile?: Relation<Profile>; // Use Relation<T> for linked properties
-}
-```
-
-:::tip
-Always use `Relation<T>` for properties decorated with `@OneToOne`, `@OneToMany`, `@ManyToOne`, or `@ManyToMany`. It ensures TypeScript correctly resolves types even when entities reference each other.
-:::
-
 
 @Entity()
 export class Profile {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field()
   picture?: string;
 
   /**
-   * Foreign key field. The 'reference' property helps UQL understand 
-   * the relationship for schema generation and queries.
+   * Foreign key field. The 'reference' property links to the target entity.
+   * The 'foreignKey' option allows custom constraint naming.
    */
-  @Field({ reference: () => User })
+  @Field({ reference: () => User, foreignKey: 'fk_profile_user' })
   userId?: string;
 
   @OneToOne({ entity: () => User })
@@ -97,13 +83,17 @@ export class Post {
    * Many-to-Many: A post can have many tags.
    * 'through' specifies the pivot entity.
    */
-  @ManyToMany({ entity: () => Tag, through: () => PostTag, cascade: true })
+  @ManyToMany({
+    entity: () => Tag,
+    through: () => PostTag,
+    cascade: true,
+  })
   tags?: Tag[];
 }
 
 @Entity()
 export class Tag {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field()
@@ -112,7 +102,7 @@ export class Tag {
 
 @Entity()
 export class PostTag {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field({ reference: () => Post })
@@ -122,6 +112,26 @@ export class PostTag {
   tagId?: string;
 }
 ```
+
+### Handling Circular Dependencies
+
+In modern ESM environments, circular dependencies between entity classes can sometimes cause issues. UQL provides a `Relation<T>` utility type to safely handle these scenarios while maintaining full type safety.
+
+```ts
+import { Entity, Id, Field, OneToOne, type Relation } from '@uql/core';
+
+@Entity()
+export class User {
+  @Id({ type: 'uuid' }) id?: string;
+
+  @OneToOne({ entity: () => Profile, mappedBy: 'user' })
+  profile?: Relation<Profile>; // Use Relation<T> for linked properties
+}
+```
+
+:::tip
+Always use `Relation<T>` for properties decorated with `@OneToOne`, `@OneToMany`, `@ManyToOne`, or `@ManyToMany`. It ensures TypeScript correctly resolves types even when entities reference each other.
+:::
 
 &nbsp;
 

@@ -1,6 +1,6 @@
 ---
 sidebar:
-  order: 160
+  order: 155
 title: Naming Strategy Overview
 description: This tutorial explain how to use naming strategies with UQL.
 ---
@@ -13,10 +13,10 @@ Naming strategies allow you to automatically translate between your TypeScript c
 
 UQL comes with two built-in naming strategies:
 
-| Strategy | Behavior |
-| :--- | :--- |
-| `DefaultNamingStrategy` | Keeps names exactly as they are in your TypeScript code. |
-| `SnakeCaseNamingStrategy` | Automatically converts `camelCase` to `snake_case`. |
+| Strategy                  | Behavior                                                 |
+| :------------------------ | :------------------------------------------------------- |
+| `DefaultNamingStrategy`   | Keeps names exactly as they are in your TypeScript code. |
+| `SnakeCaseNamingStrategy` | Automatically converts `camelCase` to `snake_case`.      |
 
 ### Using a Naming Strategy
 

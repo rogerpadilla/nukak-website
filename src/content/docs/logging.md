@@ -37,15 +37,25 @@ You can selectively enable log levels by passing an array:
 }
 ```
 
+For production, a common pattern is:
+
+```ts
+{
+  logger: ['error', 'warn', 'slowQuery', 'migration'],
+  slowQueryThreshold: 1000
+}
+```
+
 ## Log Levels
 
-| Level | Description |
-| :--- | :--- |
-| `query` | **Standard Queries**: Beautifully formatted SQL/Command logs with execution time. |
-| `slowQuery` | **Bottleneck Alerts**: Dedicated logging for queries exceeding your `slowQueryThreshold`. |
-| `error` / `warn` | **System Health**: Detailed error traces and potential issue warnings. |
-| `migration` | **Audit Trail**: Step-by-step history of schema changes. |
-| `schema` / `info` | **Lifecycle**: Informative logs about ORM initialization and sync events. |
+| Level              | Description                                                                               |
+| :----------------- | :---------------------------------------------------------------------------------------- |
+| `query`            | **Standard Queries**: Beautifully formatted SQL/Command logs with execution time.         |
+| `slowQuery`        | **Bottleneck Alerts**: Dedicated logging for queries exceeding your `slowQueryThreshold`. |
+| `error` / `warn`   | **System Health**: Detailed error traces and potential issue warnings.                    |
+| `migration`        | **Audit Trail**: Step-by-step history of schema changes.                                  |
+| `skippedMigration` | **Safety**: Logs blocked unsafe schema changes during `autoSync`.                         |
+| `schema` / `info`  | **Lifecycle**: Informative logs about ORM initialization and sync events.                 |
 
 ## Visual Feedback
 
@@ -55,6 +65,7 @@ The `DefaultLogger` provides high-contrast, colored output out of the box:
 query: SELECT * FROM "user" WHERE "id" = $1 -- [123] [2ms]
 slow query: UPDATE "post" SET "title" = $1 -- ["New Title"] [1250ms]
 error: Failed to connect to database: Connection timeout
+skipped migration: Cannot drop column "old_field" in safe mode
 ```
 
 ## Custom Logger
@@ -74,13 +85,33 @@ You can provide your own logger by implementing the `Logger` interface or by pas
 ### Custom Class
 
 ```ts
-import { Logger } from '@uql/core';
+import type { Logger } from '@uql/core';
 
 class MyLogger implements Logger {
-  logQuery(query: string, values?: any[], duration?: number) {
+  logQuery(query: string, values?: unknown[], duration?: number) {
     // your implementation
   }
-  // ... implement other methods: logSlowQuery, logWarn, logError, logInfo, logSchema, logMigration
+  logSlowQuery(query: string, values?: unknown[], duration?: number) {
+    // your implementation
+  }
+  logWarn(message: string) {
+    // your implementation
+  }
+  logError(message: string, error?: Error) {
+    // your implementation
+  }
+  logInfo(message: string) {
+    // your implementation
+  }
+  logSchema(message: string) {
+    // your implementation
+  }
+  logMigration(message: string) {
+    // your implementation
+  }
+  logSkippedMigration(message: string) {
+    // your implementation
+  }
 }
 
 // In your pool config:
@@ -92,4 +123,3 @@ class MyLogger implements Logger {
 :::tip
 Even if you disable general query logging in production (e.g., `logger: ['error', 'warn', 'slowQuery']`), UQL stays silent *until* a query exceeds your threshold, making it perfect for monitoring performance bottlenecks in real-time.
 :::
-

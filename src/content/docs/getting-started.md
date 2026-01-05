@@ -27,28 +27,28 @@ const users = await querier.findMany(User, {
 
 ## Why UQL?
 
-| Feature | **UQL** | Traditional ORMs |
-| :--- | :--- | :--- |
-| **API** | **Unified & Intuitive**: Same syntax for SQL & NoSQL. | Fragmented: SQL and Mongo feel like different worlds. |
-| **Safety** | **Deep Type-Safety**: Validates relations & operators at any depth. | Surface-level: Often loses types in complex joins. |
-| **Syntax** | **Serializable JSON**: Pure data, perfect for APIs/Websockets. | Method-Chaining: Hard to transport over the wire. |
-| **Efficiency** | **Sticky Connections**: Minimal overhead, human-readable SQL. | Heavy: Often generates "SQL Soup" that's hard to debug. |
+| Feature        | **UQL**                                                             | Traditional ORMs                                        |
+| :------------- | :------------------------------------------------------------------ | :------------------------------------------------------ |
+| **API**        | **Unified & Intuitive**: Same syntax for SQL & NoSQL.               | Fragmented: SQL and Mongo feel like different worlds.   |
+| **Safety**     | **Deep Type-Safety**: Validates relations & operators at any depth. | Surface-level: Often loses types in complex joins.      |
+| **Syntax**     | **Serializable JSON**: Pure data, perfect for APIs/Websockets.      | Method-Chaining: Hard to transport over the wire.       |
+| **Efficiency** | **Sticky Connections**: Minimal overhead, human-readable SQL.       | Heavy: Often generates "SQL Soup" that's hard to debug. |
 
 &nbsp;
 
 ## Features
 
-| Feature | Description |
-| :--- | :--- |
-| **[Context-Aware Queries](/querying/relations)** | Deep type-safety for operators and [relations](/querying/relations) at any depth. |
-| **Serializable JSON** | 100% valid JSON queries for easy transport over HTTP/Websockets. |
-| **Unified Dialects** | Write once, run anywhere: PostgreSQL, MySQL, SQLite, MongoDB, and more. |
-| **Naming Strategies** | Pluggable system to translate between TypeScript `camelCase` and database `snake_case`. |
-| **Smart SQL Engine** | Optimized sub-queries, placeholders ($1, $2), and minimal SQL generation via `QueryContext`. |
-| **Thread-Safe by Design** | Centralized task queue and `@Serialized()` decorator prevent race conditions. |
-| **Declarative Transactions** | Standard `@Transactional()` and `@InjectQuerier()` decorators for NestJS/DI. |
+| Feature                                            | Description                                                                                             |
+| :------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **[Context-Aware Queries](/querying/relations)**   | Deep type-safety for operators and [relations](/querying/relations) at any depth.                       |
+| **Serializable JSON**                              | 100% valid JSON queries for easy transport over HTTP/Websockets.                                        |
+| **Unified Dialects**                               | Write once, run anywhere: PostgreSQL, MySQL, SQLite, MongoDB, and more.                                 |
+| **Naming Strategies**                              | Pluggable system to translate between TypeScript `camelCase` and database `snake_case`.                 |
+| **Smart SQL Engine**                               | Optimized sub-queries, placeholders ($1, $2), and minimal SQL generation via `QueryContext`.            |
+| **Thread-Safe by Design**                          | Centralized task queue and `@Serialized()` decorator prevent race conditions.                           |
+| **Declarative Transactions**                       | Standard `@Transactional()` and `@InjectQuerier()` decorators for NestJS/DI.                            |
 | **[Modern & Versatile](/entities/virtual-fields)** | **Pure ESM**, high-res timing, [Soft-delete](/entities/soft-delete), and **Vector/JSONB/JSON** support. |
-| **[Structured Logging](/logging)** | Professional-grade monitoring with slow-query detection and colored output. |
+| **[Structured Logging](/logging)**                 | Professional-grade monitoring with slow-query detection and colored output.                             |
 
 &nbsp;
 
@@ -63,15 +63,15 @@ npm install @uql/core       # or bun add / pnpm add
 
 ### Supported Drivers
 
-| Database | Command |
-| :--- | :--- |
-| **PostgreSQL** (incl. Neon, Cockroach, Yugabyte) | `npm install pg` |
-| **MySQL** (incl. TiDB, Aurora) | `npm install mysql2` |
-| **MariaDB** | `npm install mariadb` |
-| **SQLite** | `npm install better-sqlite3` |
-| **LibSQL** (incl. Turso) | `npm install @libsql/client` |
-| **MongoDB** | `npm install mongodb` |
-| **Cloudflare D1** | _Native (no driver needed)_ |
+| Database                                         | Command                      |
+| :----------------------------------------------- | :--------------------------- |
+| **PostgreSQL** (incl. Neon, Cockroach, Yugabyte) | `npm install pg`             |
+| **MySQL** (incl. TiDB, Aurora)                   | `npm install mysql2`         |
+| **MariaDB**                                      | `npm install mariadb`        |
+| **SQLite**                                       | `npm install better-sqlite3` |
+| **LibSQL** (incl. Turso)                         | `npm install @libsql/client` |
+| **MongoDB**                                      | `npm install mongodb`        |
+| **Cloudflare D1**                                | _Native (no driver needed)_  |
 
 ### TypeScript Configuration
 
@@ -102,15 +102,35 @@ Annotate your classes with decorators from `@uql/core`. UQL's engine uses this m
 
 ### Core Decorators
 
-| Decorator | Purpose |
-| :--- | :--- |
-| `@Entity()` | Marks a class as a database table/collection. |
-| `@Id()` | Defines the Primary Key with support for `onInsert` generators (UUIDs, etc). |
-| `@Field()` | Standard column. Use `{ reference: ... }` for Foreign Keys. |
-| `@OneToOne` | Defines a one-to-one relationship. |
-| `@OneToMany` | Defines a one-to-many relationship. |
-| `@ManyToOne` | Defines a many-to-one relationship. |
-| `@ManyToMany` | Defines a many-to-many relationship. |
+| Decorator     | Purpose                                                                      |
+| :------------ | :--------------------------------------------------------------------------- |
+| `@Entity()`   | Marks a class as a database table/collection.                                |
+| `@Id()`       | Defines the Primary Key with support for `onInsert` generators (UUIDs, etc). |
+| `@Field()`    | Standard column. Use `{ reference: ... }` for Foreign Keys.                  |
+| `@OneToOne`   | Defines a one-to-one relationship.                                           |
+| `@OneToMany`  | Defines a one-to-many relationship.                                          |
+| `@ManyToOne`  | Defines a many-to-one relationship.                                          |
+| `@ManyToMany` | Defines a many-to-many relationship.                                         |
+
+### Type Abstraction: Logical vs. Physical
+
+UQL separates the **intent** of your data from its **storage**. Both properties are **optional**; if omitted, UQL performs a *best-effort inference* using the TypeScript types from your class (provided `emitDecoratorMetadata` is enabled).
+
+| Property         | Purpose                                                                                                   | Values                                                                                                           |
+| :--------------- | :-------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| **`type`**       | **Logical Type** (Abstraction). Used for runtime behavior and automatic SQL mapping.                      | `String`, `Number`, `Boolean`, `Date`, `BigInt`, or semantic strings: `'uuid'`, `'json'`, `'jsonb'`, `'vector'`. |
+| **`columnType`** | **Physical Type** (Implementation). **Highest Priority**. Bypasses UQL's inference for exact SQL control. | Raw SQL types: `'varchar(100)'`, `'decimal(10,2)'`, `'smallint'`, etc.                                           |
+
+```ts
+@Field() // Inference: Maps to TEXT (Postgres) or VARCHAR(255) (MySQL) automatically.
+name?: string;
+
+@Field({ type: 'uuid' }) // Recommended: Cross-database abstraction for UUIDs.
+id?: string;
+
+@Field({ columnType: 'varchar(500)' }) // Control: Explicitly forces a specific SQL type.
+bio?: string;
+```
 
 &nbsp;
 
@@ -120,37 +140,38 @@ import { Entity, Id, Field, OneToOne, OneToMany, ManyToOne, ManyToMany, type Rel
 
 @Entity()
 export class User {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
-  @Field({ length: 100, index: true })
+  @Field({ index: true })
   name?: string;
 
   @Field({ unique: true, comment: 'User login email' })
   email?: string;
 
-  @OneToOne({ entity: () => Profile, mappedBy: 'user', cascade: true })
-  profile?: Relation<Profile>; // Relation<T> handles circular dependencies
+  @OneToOne({
+    entity: () => Profile,
+    mappedBy: (profile) => profile.user,
+    cascade: true,
+  })
+  profile?: Relation<Profile>;
 
-  @OneToMany({ entity: () => Post, mappedBy: 'author' })
+  @OneToMany({
+    entity: () => Post,
+    mappedBy: (post) => post.author,
+  })
   posts?: Relation<Post>[];
 }
-```
-
-:::tip
-Use the `Relation<T>` utility type for relationship properties. It prevents TypeScript circular dependency errors while maintaining full type-safety.
-:::
-
 
 @Entity()
 export class Profile {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field()
   bio?: string;
 
-  @Field({ reference: () => User })
+  @Field({ reference: () => User, foreignKey: 'fk_profile_user' })
   userId?: string;
 
   @OneToOne({ entity: () => User })
@@ -171,13 +192,16 @@ export class Post {
   @ManyToOne({ entity: () => User })
   author?: User;
 
-  @ManyToMany({ entity: () => Tag, through: () => PostTag })
+  @ManyToMany({
+    entity: () => Tag,
+    through: () => PostTag,
+  })
   tags?: Tag[];
 }
 
 @Entity()
 export class Tag {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field()
@@ -186,7 +210,7 @@ export class Tag {
 
 @Entity()
 export class PostTag {
-  @Id({ onInsert: () => uuidv7() })
+  @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
   @Field({ reference: () => Post })
@@ -196,6 +220,10 @@ export class PostTag {
   tagId?: string;
 }
 ```
+
+:::tip
+Use the `Relation<T>` utility type for relationship properties. It prevents TypeScript circular dependency errors while maintaining full type-safety.
+:::
 
 &nbsp;
 
@@ -207,18 +235,20 @@ A pool manages connections (queriers). We recommend creating a `uql.config.ts` f
 // file: uql.config.ts
 import { SnakeCaseNamingStrategy, type Config } from '@uql/core';
 import { PgQuerierPool } from '@uql/core/postgres';
+import { User, Profile, Post, Tag, PostTag } from './entities';
 
 export const pool = new PgQuerierPool(
   { host: 'localhost', database: 'uql_app', max: 10 },
   {
-    logger: true,
-    slowQueryThreshold: 200,
+    logger: ['error', 'warn', 'migration'],
+    slowQueryThreshold: 1000,
     namingStrategy: new SnakeCaseNamingStrategy()
   }
 );
 
 export default {
   pool,
+  entities: [User, Profile, Post, Tag, PostTag],
   migrationsPath: './migrations',
 } satisfies Config;
 ```
@@ -236,7 +266,7 @@ Reusing the same `pool` instance for both your application and migrations ensure
 UQL provides a straightforward API to interact with your data using `Queriers`. Always remember to release the querier back to the pool when done.
 
 ```ts
-import { User } from './shared/models/index.js';
+import { User } from './entities/index.js';
 import { pool } from './uql.config.js';
 
 // 1. Obtain a querier from the pool
@@ -277,11 +307,11 @@ For data modifications or multi-step operations, use declarative transactions to
 
 ```ts
 import { pool } from './uql.config.js';
-import { User, Profile } from './shared/models/index.js';
+import { User, Profile } from './entities/index.js';
 
 const result = await pool.transaction(async (querier) => {
   const user = await querier.findOne(User, { $where: { email: '...' } });
-  const profileId = await querier.insertOne(Profile, { userId: user.id, ... });
+  const profileId = await querier.insertOne(Profile, { userId: user.id, bio: '...' });
   return { userId: user.id, profileId };
 });
 // Querier is automatically released after the transaction
@@ -299,32 +329,75 @@ As shown in [step 3](#3-set-up-a-pool), using a single `uql.config.ts` for both 
 
 ### 2. Manage via CLI
 
-UQL provides a dedicated CLI tool for migrations.
+Use the CLI to manage your database schema evolution.
+
+| Command                    | Description                                                                             |
+| :------------------------- | :-------------------------------------------------------------------------------------- |
+| `generate <name>`          | Creates an empty timestamped file for **manual** SQL migrations (e.g., data backfills). |
+| `generate:entities <name>` | **Auto-generates** a migration by diffing your entities against the current DB schema.  |
+| `up`                       | Applies all pending migrations.                                                         |
+| `down`                     | Rolls back the last applied migration batch.                                            |
+| `status`                   | Shows which migrations have been executed and which are pending.                        |
 
 ```bash
-# Generate a migration by comparing entities vs database
-npx uql-migrate generate:entities initial_schema
+# Create a manual migration
+npx uql-migrate generate seed_default_roles
 
-# Run pending migrations
+# Auto-generate schema changes from your code
+npx uql-migrate generate:entities add_profile_table
+
+# Apply changes
 npx uql-migrate up
 
-# Rollback the last migration
+# Revert changes if needed
 npx uql-migrate down
 
-# Check status
-npx uql-migrate status
+# Run with custom config
+npx uql-migrate up --config ./configs/uql.config.ts
 ```
 
-### 3. Entity-First Synchronization (recommended for development)
+:::caution[Bun Users]
+If your `uql.config.ts` uses TypeScript path aliases (e.g., `~app/...`), run migrations with the `--bun` flag to ensure proper resolution:
+```bash
+bun run --bun uql-migrate status
+```
+Or add a script to your `package.json`: `"uql": "bun run --bun uql-migrate"`, then run commands like `bun run uql status`.
+:::
 
-We recommend using `autoSync` (in development) to automatically keep your database in sync with your entities, eliminating the need for manual migrations. It is **safe by default**, meaning it only adds missing tables and columns.
+### 3. Entity-First Synchronization (Development)
+
+We recommend using `autoSync` in development to automatically keep your database in sync with your entities. It is **safe by default**, meaning it only adds missing tables and columns, blocking any destructive operations.
+
+:::note[Important]
+For `autoSync` to detect your entities, they must be **loaded** (imported) before calling `autoSync`.
+:::
+
+**Using Your Config (Recommended)**
+
+If you follow the unified configuration pattern, your entities are already imported. Simply reuse it:
 
 ```ts
 import { Migrator } from '@uql/core/migrate';
+import config from './uql.config.js';
+
+const migrator = new Migrator(config.pool, {
+  entities: config.entities,
+});
+await migrator.autoSync({ logging: true });
+```
+
+**Explicit Entities**
+
+Alternatively, pass entities directly:
+
+```ts
+import { Migrator } from '@uql/core/migrate';
+import { User, Profile, Post } from './entities/index.js';
 import { pool } from './uql.config.js';
 
-// The Migrator will automatically load all classes decorated with @Entity by default.
-const migrator = new Migrator(pool);
+const migrator = new Migrator(pool, {
+  entities: [User, Profile, Post],
+});
 await migrator.autoSync({ logging: true });
 ```
 

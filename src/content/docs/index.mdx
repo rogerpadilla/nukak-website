@@ -30,10 +30,10 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		Deeply nested auto-completion for your queries and entity definitions. Stop catching bugs in production.
 	</Card>
 	<Card title="Unified API" icon="add-document">
-		First-class support for PostgreSQL, MySQL, MariaDB, SQLite, LibSQL, Neon, Cloudflare D1, and even MongoDB with a consistent API.
+		First-class support for PostgreSQL, MySQL, MariaDB, SQLite, LibSQL, Neon, Cloudflare D1, and MongoDB with a consistent API.
 	</Card>
 	<Card title="Performant by Design" icon="setting">
-		Zero-overhead query generation and smart connection pooling for high-concurrency environments.
+		Zero-overhead query generation, 64-bit primary keys, and smart connection pooling for high-concurrency environments.
 	</Card>
 	<Card title="Universal Compatibility" icon="open-book">
 		Engineered for the ESM era. Works out of the box with Node.js, Bun, Deno, and even the Browser.
@@ -59,6 +59,25 @@ UQL is designed to be **unobtrusive**. You don't need to change your architectur
 
 ---
 
+## Key Features
+
+<CardGrid>
+	<Card title="Entity-First Migrations" icon="rocket">
+		Define your schema in TypeScript and let UQL generate migrations automatically. Safe by default — only adds, never drops.
+	</Card>
+	<Card title="Semantic Type System" icon="document">
+		Use abstract types like `'uuid'`, `'json'`, `'vector'` that map correctly across all databases without dialect-specific code.
+	</Card>
+	<Card title="Thread-Safe Transactions" icon="random">
+		Centralized serialization engine guarantees race-condition-free operations across all drivers.
+	</Card>
+	<Card title="Professional Logging" icon="list-format">
+		Built-in slow-query detection, colored output, and customizable log levels for production monitoring.
+	</Card>
+</CardGrid>
+
+---
+
 ## Built with ❤️ and supported by
 
 UQL is an open-source project driven by the community and proudly sponsored by **[Variability.ai](https://variability.ai)**.  
@@ -66,4 +85,3 @@ UQL is an open-source project driven by the community and proudly sponsored by *
 > "Intelligence in Every Fluctuation"
 
 Their support helps us maintain and evolve the "Smartest ORM" for developers everywhere. Thank you for being part of our journey!
-
