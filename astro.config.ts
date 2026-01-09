@@ -59,7 +59,7 @@ const config: AstroUserConfig = {
             },
             sidebar: [
                 {
-                    label: 'Getting Started',
+                    label: 'Quick Start',
                     link: '/getting-started',
                     badge: { text: 'Start here', variant: 'success' },
                 },
@@ -74,8 +74,7 @@ const config: AstroUserConfig = {
                 {
                     label: 'Advanced',
                     items: [
-                        { label: 'Declarative Transactions', link: '/transactions-declarative' },
-                        { label: 'Imperative Transactions', link: '/transactions-imperative' },
+                        { label: 'Transactions', link: '/transactions' },
                         { label: 'Migrations', link: '/migrations' },
                         { label: 'Logging & Monitoring', link: '/logging' },
                         { label: 'Naming Strategy', link: '/naming-strategy' },

@@ -12,11 +12,11 @@ A `querier` is UQL's abstraction over database drivers to dynamically generate q
 With a `querier` you can:
 
 - Manipulate the data related to _any_ `entity`.
-- Use [declarative transactions](/transactions-declarative) and [imperative transactions](/transactions-imperative).
+- Use [transactions](/transactions).
 
 ### Obtaining a Querier
 
-A querier is obtained from a [pool](/getting-started#3-set-up-a-pool). Always remember to release it when done:
+A querier is obtained from a [pool](/getting-started#2-fast-track-example). Always remember to release it when done:
 
 ```ts
 import { User } from './entities/index.js';
@@ -57,11 +57,12 @@ try {
 | `deleteMany(Entity, query)`           | Delete multiple records matching the query.   |
 | `upsert(Entity, data, conflictPaths)` | Insert or update based on conflict paths.     |
 | `run(sql, values?)`                   | Execute raw SQL.                              |
+| `transaction(callback)`               | Run a transaction within a callback.          |
 | `release()`                           | Return the connection to the pool.            |
 
 ### Transactions
 
-For multi-step operations, use the pool's `transaction` method which automatically handles querier lifecycle:
+For multi-step operations, you can use the pool's `transaction` method which automatically handles the entire querier lifecycle:
 
 ```ts
 const result = await pool.transaction(async (querier) => {
@@ -72,4 +73,12 @@ const result = await pool.transaction(async (querier) => {
 // Querier is automatically released
 ```
 
-See [declarative transactions](/transactions-declarative) and [imperative transactions](/transactions-imperative) for more patterns.
+If you already have a `querier` instance, you can use its `transaction` method to achieve the same automatic commit/rollback behavior:
+
+```ts
+const result = await querier.transaction(async () => {
+  await querier.insertOne(Profile, { userId: user.id, bio: '...' });
+});
+```
+
+See [transactions](/transactions) for more patterns.

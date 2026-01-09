@@ -49,7 +49,7 @@ export class AuditLog {
   @Field()
   entityId?: string;   // e.g., 'uuid-123'
 
-  @Field({ columnType: 'timestamptz' })
+  @Field({ type: 'timestamptz' })
   createdAt?: Date;
 
   @Field()
@@ -67,12 +67,12 @@ export class AuditLog {
 
 The `@Index` decorator accepts several options to fine-tune the index behavior:
 
-| Option | Type | Description |
-| :--- | :--- | :--- |
-| `name` | `string` | Custom index name. |
-| `unique` | `boolean` | Whether the index should enforce uniqueness. Defaults to `false`. |
-| `type` | `string` | Dialect-specific index type (e.g., `'btree'`, `'hash'`, `'gin'`, `'gist'`, `'fulltext'`). |
-| `where` | `string` | Partial index condition (SQL WHERE clause). |
+| Option   | Type      | Description                                                                               |
+| :------- | :-------- | :---------------------------------------------------------------------------------------- |
+| `name`   | `string`  | Custom index name.                                                                        |
+| `unique` | `boolean` | Whether the index should enforce uniqueness. Defaults to `false`.                         |
+| `type`   | `string`  | Dialect-specific index type (e.g., `'btree'`, `'hash'`, `'gin'`, `'gist'`, `'fulltext'`). |
+| `where`  | `string`  | Partial index condition (SQL WHERE clause).                                               |
 
 #### Unique Composite Index
 Ideal for enforcing uniqueness across a combination of fields, such as "one email per tenant" in a multi-tenant application.

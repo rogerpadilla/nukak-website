@@ -19,7 +19,10 @@ import { Entity, Id, Field, OneToOne, OneToMany, ManyToOne, ManyToMany, type Rel
 
 @Entity()
 export class User {
-  @Id({ type: 'uuid', onInsert: () => uuidv7() })
+  @Id({ 
+    type: 'uuid', 
+    onInsert: () => uuidv7() 
+  })
   id?: string;
 
   @Field()
@@ -48,7 +51,10 @@ export class User {
 
 @Entity()
 export class Profile {
-  @Id({ type: 'uuid', onInsert: () => uuidv7() })
+  @Id({ 
+    type: 'uuid', 
+    onInsert: () => uuidv7() 
+  })
   id?: string;
 
   @Field()
@@ -58,7 +64,10 @@ export class Profile {
    * Foreign key field. The 'reference' property links to the target entity.
    * The 'foreignKey' option allows custom constraint naming.
    */
-  @Field({ reference: () => User, foreignKey: 'fk_profile_user' })
+  @Field({ 
+    references: () => User, 
+    foreignKey: 'fk_profile_user' 
+  })
   userId?: string;
 
   @OneToOne({ entity: () => User })
@@ -73,7 +82,7 @@ export class Post {
   @Field()
   title?: string;
 
-  @Field({ reference: () => User })
+  @Field({ references: () => User })
   authorId?: string;
 
   @ManyToOne({ entity: () => User })
@@ -93,7 +102,10 @@ export class Post {
 
 @Entity()
 export class Tag {
-  @Id({ type: 'uuid', onInsert: () => uuidv7() })
+  @Id({ 
+    type: 'uuid', 
+    onInsert: () => uuidv7() 
+  })
   id?: string;
 
   @Field()
@@ -102,13 +114,16 @@ export class Tag {
 
 @Entity()
 export class PostTag {
-  @Id({ type: 'uuid', onInsert: () => uuidv7() })
+  @Id({ 
+    type: 'uuid', 
+    onInsert: () => uuidv7() 
+  })
   id?: string;
 
-  @Field({ reference: () => Post })
+  @Field({ references: () => Post })
   postId?: number;
 
-  @Field({ reference: () => Tag })
+  @Field({ references: () => Tag })
   tagId?: string;
 }
 ```

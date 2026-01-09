@@ -24,10 +24,10 @@ export abstract class BaseEntity {
   @Id({ onInsert: () => uuidv7() })
   id?: string;
 
-  @Field({ columnType: 'timestamptz', onInsert: () => new Date() })
+  @Field({ type: 'timestamptz', onInsert: () => new Date() })
   createdAt?: Date;
 
-  @Field({ columnType: 'timestamptz', onUpdate: () => new Date() })
+  @Field({ type: 'timestamptz', onUpdate: () => new Date() })
   updatedAt?: Date;
 }
 
@@ -39,7 +39,7 @@ export class Company extends BaseEntity {
   @Field({ length: 150 })
   name?: string;
 
-  @Field({ columnType: 'text' })
+  @Field({ type: 'text' })
   description?: string;
 }
 ```
@@ -54,10 +54,10 @@ You can customize the entity name and field properties in the child classes.
  */
 @Entity({ name: 'user_profile' })
 export class Profile extends BaseEntity {
-  @Field({ name: 'image', columnType: 'text' })
+  @Field({ name: 'image', type: 'text' })
   picture?: string;
 
-  @Field({ reference: () => User })
+  @Field({ references: () => User })
   userId?: string;
 
   @OneToOne({ entity: () => User })

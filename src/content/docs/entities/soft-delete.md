@@ -28,7 +28,10 @@ export class User {
    * The 'onDelete' callback instructs UQL what value to set when deleting.
    * A common value is a timestamp (Date).
    */
-  @Field({ columnType: 'timestamptz', onDelete: () => new Date() })
+  @Field({ 
+    type: 'timestamptz', 
+    onDelete: () => new Date() 
+  })
   deletedAt?: Date;
 }
 ```
