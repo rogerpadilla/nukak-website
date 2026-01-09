@@ -50,8 +50,11 @@ import { Entity, Id, Field } from '@uql/core';
 
 @Entity()
 export class User {
-  @Id() id: string;
-  @Field() name: string;
+  @Id()
+  id: string;
+
+  @Field()
+  name: string;
 }
 
 // frontend/app.ts

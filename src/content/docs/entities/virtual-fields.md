@@ -19,7 +19,9 @@ import { v7 as uuidv7 } from 'uuid';
 export class Item {
   @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
-  @Field() name?: string;
+
+  @Field()
+  name?: string;
 
   @ManyToMany({ entity: () => Tag, through: () => ItemTag, cascade: true })
   tags?: Tag[];

@@ -18,8 +18,11 @@ import { Entity, Id, Field } from '@uql/core';
 
 @Entity({ softDelete: true })
 export class User {
-  @Id() id?: number;
-  @Field() name?: string;
+  @Id()
+  id?: number;
+
+  @Field()
+  name?: string;
 
   /**
    * The 'onDelete' callback instructs UQL what value to set when deleting.

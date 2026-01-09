@@ -48,6 +48,8 @@ const users = await querier.findMany(User, {
 | **Thread-Safe by Design**                          | Centralized task queue and `@Serialized()` decorator prevent race conditions.                           |
 | **Declarative Transactions**                       | Standard `@Transactional()` and `@InjectQuerier()` decorators for NestJS/DI.                            |
 | **[Modern & Versatile](/entities/virtual-fields)** | **Pure ESM**, high-res timing, [Soft-delete](/entities/soft-delete), and **Vector/JSONB/JSON** support. |
+| **Schema AST Engine**                              | Graph-based schema representation for reliable diffing and circular dependency handling.                |
+| **[Migrations & Drift](/migrations)**              | Full CLI suite including automatic generation and **Drift Detection**.                               |
 | **[Structured Logging](/logging)**                 | Professional-grade monitoring with slow-query detection and colored output.                             |
 
 &nbsp;
@@ -107,6 +109,7 @@ Annotate your classes with decorators from `@uql/core`. UQL's engine uses this m
 | `@Entity()`   | Marks a class as a database table/collection.                                |
 | `@Id()`       | Defines the Primary Key with support for `onInsert` generators (UUIDs, etc). |
 | `@Field()`    | Standard column. Use `{ reference: ... }` for Foreign Keys.                  |
+| `@Index()`    | Defines a composite or customized index on one or more columns.              |
 | `@OneToOne`   | Defines a one-to-one relationship.                                           |
 | `@OneToMany`  | Defines a one-to-many relationship.                                          |
 | `@ManyToOne`  | Defines a many-to-one relationship.                                          |
@@ -136,18 +139,22 @@ bio?: string;
 
 ```ts
 import { v7 as uuidv7 } from 'uuid';
-import { Entity, Id, Field, OneToOne, OneToMany, ManyToOne, ManyToMany, type Relation } from '@uql/core';
+import { Entity, Id, Field, Index, OneToOne, OneToMany, ManyToOne, ManyToMany, type Relation } from '@uql/core';
 
 @Entity()
 export class User {
   @Id({ type: 'uuid', onInsert: () => uuidv7() })
   id?: string;
 
-  @Field({ index: true })
-  name?: string;
-
-  @Field({ unique: true, comment: 'User login email' })
+  @Field({ unique: true, comment: 'User login email' }) // Unique index
   email?: string;
+
+  @Index(['firstName', 'lastName']) // Composite index on multiple columns
+  @Field()
+  firstName?: string;
+
+  @Field()
+  lastName?: string;
 
   @OneToOne({
     entity: () => Profile,
@@ -335,6 +342,8 @@ Use the CLI to manage your database schema evolution.
 | :------------------------- | :-------------------------------------------------------------------------------------- |
 | `generate <name>`          | Creates an empty timestamped file for **manual** SQL migrations (e.g., data backfills). |
 | `generate:entities <name>` | **Auto-generates** a migration by diffing your entities against the current DB schema.  |
+| `generate:from-db`         | **Scaffolds Entities** from an existing database. Includes **Smart Relation Detection**. |
+| `drift:check`              | **Drift Detection**: Compares your entities vs. actual DB schema to ensure production safety. |
 | `up`                       | Applies all pending migrations.                                                         |
 | `down`                     | Rolls back the last applied migration batch.                                            |
 | `status`                   | Shows which migrations have been executed and which are pending.                        |

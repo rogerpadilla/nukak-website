@@ -11,10 +11,11 @@ The following are the steps to define a basic `entity`:
 1. Take any class and annotate it with the `@Entity` decorator.
 2. Annotate one of its properties with the `@Id` decorator.
 3. Annotate the rest of fields with the `@Field` decorator.
+4. (Optional) Use `@Index` for composite or customized indexes. See [Indexes](/entities/indexes).
 
 ```ts
 import { v7 as uuidv7 } from 'uuid';
-import { Entity, Id, Field } from '@uql/core';
+import { Entity, Id, Field, Index } from '@uql/core';
 
 @Entity()
 export class User {
@@ -82,3 +83,7 @@ The `@Id` decorator also supports:
 :::tip
 For UUID primary keys, use `@Id({ type: 'uuid', onInsert: () => uuidv7() })` to ensure cross-database compatibility and automatic UUID generation.
 :::
+
+---
+
+Continue reading about [Indexes](/entities/indexes) or [Relationships](/entities/relations).

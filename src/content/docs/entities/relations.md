@@ -122,7 +122,8 @@ import { Entity, Id, Field, OneToOne, type Relation } from '@uql/core';
 
 @Entity()
 export class User {
-  @Id({ type: 'uuid' }) id?: string;
+  @Id({ type: 'uuid' })
+  id?: string;
 
   @OneToOne({ entity: () => Profile, mappedBy: 'user' })
   profile?: Relation<Profile>; // Use Relation<T> for linked properties

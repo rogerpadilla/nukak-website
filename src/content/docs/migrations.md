@@ -125,10 +125,12 @@ The synchronization engine is built on a powerful **Schema AST (Abstract Syntax 
 *   **100% Accurate**: Eliminates "phantom diffs" by understanding the semantic differences between dialect-specific types (e.g., `INTEGER` vs `INT`).
 
 #### 2. Smart Relation Detection
-When scaffolding entities from an existing database (`generate:from-db`), UQL automatically detects relationships:
-*   **Explicit Foreign Keys**: Mapped to `@OneToMany` / `@ManyToOne`.
-*   **Junction Tables**: Mapped to `@ManyToMany` (detects tables with two FKs).
-*   **Naming Conventions**: Infers relations from columns like `user_id` -> `User`.
+When scaffolding entities from an existing database (`generate:from-db`), UQL automatically detects relationships by analyzing your schema:
+
+*   **Explicit Foreign Keys**: Standard foreign keys are mapped to `@OneToMany` / `@ManyToOne`.
+*   **One-to-One Relations**: Detected when a foreign key column also has a **unique constraint**.
+*   **Many-to-Many Relations**: Automatically identified by detecting **Junction Tables** (tables with exactly two foreign keys and no other business data).
+*   **Naming Conventions**: If foreign keys are missing, UQL infers logical relations from column naming patterns like `user_id` -> `User`.
 
 #### 3. Drift Detection
 Ensure production safety with `drift:check`. It compares your TypeScript entity definitions against the actual running database and reports:

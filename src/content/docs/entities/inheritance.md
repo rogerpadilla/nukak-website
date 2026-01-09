@@ -66,6 +66,7 @@ export class Profile extends BaseEntity {
 ```
 
 
+```ts
 @Entity()
 export class User extends BaseEntity {
   @Field()
