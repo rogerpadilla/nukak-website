@@ -1,7 +1,7 @@
 ---
 title: Indexes
 sidebar:
-  order: 65
+  order: 110
 description: Learn how to define simple and composite indexes in UQL.
 ---
 

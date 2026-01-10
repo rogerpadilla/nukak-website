@@ -137,4 +137,4 @@ id?: string;
 
 ---
 
-Continue reading about [Indexes](/entities/indexes) or [Relationships](/entities/relations).
+Continue reading about [Relationships](/entities/relations) or [Indexes](/entities/indexes).
